@@ -1,0 +1,32 @@
+.defaultInput {
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: #ebe3ff;
+    border-radius: 15px;
+}
+
+.defaultInput:focus {
+    outline: none;
+}
+
+.errorInput {
+    position: relative;
+    font-size: 16px;
+    padding: 10px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #ffacac;
+    background-color: #ffacac;
+    border-radius: 15px;
+}
+
+.error {
+    color: red;
+}
+

@@ -1,0 +1,31 @@
+.default {
+    background-color: #45c415;
+    border-radius: 8px;
+    border-style: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 16px;
+}
+
+.default:hover {
+    background-color: #4cdc15;
+}
+
+.red {
+    background-color: #c41515;
+    border-radius: 8px;
+    border-style: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 40px;
+    padding: 10px 16px;
+}
+
+.red:hover {
+    background-color: #4cdc15;
+}
