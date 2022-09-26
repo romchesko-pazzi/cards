@@ -1,1 +1,9 @@
 @import "base/global";
+@import "base/typography";
+
+.frame {
+  box-shadow: 0 0 4.5rem -2.2rem rgba(34, 60, 80, 0.2);
+  border-radius: .7rem;
+  width: 40rem;
+  height: 55rem;
+}
