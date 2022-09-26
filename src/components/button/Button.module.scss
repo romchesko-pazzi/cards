@@ -1,0 +1,22 @@
+@import "/src/assets/sass/abstracts/vars";
+
+.main {
+  display: inline-block;
+  margin-right: 15rem;
+  background-color: $color-blue-main;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: white;
+  padding: 1.5rem 3rem;
+  border-radius: 1rem;
+  transition: all .3s;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(0.3rem);
+  }
+}
+
+.button {
+
+}
