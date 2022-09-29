@@ -1,8 +1,7 @@
+@import "/src/assets/sass/abstracts/mixins";
+
 .main {
-  height: 90vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include centerContent;
 }
 
 .content {
@@ -11,7 +10,7 @@
 }
 
 .heading {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   padding: 3rem 0;
   margin: 0 auto;
 }
@@ -36,10 +35,22 @@
   display: flex;
   align-items: center;
   font-size: 1.8rem;
-  font-weight: 500;
 }
 
 .button {
   display: flex;
   justify-content: center;
+}
+
+.signUp {
+  margin-bottom: 3rem;
+}
+
+.forgotArea {
+  cursor: pointer;
+  font-size: 1.8rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
