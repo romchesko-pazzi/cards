@@ -1,0 +1,44 @@
+@import "/src/assets/sass/abstracts/mixins";
+
+.main {
+  @include centerContent;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > div, h2:not(:last-child) {
+    margin-bottom: 4rem;
+  }
+}
+
+.heading {
+  margin-top: 4rem;
+  font-size: 3rem;
+}
+
+.photo {
+  background: orange;
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+}
+
+.userData {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  min-height: 4rem;
+
+  & span {
+    margin-right: 2rem;
+  }
+}
+
+.mail {
+  font-size: 2rem;
+}

@@ -22,6 +22,11 @@ export type LoginDataType = {
 
 export type UserDataType = {
   name: string;
-  email: string;
-  _id: string;
+  email?: string;
+  _id?: string;
+};
+
+export type EditDataUserType = {
+  name: string;
+  avatar?: string;
 };

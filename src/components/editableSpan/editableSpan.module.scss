@@ -1,0 +1,14 @@
+.input {
+  font-size: 2rem !important;
+  font-family: inherit !important;
+}
+
+.spanBox {
+  display: flex;
+  align-items: center;
+
+  & button {
+    cursor: pointer;
+    display: flex;
+  }
+}
