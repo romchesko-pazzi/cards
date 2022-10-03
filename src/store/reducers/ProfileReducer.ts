@@ -1,10 +1,13 @@
 import { profileAPI } from '../../api/profileAPI';
 import { AppThunkType, EditDataUserType, UserDataType } from '../../utils/types/types';
 
+import { setAppStatus, setError } from './AppReducer';
+
 const initState: InitStateType = {
   name: '',
   email: '',
   _id: '',
+  avatar: '',
 };
 
 export const ProfileReducer = (
@@ -30,16 +33,24 @@ export const setUserData = (data: UserDataType) => {
 export const changeUserData =
   (data: EditDataUserType): AppThunkType =>
   async dispatch => {
-    const response = await profileAPI.editUserData(data);
-    const { name, email, _id } = response.data.updatedUser;
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await profileAPI.editUserData(data);
+      const { name, email, _id, avatar } = response.data.updatedUser;
 
-    dispatch(setUserData({ name, _id, email }));
+      dispatch(setUserData({ name, _id, email, avatar }));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('idle'));
+    }
   };
 
 type InitStateType = {
   name: string;
   email: string;
   _id: string;
+  avatar: string;
 };
 export type ProfileActionsType = SetUserDataType;
 type SetUserDataType = ReturnType<typeof setUserData>;

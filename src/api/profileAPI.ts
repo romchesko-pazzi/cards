@@ -17,5 +17,6 @@ type UpdatedUserType = {
   email: string;
   rememberMe: boolean;
   name: string;
+  avatar: string;
   publicCardPacksCount: number;
 };
