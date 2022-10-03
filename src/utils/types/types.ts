@@ -14,16 +14,24 @@ export type ThunkDispatchType = ThunkDispatch<RootStateType, unknown, ActionType
 
 export type AppStatusType = 'idle' | 'loading' | 'successfully' | 'finished';
 
-export type LoginDataType = {
+export type RegistrationType = {
   email: string;
   password: string;
+};
+
+export type SignInType = RegistrationType & {
   rememberMe: boolean;
+};
+
+export type SignUpType = RegistrationType & {
+  affirmation: string;
 };
 
 export type UserDataType = {
   name: string;
   email?: string;
   _id?: string;
+  avatar: string;
 };
 
 export type EditDataUserType = {

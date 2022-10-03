@@ -44,12 +44,11 @@
 
 .signUp {
   margin-bottom: 3rem;
+  cursor: pointer;
 }
 
-.forgotArea {
-  cursor: pointer;
+.bottomArea {
   font-size: 1.8rem;
-
   display: flex;
   flex-direction: column;
   align-items: end;
