@@ -1,0 +1,54 @@
+@import "/src/assets/sass/abstracts/mixins";
+
+.main {
+  @include centerContent;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  font-size: 2.8rem;
+  padding: 3rem 0;
+  margin: 0 auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+
+  & div:not(:last-child) {
+    margin-bottom: 3rem;
+    width: 100%;
+  }
+}
+.input {
+  font-size: 1.6rem !important;
+  font-family: inherit !important;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+.signIn {
+  margin-bottom: 3rem;
+  cursor: pointer;
+}
+
+.bottomArea {
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
