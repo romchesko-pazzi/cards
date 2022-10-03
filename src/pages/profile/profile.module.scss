@@ -19,11 +19,11 @@
   font-size: 3rem;
 }
 
-.photo {
-  background: orange;
+.photo, .photo img{
   width: 14rem;
   height: 14rem;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .userData {
