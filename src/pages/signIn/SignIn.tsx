@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Checkbox, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { login } from '../../store/reducers/AuthReducer';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { SignInType } from '../../utils/types/types';
+import { signInValidate } from '../../utils/validators/validators';
 
 import s from './signIn.module.scss';
 
@@ -29,6 +31,7 @@ export const SignIn = () => {
     formState: { errors },
   } = useForm<SignInType>({
     mode: 'onBlur',
+    resolver: yupResolver(signInValidate),
   });
   const onSubmit = (data: SignInType) => {
     dispatch(login(data));
@@ -43,13 +46,7 @@ export const SignIn = () => {
           <h2 className={s.heading}>Sign In</h2>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              {...register('email', {
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email format',
-                },
-                required: 'Email is required',
-              })}
+              {...register('email')}
               label={errors.email?.message}
               InputProps={{ className: s.input }}
               InputLabelProps={{ className: s.input }}
@@ -59,9 +56,7 @@ export const SignIn = () => {
               type="email"
             />
             <TextField
-              {...register('password', {
-                required: 'Password is required',
-              })}
+              {...register('password')}
               label={errors.password?.message}
               InputProps={{ className: s.input }}
               InputLabelProps={{ className: s.input }}

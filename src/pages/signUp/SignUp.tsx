@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { signUp } from '../../store/reducers/AuthReducer';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { RegistrationType, SignUpType } from '../../utils/types/types';
+import { signUpValidate } from '../../utils/validators/validators';
 
 import s from './signUp.module.scss';
 
@@ -28,7 +30,7 @@ export const SignUp = () => {
     reset,
     register,
     formState: { errors },
-  } = useForm<SignUpType>({ mode: 'onBlur' });
+  } = useForm<SignUpType>({ mode: 'onBlur', resolver: yupResolver(signUpValidate) });
 
   const onSubmit = (data: RegistrationType) => {
     dispatch(signUp(data));
@@ -44,13 +46,7 @@ export const SignUp = () => {
           <h2 className={s.heading}>Sign Up</h2>
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              {...register('email', {
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email format',
-                },
-                required: 'Email is required',
-              })}
+              {...register('email')}
               label={errors.email?.message}
               InputProps={{ className: s.input }}
               InputLabelProps={{ className: s.input }}
@@ -60,9 +56,7 @@ export const SignUp = () => {
               type="email"
             />
             <TextField
-              {...register('password', {
-                required: 'Password is required',
-              })}
+              {...register('password')}
               label={errors.password?.message}
               InputProps={{ className: s.input }}
               InputLabelProps={{ className: s.input }}
@@ -72,13 +66,11 @@ export const SignUp = () => {
               type="password"
             />
             <TextField
-              {...register('affirmation', {
-                required: 'Confirm your password',
-              })}
-              label={errors.affirmation?.message}
+              {...register('confirmation')}
+              label={errors.confirmation?.message}
               InputProps={{ className: s.input }}
               InputLabelProps={{ className: s.input }}
-              error={!!errors.affirmation?.message}
+              error={!!errors.confirmation?.message}
               variant="outlined"
               placeholder="Confirm password"
               type="password"
