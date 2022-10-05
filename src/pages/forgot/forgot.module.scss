@@ -1,0 +1,38 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+
+  & div:not(:last-child) {
+    margin-bottom: 3rem;
+    //width: 100%;
+  }
+}
+
+.input {
+  font-size: 1.6rem !important;
+  font-family: inherit !important;
+}
+
+.text {
+  font-size: 1.6rem;
+  max-width: 40rem;
+  text-align: center;
+  color: #9a9a9a;
+}
+
+.button {
+  display: flex;
+  & > button {
+    flex: 1;
+  }
+}
+
+.signIn {
+  margin-bottom: 3rem;
+  cursor: pointer;
+  display: flex;
+  & > button {
+    flex: 1;
+  }
+}
