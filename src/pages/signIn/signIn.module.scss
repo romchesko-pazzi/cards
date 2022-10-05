@@ -1,19 +1,4 @@
-@import "/src/assets/sass/abstracts/mixins";
-
-.main {
-  @include centerContent;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
-.heading {
-  font-size: 2.8rem;
-  padding: 3rem 0;
-  margin: 0 auto;
-}
+@import "/src/assets/sass/abstracts/vars";
 
 .form {
   display: flex;
@@ -52,4 +37,8 @@
   display: flex;
   flex-direction: column;
   align-items: end;
+}
+
+.link {
+  color: $color-blue-main;
 }

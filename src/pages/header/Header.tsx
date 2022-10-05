@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { useAppSelector } from '../../utils/hooks/hooks';
 import { SvgSelector } from '../../utils/SvgSelector';
@@ -7,9 +9,11 @@ import { SvgSelector } from '../../utils/SvgSelector';
 import s from './header.module.scss';
 
 export const Header = () => {
+  const navigate = useNavigate();
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const name = useAppSelector(state => state.profile.name);
   const avatar = useAppSelector(state => state.profile.avatar);
+  const navigateHandler = () => navigate('/');
 
   return (
     <div className={s.main}>
@@ -27,7 +31,7 @@ export const Header = () => {
         </div>
       ) : (
         <div className={s.userHeader}>
-          <ButtonComponent type="submit" title="Sign in" />
+          <ButtonComponent callback={navigateHandler} type="button" title="Sign in" />
         </div>
       )}
     </div>
