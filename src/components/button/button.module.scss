@@ -1,7 +1,6 @@
 @import "/src/assets/sass/abstracts/vars";
 
 .main {
-  background-color: $color-blue-main !important;
   font-size: 1.6rem !important;
   font-family: inherit !important;
   font-weight: 500 !important;
@@ -11,5 +10,9 @@
 
   &:active {
     transform: translateY(0.3rem);
+  }
+
+  &:hover {
+    background-color: #8d8d8d !important;
   }
 }

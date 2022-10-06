@@ -1,17 +1,11 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  padding: 0 2rem;
+@import "/src/assets/sass/abstracts/mixins";
 
-  & div:not(:last-child) {
-    margin-bottom: 3rem;
-    //width: 100%;
-  }
+.form {
+  @include formDirection;
 }
 
 .input {
-  font-size: 1.6rem !important;
-  font-family: inherit !important;
+  @include setTextField;
 }
 
 .text {
@@ -21,7 +15,7 @@
   color: #9a9a9a;
 }
 
-.button {
+.sendButton {
   display: flex;
   & > button {
     flex: 1;
@@ -29,9 +23,8 @@
 }
 
 .signIn {
-  margin-bottom: 3rem;
-  cursor: pointer;
   display: flex;
+
   & > button {
     flex: 1;
   }

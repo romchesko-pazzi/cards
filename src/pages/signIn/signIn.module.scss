@@ -1,19 +1,17 @@
 @import "/src/assets/sass/abstracts/vars";
+@import "/src/assets/sass/abstracts/mixins";
 
 .form {
-  display: flex;
-  flex-direction: column;
-  padding: 0 2rem;
-
-  & div:not(:last-child) {
-    margin-bottom: 3rem;
-    width: 100%;
-  }
+  @include formDirection;
 }
 
 .input {
-  font-size: 1.6rem !important;
-  font-family: inherit !important;
+  @include setTextField;
+
+  & svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
 .checkbox {
@@ -24,21 +22,17 @@
 
 .button {
   display: flex;
-  justify-content: center;
+  & > button {
+    flex: 1;
+  }
 }
 
-.signUp {
-  margin-bottom: 3rem;
-  cursor: pointer;
-}
-
-.bottomArea {
+.text {
   font-size: 1.8rem;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
+  text-align: center;
 }
 
 .link {
   color: $color-blue-main;
+  font-size: 1.8rem;
 }
