@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export const SignUp = () => {
   const appStatus = useAppSelector(state => state.app.status);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (appStatus === 'successfully') {
@@ -39,6 +41,7 @@ export const SignUp = () => {
   };
 
   const navigateToSignIn = () => navigate('/');
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <Wrapper heading="Sign Up">
@@ -56,31 +59,53 @@ export const SignUp = () => {
         <TextField
           {...register('password')}
           label={errors.password?.message}
-          InputProps={{ className: s.input }}
+          InputProps={{
+            className: s.input,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           InputLabelProps={{ className: s.input }}
           error={!!errors.password?.message}
           variant="outlined"
           placeholder="Password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
         />
         <TextField
           {...register('confirmation')}
           label={errors.confirmation?.message}
-          InputProps={{ className: s.input }}
+          InputProps={{
+            className: s.input,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           InputLabelProps={{ className: s.input }}
           error={!!errors.confirmation?.message}
           variant="outlined"
           placeholder="Confirm password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
         />
         <div className={s.button}>
           <ButtonComponent color="#26c526" type="submit" title="Sign up" />
         </div>
-        <div className={s.bottomArea}>
-          <div style={{ textAlign: 'center' }}>Already have an account?</div>
-          <div className={s.signIn}>
-            <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
-          </div>
+        <div className={s.text}>Already have an account?</div>
+        <div className={s.button}>
+          <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
         </div>
       </form>
       <SnackBar />

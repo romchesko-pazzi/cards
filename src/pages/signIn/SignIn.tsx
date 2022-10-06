@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Checkbox, TextField } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Checkbox, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export const SignIn = () => {
   const { isLoggedIn } = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -38,7 +40,9 @@ export const SignIn = () => {
     dispatch(login(data));
     reset();
   };
+
   const navigateToSignUp = () => navigate('/signUp');
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <Wrapper heading="Sign In">
@@ -56,12 +60,24 @@ export const SignIn = () => {
         <TextField
           {...register('password')}
           label={errors.password?.message}
-          InputProps={{ className: s.input }}
+          InputProps={{
+            className: s.input,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
           InputLabelProps={{ className: s.input }}
           error={!!errors.password?.message}
           variant="outlined"
           placeholder="Password"
-          type="password"
+          type={showPassword ? 'text' : 'password'}
         />
         <div className={s.checkbox}>
           <Checkbox
@@ -76,21 +92,19 @@ export const SignIn = () => {
         <div className={s.button}>
           <ButtonComponent type="submit" title="Sign in" />
         </div>
-        <div className={s.bottomArea}>
-          <div style={{ textAlign: 'end' }}>
-            <Link className={s.link} to="/forgot">
-              Forgot Password?
-            </Link>
-          </div>
-          <div style={{ textAlign: 'center' }}>Do not have an account?</div>
-          <div className={s.signUp}>
-            <ButtonComponent
-              color="#26c526"
-              callback={navigateToSignUp}
-              type="button"
-              title="Sign up"
-            />
-          </div>
+        <div style={{ textAlign: 'end' }}>
+          <Link className={s.link} to="/forgot">
+            Forgot Password?
+          </Link>
+        </div>
+        <div className={s.text}>Do not have an account?</div>
+        <div className={s.button}>
+          <ButtonComponent
+            color="#26c526"
+            callback={navigateToSignUp}
+            type="button"
+            title="Sign up"
+          />
         </div>
       </form>
       <SnackBar />
