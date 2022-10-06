@@ -1,7 +1,7 @@
 import { profileAPI } from '../../api/profileAPI';
 import { AppThunkType, EditDataUserType, UserDataType } from '../../utils/types/types';
 
-import { setAppStatus, setError } from './AppReducer';
+import { setAppStatus, setPopUp } from './AppReducer';
 
 const initState: InitStateType = {
   name: '',
@@ -38,9 +38,10 @@ export const changeUserData =
       const response = await profileAPI.editUserData(data);
       const { name, email, _id, avatar } = response.data.updatedUser;
 
+      dispatch(setPopUp('name changed successfully'));
       dispatch(setUserData({ name, _id, email, avatar }));
     } catch (err: any) {
-      dispatch(setError(err.response.data.error));
+      dispatch(setPopUp(err.response.data.error));
     } finally {
       dispatch(setAppStatus('idle'));
     }

@@ -5,10 +5,16 @@ import { Button } from '@mui/material';
 import s from './button.module.scss';
 
 export const ButtonComponent: React.FC<ButtonPropsType> = props => {
-  const { type, title, callback } = props;
+  const { type, title, callback, color } = props;
 
   return (
-    <Button onClick={callback} className={s.main} type={type} variant="contained">
+    <Button
+      sx={{ backgroundColor: color || '#366EFF' }}
+      onClick={callback}
+      className={s.main}
+      type={type}
+      variant="contained"
+    >
       {title}
     </Button>
   );
@@ -17,5 +23,6 @@ export const ButtonComponent: React.FC<ButtonPropsType> = props => {
 type ButtonPropsType = {
   type: 'button' | 'submit' | 'reset';
   title: string;
+  color?: string;
   callback?: () => void;
 };
