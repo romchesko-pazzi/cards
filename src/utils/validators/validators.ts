@@ -22,3 +22,10 @@ export const signInValidate = yup.object().shape({
 export const forgotValidate = yup.object().shape({
   email: yup.string().email('Invalid email format').required('Email is required'),
 });
+
+export const newPasswordValidate = yup.object().shape({
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(minPasswordLength, 'Password must be more than 7 symbols'),
+});

@@ -6,8 +6,7 @@ import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { EditableSpan } from '../../components/editableSpan/EditableSpan';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { Wrapper } from '../../components/wrapper/Wrapper';
-import { logout } from '../../store/reducers/AuthReducer';
-import { changeUserData } from '../../store/reducers/ProfileReducer';
+import { changeUserData, logout } from '../../store/thunks/thunks';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { SvgSelector } from '../../utils/SvgSelector';
 

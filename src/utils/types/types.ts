@@ -24,7 +24,7 @@ export type SignInType = RegistrationType & {
 };
 
 export type SignUpType = RegistrationType & {
-  affirmation: string;
+  confirmation: string;
 };
 
 export type UserDataType = {
@@ -37,4 +37,9 @@ export type UserDataType = {
 export type EditDataUserType = {
   name: string;
   avatar?: string;
+};
+
+export type SetNewPasswordType = {
+  password: string;
+  resetPasswordToken: string;
 };

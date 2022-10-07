@@ -1,18 +1,16 @@
-import { authAPI } from '../../api/authAPI';
-import { AppStatusType, AppThunkType } from '../../utils/types/types';
-
-import { setIsLogin } from './AuthReducer';
-import { setUserData } from './ProfileReducer';
+import { AppStatusType } from '../../utils/types/types';
 
 const initState: InitStateType = {
   status: 'idle',
   isInitialized: false,
   notification: '',
+  isError: false,
 };
 
 export const AppReducer = (state = initState, action: AppActionsType): InitStateType => {
   switch (action.type) {
     case 'APP/SET-APP-STATUS':
+    case 'APP/SET-POP-UP':
     case 'APP/SET-ERROR':
       return { ...state, ...action.payload };
     case 'APP/INIT-APP':
@@ -30,9 +28,9 @@ export const setAppStatus = (status: AppStatusType) => {
   } as const;
 };
 
-export const setError = (notification: string) => {
+export const setPopUp = (notification: string) => {
   return {
-    type: 'APP/SET-ERROR',
+    type: 'APP/SET-POP-UP',
     payload: { notification },
   } as const;
 };
@@ -43,27 +41,22 @@ export const initApp = () => {
   } as const;
 };
 
-export const initializeApp = (): AppThunkType => async dispatch => {
-  try {
-    const response = await authAPI.authMe();
-    const { name, _id, email, avatar } = response.data;
-
-    dispatch(setUserData({ name, _id, email, avatar }));
-    dispatch(setIsLogin(true));
-  } catch (err: any) {
-    return;
-  } finally {
-    dispatch(initApp());
-  }
+export const setError = (isError: boolean) => {
+  return {
+    type: 'APP/SET-ERROR',
+    payload: { isError },
+  } as const;
 };
 
 type InitStateType = {
   status: AppStatusType;
   isInitialized: boolean;
   notification: string;
+  isError: boolean;
 };
-export type AppActionsType = SetAppStatusType | InitAppType | SetErrorType;
+export type AppActionsType = SetAppStatusType | InitAppType | SetErrorType | SetPopUpType;
 
 type SetAppStatusType = ReturnType<typeof setAppStatus>;
 type InitAppType = ReturnType<typeof initApp>;
 type SetErrorType = ReturnType<typeof setError>;
+type SetPopUpType = ReturnType<typeof setPopUp>;

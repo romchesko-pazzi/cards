@@ -1,7 +1,4 @@
-import { profileAPI } from '../../api/profileAPI';
-import { AppThunkType, EditDataUserType, UserDataType } from '../../utils/types/types';
-
-import { setAppStatus, setPopUp } from './AppReducer';
+import { UserDataType } from '../../utils/types/types';
 
 const initState: InitStateType = {
   name: '',
@@ -29,23 +26,6 @@ export const setUserData = (data: UserDataType) => {
     payload: { data },
   } as const;
 };
-
-export const changeUserData =
-  (data: EditDataUserType): AppThunkType =>
-  async dispatch => {
-    dispatch(setAppStatus('loading'));
-    try {
-      const response = await profileAPI.editUserData(data);
-      const { name, email, _id, avatar } = response.data.updatedUser;
-
-      dispatch(setPopUp('name changed successfully'));
-      dispatch(setUserData({ name, _id, email, avatar }));
-    } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-    } finally {
-      dispatch(setAppStatus('idle'));
-    }
-  };
 
 type InitStateType = {
   name: string;

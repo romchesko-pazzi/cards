@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { Wrapper } from '../../components/wrapper/Wrapper';
-import { signUp } from '../../store/reducers/AuthReducer';
+import { signUp } from '../../store/thunks/thunks';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { RegistrationType, SignUpType } from '../../utils/types/types';
 import { signUpValidate } from '../../utils/validators/validators';
