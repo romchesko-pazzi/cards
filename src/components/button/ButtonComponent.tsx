@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Button } from '@mui/material';
 
 import s from './button.module.scss';
 
-export const ButtonComponent: React.FC<ButtonPropsType> = props => {
+export const ButtonComponent = memo((props: ButtonPropsType) => {
   const { type, title, callback, color } = props;
 
   return (
@@ -18,7 +18,7 @@ export const ButtonComponent: React.FC<ButtonPropsType> = props => {
       {title}
     </Button>
   );
-};
+});
 
 type ButtonPropsType = {
   type: 'button' | 'submit' | 'reset';

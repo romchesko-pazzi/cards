@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -26,9 +26,9 @@ export const Profile = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const logoutHandler = () => {
+  const logoutHandler = useCallback(() => {
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   const editName = (name: string) => {
     dispatch(changeUserData({ name }));

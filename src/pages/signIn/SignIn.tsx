@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -41,7 +41,7 @@ export const SignIn = () => {
     reset();
   };
 
-  const navigateToSignUp = () => navigate('/signUp');
+  const navigateToSignUp = useCallback(() => navigate('/signUp'), [navigate]);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (

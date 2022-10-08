@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { TextField } from '@mui/material';
@@ -14,7 +14,7 @@ import { forgotValidate } from '../../utils/validators/validators';
 
 import s from './forgot.module.scss';
 
-export const Forgot = () => {
+export const Forgot = memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isEmailSent = useAppSelector(state => state.auth.isEmailSent);
@@ -38,7 +38,7 @@ export const Forgot = () => {
     dispatch(forgot(data.email));
     reset();
   };
-  const navigateToSignIn = () => navigate('/');
+  const navigateToSignIn = useCallback(() => navigate('/'), [navigate]);
 
   return (
     <Wrapper heading="Forgot your password?">
@@ -66,4 +66,4 @@ export const Forgot = () => {
       <SnackBar />
     </Wrapper>
   );
-};
+});

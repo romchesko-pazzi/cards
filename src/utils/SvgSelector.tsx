@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-export const SvgSelector: React.FC<PropsType> = ({ id }) => {
+export const SvgSelector = memo(({ id }: PropsType) => {
   switch (id) {
     case 'edit':
       return (
@@ -202,7 +202,7 @@ export const SvgSelector: React.FC<PropsType> = ({ id }) => {
     default:
       return <svg />;
   }
-};
+});
 
 type PropsType = {
   id: string;
