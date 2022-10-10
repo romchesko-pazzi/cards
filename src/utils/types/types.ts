@@ -2,11 +2,16 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType } from '../../store/reducers/AppReducer';
 import { AuthActionsType } from '../../store/reducers/AuthReducer';
+import { PacksActionsType } from '../../store/reducers/PacksReducer';
 import { ProfileActionsType } from '../../store/reducers/ProfileReducer';
 import { RootStateType } from '../../store/store';
 
 // все типы action для всего app
-export type ActionTypeForApp = AppActionsType | AuthActionsType | ProfileActionsType;
+export type ActionTypeForApp =
+  | AppActionsType
+  | AuthActionsType
+  | ProfileActionsType
+  | PacksActionsType;
 
 // типизация для диспатча санок в санках
 export type AppThunkType = ThunkAction<void, RootStateType, unknown, ActionTypeForApp>;

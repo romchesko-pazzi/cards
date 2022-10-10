@@ -1,4 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
+import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
   AppThunkType,
@@ -122,3 +123,11 @@ export const setNewPassword =
       dispatch(setAppStatus('idle'));
     }
   };
+
+export const getPacks = (): AppThunkType => async dispatch => {
+  try {
+    const response = await packsAPI.getPacks();
+  } catch (err: any) {
+    dispatch(setPopUp(err.response.data.error));
+  }
+};
