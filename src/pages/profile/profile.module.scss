@@ -6,6 +6,7 @@
   & > div, h2 {
     margin-bottom: 3rem;
   }
+  font-size: 2rem;
 }
 
 .heading {
@@ -25,14 +26,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
   min-height: 4rem;
 
   & span {
     margin-right: 2rem;
   }
-}
-
-.mail {
-  font-size: 2rem;
 }

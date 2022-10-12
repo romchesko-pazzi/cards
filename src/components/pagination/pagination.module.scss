@@ -1,0 +1,15 @@
+.main {
+  margin-top: 4rem;
+
+  & button {
+    font-family: inherit;
+    font-size: 1.7rem;
+    font-weight: 500;
+      }
+
+  & svg {
+    height: 2.1rem;
+    width: 2.1rem;
+  }
+
+}
