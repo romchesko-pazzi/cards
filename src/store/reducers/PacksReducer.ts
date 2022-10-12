@@ -1,25 +1,51 @@
 import { PackType } from '../../api/packsAPI';
-import { UserDataType } from '../../utils/types/types';
+import { SetPacksInitialType } from '../../utils/types/types';
 
-const initState: PackType = {
-  _id: '',
-  user_id: '',
-  name: '',
-  user_name: '',
-  cardsCount: 0,
-  created: '',
-  updated: '',
-  grade: 0,
-  rating: 0,
-  shots: 0,
+const initState: initStateType = {
+  cardPacks: [],
+  cardPacksTotalCount: 0,
+  pageCount: 8,
+  page: 1,
 };
 
-export const PacksReducer = (state = initState, action: PacksActionsType): PackType => {
+export const PacksReducer = (
+  state = initState,
+  action: PacksActionsType,
+): initStateType => {
   switch (action.type) {
+    case 'PACKS/SET-PACKS': {
+      return { ...state, ...action.payload.initData };
+    }
+    case 'PACKS/SET-CURRENT-PAGE': {
+      return { ...state, ...action.payload };
+    }
     default: {
       return state;
     }
   }
 };
 
-export type PacksActionsType = any;
+export const setPacks = (initData: SetPacksInitialType) => {
+  return {
+    type: 'PACKS/SET-PACKS',
+    payload: { initData },
+  } as const;
+};
+
+export const setCurrentPage = (page: number) => {
+  return {
+    type: 'PACKS/SET-CURRENT-PAGE',
+    payload: { page },
+  } as const;
+};
+
+export type PacksActionsType = SetPacksType | SetCurrentPageType;
+type SetPacksType = ReturnType<typeof setPacks>;
+type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
+
+type initStateType = {
+  cardPacks: PackType[];
+  cardPacksTotalCount: number;
+  pageCount: number;
+  page: number;
+};

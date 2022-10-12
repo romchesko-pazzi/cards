@@ -1,8 +1,13 @@
 import { instance } from './instance';
 
 export const packsAPI = {
-  getPacks() {
-    return instance.get<ResponsePacksType>('/cards/pack');
+  getPacks(params: GetParamsType) {
+    return instance.get<ResponsePacksType>('/cards/pack', {
+      params: {
+        pageCount: 8,
+        ...params,
+      },
+    });
   },
 };
 
@@ -26,4 +31,9 @@ export type PackType = {
   grade: number;
   rating: number;
   shots: number;
+};
+
+export type GetParamsType = {
+  page?: number;
+  pageCount?: number;
 };

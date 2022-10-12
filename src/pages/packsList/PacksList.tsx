@@ -3,18 +3,17 @@ import React, { useEffect } from 'react';
 import { Slider } from '@mui/material';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
+import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { getPacks } from '../../store/thunks/thunks';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
 import { SvgSelector } from '../../utils/SvgSelector';
+import { Pack } from '../pack/Pack';
 
 import s from './packsList.module.scss';
 
 export const PacksList = () => {
   const dispatch = useAppDispatch();
-  const packName = useAppSelector(state => state.packs.name);
-  const cardsCount = useAppSelector(state => state.packs.cardsCount);
-  const lastUpdated = useAppSelector(state => state.packs.updated);
-  const author = useAppSelector(state => state.packs.user_name);
+  const packs = useAppSelector(state => state.packs.cardPacks);
 
   useEffect(() => {
     dispatch(getPacks());
@@ -62,20 +61,25 @@ export const PacksList = () => {
       </div>
       <div className={s.table}>
         <div className={s.captions}>
-          <span>Name</span>
-          <span>Cards</span>
-          <span>Last Updated</span>
-          <span>Created by</span>
-          <span>Actions</span>
+          <div>Name</div>
+          <div>Cards</div>
+          <div>Last Updated</div>
+          <div>Created by</div>
+          <div>Actions</div>
         </div>
-        <div className={s.packsList}>
-          <div>PackName</div>
-          <div>CardsCount</div>
-          <div>18.03.22</div>
-          <div>Roman</div>
-          <div>Icons</div>
-        </div>
+        {packs.map(item => {
+          return (
+            <Pack
+              key={item._id}
+              packName={item.name}
+              cardsCount={item.cardsCount}
+              updated={item.updated}
+              author={item.user_name}
+            />
+          );
+        })}
       </div>
+      <PaginationComponent />
     </div>
   );
 };
