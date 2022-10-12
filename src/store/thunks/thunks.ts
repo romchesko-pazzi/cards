@@ -10,6 +10,7 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
+import { setCurrentPage, setPacks } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 
 export const forgot =
@@ -120,14 +121,26 @@ export const setNewPassword =
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {
-      dispatch(setAppStatus('idle'));
+      dispatch(setAppStatus('finished'));
     }
   };
 
-export const getPacks = (): AppThunkType => async dispatch => {
-  try {
-    const response = await packsAPI.getPacks();
-  } catch (err: any) {
-    dispatch(setPopUp(err.response.data.error));
-  }
-};
+export const getPacks =
+  (page?: any): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await packsAPI.getPacks({ page });
+
+      if (page !== undefined) {
+        dispatch(setCurrentPage(page));
+      }
+      const { cardPacks, cardPacksTotalCount } = response.data;
+
+      dispatch(setPacks({ cardPacks, cardPacksTotalCount }));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
