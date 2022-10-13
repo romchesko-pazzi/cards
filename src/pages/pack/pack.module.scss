@@ -1,6 +1,8 @@
 .pack {
   display: flex;
+  align-items: center;
   padding: 2rem 4rem;
+
   & div:not(:last-child) {
     flex: 20%;
   }
