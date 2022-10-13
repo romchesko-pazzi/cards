@@ -4,7 +4,7 @@ import { SetPacksInitialType } from '../../utils/types/types';
 const initState: initStateType = {
   cardPacks: [],
   cardPacksTotalCount: 0,
-  pageCount: 8,
+  pageCount: 5,
   page: 1,
 };
 

@@ -1,5 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
-import { packsAPI } from '../../api/packsAPI';
+import { GetParamsType, packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
   AppThunkType,
@@ -126,18 +126,15 @@ export const setNewPassword =
   };
 
 export const getPacks =
-  (page?: any): AppThunkType =>
+  (params: GetParamsType): AppThunkType =>
   async dispatch => {
     dispatch(setAppStatus('loading'));
     try {
-      const response = await packsAPI.getPacks({ page });
+      const response = await packsAPI.getPacks(params);
+      const { cardPacks, cardPacksTotalCount, page, pageCount } = response.data;
 
-      if (page !== undefined) {
-        dispatch(setCurrentPage(page));
-      }
-      const { cardPacks, cardPacksTotalCount } = response.data;
-
-      dispatch(setPacks({ cardPacks, cardPacksTotalCount }));
+      dispatch(setPacks({ cardPacks, cardPacksTotalCount, pageCount }));
+      dispatch(setCurrentPage(page));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

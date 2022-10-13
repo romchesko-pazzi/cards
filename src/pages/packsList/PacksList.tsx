@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Slider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
@@ -13,11 +14,20 @@ import s from './packsList.module.scss';
 
 export const PacksList = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const packs = useAppSelector(state => state.packs.cardPacks);
+  const pageCount = useAppSelector(state => state.packs.pageCount);
+  const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
   useEffect(() => {
-    dispatch(getPacks());
+    dispatch(getPacks({ pageCount }));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className={s.frame}>

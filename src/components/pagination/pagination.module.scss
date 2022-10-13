@@ -12,6 +12,7 @@
   & svg {
     height: 2.1rem;
     width: 2.1rem;
+    top: .9rem;
   }
 }
 
@@ -26,5 +27,9 @@
   & fieldset {
     top: 0;
   }
+}
 
+.menuItem {
+  font-family: inherit !important;
+  font-size: 1.4rem !important;
 }

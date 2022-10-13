@@ -3,10 +3,7 @@ import { instance } from './instance';
 export const packsAPI = {
   getPacks(params: GetParamsType) {
     return instance.get<ResponsePacksType>('/cards/pack', {
-      params: {
-        pageCount: 8,
-        ...params,
-      },
+      params: { ...params },
     });
   },
 };

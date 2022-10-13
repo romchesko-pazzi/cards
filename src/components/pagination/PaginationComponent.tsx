@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { Pagination } from '@mui/material';
+import {
+  FormControl,
+  MenuItem,
+  Pagination,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 
 import { getPacks } from '../../store/thunks/thunks';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
@@ -13,14 +19,42 @@ export const PaginationComponent = () => {
   const currentPage = useAppSelector(state => state.packs.page);
   const limit = Math.ceil(cardPacksTotalCount / pageCount);
   const dispatch = useAppDispatch();
+  const perPageValue = pageCount.toString();
 
-  const handler = (n: any, num: number) => {
-    dispatch(getPacks({ num }));
+  const handler = (event: React.ChangeEvent<unknown>, currentPage: number) => {
+    dispatch(getPacks({ page: currentPage, pageCount }));
+  };
+
+  const perPageHandler = (event: SelectChangeEvent) => {
+    const pageCount = +event.target.value;
+
+    dispatch(getPacks({ page: currentPage, pageCount }));
   };
 
   return (
     <div className={s.main}>
       <Pagination onChange={handler} page={currentPage} count={limit} />
+      <div className={s.perPage}>
+        <div>Show</div>
+        <FormControl sx={{ margin: '0 1rem' }} size="small">
+          <Select
+            sx={{ fontFamily: 'inherit', fontSize: 'inherit' }}
+            value={perPageValue}
+            onChange={perPageHandler}
+          >
+            <MenuItem className={s.menuItem} value={5}>
+              5
+            </MenuItem>
+            <MenuItem className={s.menuItem} value={10}>
+              10
+            </MenuItem>
+            <MenuItem className={s.menuItem} value={15}>
+              15
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <div>packs per page</div>
+      </div>
     </div>
   );
 };

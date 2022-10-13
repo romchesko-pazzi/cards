@@ -53,4 +53,5 @@ export type SetNewPasswordType = {
 export type SetPacksInitialType = {
   cardPacks: PackType[];
   cardPacksTotalCount: number;
+  pageCount: number;
 };
