@@ -1,0 +1,24 @@
+.main {
+  flex: 0 0 20%;
+}
+
+.sliderBlock {
+  display: flex;
+  margin-top: 1rem;
+
+  & div:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+}
+
+.value {
+  padding: .7rem 1rem;
+  box-shadow: 0 0 0 .1rem rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
