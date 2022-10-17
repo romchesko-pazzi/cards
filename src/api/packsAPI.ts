@@ -32,5 +32,6 @@ export type PackType = {
 
 export type GetParamsType = {
   page?: number;
-  pageCount?: number;
+  pageCount: number;
+  packName: string;
 };

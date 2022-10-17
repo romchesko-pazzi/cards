@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { Slider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { getPacks } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
-import { SvgSelector } from '../../utils/SvgSelector';
+import { useDebounce } from '../../utils/hooks/useDebounce';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Pack } from '../pack/Pack';
 
 import s from './packsList.module.scss';
@@ -15,19 +16,25 @@ import s from './packsList.module.scss';
 export const PacksList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [value, setValue] = useState<string>('');
+  const debouncedValue = useDebounce<string>(value);
   const packs = useAppSelector(state => state.packs.cardPacks);
   const pageCount = useAppSelector(state => state.packs.pageCount);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
 
   useEffect(() => {
-    dispatch(getPacks({ pageCount }));
-  }, [dispatch]);
+    dispatch(getPacks({ packName: value, pageCount }));
+  }, [dispatch, debouncedValue]);
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('/');
     }
   }, [isLoggedIn, navigate]);
+
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.value);
+  };
 
   return (
     <div className={s.frame}>
@@ -41,7 +48,13 @@ export const PacksList = () => {
         <div className={s.search}>
           <span>Search</span>
           <div className={s.inputBlock}>
-            <input className={s.input} type="text" placeholder="Provide your text" />
+            <input
+              className={s.input}
+              onChange={onChangeHandler}
+              value={value}
+              type="text"
+              placeholder="Provide your text"
+            />
             <button type="button" className={s.inputButton}>
               <SvgSelector id="search" />
             </button>

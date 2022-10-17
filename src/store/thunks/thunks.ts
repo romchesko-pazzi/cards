@@ -130,10 +130,11 @@ export const getPacks =
   async dispatch => {
     dispatch(setAppStatus('loading'));
     try {
-      const response = await packsAPI.getPacks(params);
+      const response = await packsAPI.getPacks({ ...params });
       const { cardPacks, cardPacksTotalCount, page, pageCount } = response.data;
+      const { packName } = params;
 
-      dispatch(setPacks({ cardPacks, cardPacksTotalCount, pageCount }));
+      dispatch(setPacks({ cardPacks, cardPacksTotalCount, pageCount, packName }));
       dispatch(setCurrentPage(page));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));

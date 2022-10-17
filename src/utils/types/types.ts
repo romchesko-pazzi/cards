@@ -50,8 +50,9 @@ export type SetNewPasswordType = {
   resetPasswordToken: string;
 };
 
-export type SetPacksInitialType = {
+export type SetPacksDataType = {
   cardPacks: PackType[];
   cardPacksTotalCount: number;
   pageCount: number;
+  packName: string;
 };

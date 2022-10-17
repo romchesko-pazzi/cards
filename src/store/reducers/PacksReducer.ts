@@ -1,7 +1,8 @@
 import { PackType } from '../../api/packsAPI';
-import { SetPacksInitialType } from '../../utils/types/types';
+import { SetPacksDataType } from '../../utils/types/types';
 
 const initState: initStateType = {
+  packName: '',
   cardPacks: [],
   cardPacksTotalCount: 0,
   pageCount: 5,
@@ -14,7 +15,7 @@ export const PacksReducer = (
 ): initStateType => {
   switch (action.type) {
     case 'PACKS/SET-PACKS': {
-      return { ...state, ...action.payload.initData };
+      return { ...state, ...action.payload.data };
     }
     case 'PACKS/SET-CURRENT-PAGE': {
       return { ...state, ...action.payload };
@@ -25,10 +26,10 @@ export const PacksReducer = (
   }
 };
 
-export const setPacks = (initData: SetPacksInitialType) => {
+export const setPacks = (data: SetPacksDataType) => {
   return {
     type: 'PACKS/SET-PACKS',
-    payload: { initData },
+    payload: { data },
   } as const;
 };
 
@@ -44,6 +45,7 @@ type SetPacksType = ReturnType<typeof setPacks>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
 
 type initStateType = {
+  packName: string;
   cardPacks: PackType[];
   cardPacksTotalCount: number;
   pageCount: number;

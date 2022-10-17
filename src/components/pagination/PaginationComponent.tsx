@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 import { getPacks } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './pagination.module.scss';
 
@@ -17,18 +17,19 @@ export const PaginationComponent = () => {
   const pageCount = useAppSelector(state => state.packs.pageCount);
   const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
   const currentPage = useAppSelector(state => state.packs.page);
+  const packName = useAppSelector(state => state.packs.packName);
   const limit = Math.ceil(cardPacksTotalCount / pageCount);
   const dispatch = useAppDispatch();
   const perPageValue = pageCount.toString();
 
   const handler = (event: React.ChangeEvent<unknown>, currentPage: number) => {
-    dispatch(getPacks({ page: currentPage, pageCount }));
+    dispatch(getPacks({ page: currentPage, pageCount, packName }));
   };
 
   const perPageHandler = (event: SelectChangeEvent) => {
     const pageCount = +event.target.value;
 
-    dispatch(getPacks({ page: currentPage, pageCount }));
+    dispatch(getPacks({ page: currentPage, pageCount, packName }));
   };
 
   return (
