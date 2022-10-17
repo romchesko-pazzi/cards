@@ -181,7 +181,8 @@
     "@typescript-eslint/no-unused-vars": [
       "warn"
     ],
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {
