@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
+
 import s from './pack.module.scss';
 
 export const Pack = (props: PackPropsType) => {
@@ -13,7 +15,17 @@ export const Pack = (props: PackPropsType) => {
       <div>{cardsCount}</div>
       <div>{time}</div>
       <div>{author}</div>
-      <div>icons</div>
+      <div className={s.icons}>
+        <button type="button">
+          <SvgSelector id="learn" />
+        </button>
+        <button type="button">
+          <SvgSelector id="edit" />
+        </button>
+        <button type="button">
+          <SvgSelector id="trash" />
+        </button>
+      </div>
     </div>
   );
 };
