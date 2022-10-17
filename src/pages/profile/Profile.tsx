@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { EditableSpan } from '../../components/editableSpan/EditableSpan';
 import { SnackBar } from '../../components/snackBar/SnackBar';
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { changeUserData, logout } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
-import { SvgSelector } from '../../utils/SvgSelector';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './profile.module.scss';
 
@@ -47,7 +47,10 @@ export const Profile = () => {
         <div className={s.userData}>
           <EditableSpan callback={editName} name={name} />
         </div>
-        <div className={s.mail}>{email}</div>
+        <div>
+          <Link to="/packsList">Go to packs</Link>
+        </div>
+        <div>{email}</div>
         <div>
           <ButtonComponent type="submit" callback={logoutHandler} title="Log out" />
         </div>

@@ -9,7 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { setNewPassword } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { newPasswordValidate } from '../../utils/validators/validators';
 
 import s from './newPassword.module.scss';

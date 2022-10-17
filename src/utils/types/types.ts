@@ -53,6 +53,4 @@ export type SetNewPasswordType = {
 export type SetPacksDataType = {
   cardPacks: PackType[];
   cardPacksTotalCount: number;
-  pageCount: number;
-  packName: string;
 };

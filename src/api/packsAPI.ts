@@ -31,7 +31,8 @@ export type PackType = {
 };
 
 export type GetParamsType = {
-  page?: number;
+  page: number;
   pageCount: number;
-  packName: string;
+  packName?: string;
+  user_id?: string;
 };

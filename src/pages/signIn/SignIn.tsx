@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { login } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { SignInType } from '../../utils/types/types';
 import { signInValidate } from '../../utils/validators/validators';
 

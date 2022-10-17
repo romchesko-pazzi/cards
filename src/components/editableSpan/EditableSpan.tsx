@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 
 import { TextField } from '@mui/material';
 
-import { SvgSelector } from '../../utils/SvgSelector';
+import { SvgSelector } from '../svgSelector/SvgSelector';
 
 import s from './editableSpan.module.scss';
 

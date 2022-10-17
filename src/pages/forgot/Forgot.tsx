@@ -9,7 +9,7 @@ import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { forgot } from '../../store/thunks/thunks';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { forgotValidate } from '../../utils/validators/validators';
 
 import s from './forgot.module.scss';

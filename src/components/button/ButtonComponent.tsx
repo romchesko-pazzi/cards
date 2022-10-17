@@ -21,7 +21,7 @@ export const ButtonComponent = memo((props: ButtonPropsType) => {
 });
 
 type ButtonPropsType = {
-  type: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset';
   title: string;
   color?: string;
   callback?: () => void;

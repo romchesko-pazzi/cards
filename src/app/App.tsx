@@ -7,12 +7,13 @@ import { CheckEmail } from '../pages/checkEmail/CheckEmail';
 import { Forgot } from '../pages/forgot/Forgot';
 import { Header } from '../pages/header/Header';
 import { NewPassword } from '../pages/newPassword/NewPassword';
+import { PacksList } from '../pages/packsList/PacksList';
 import { Profile } from '../pages/profile/Profile';
 import { SignIn } from '../pages/signIn/SignIn';
 import { SignUp } from '../pages/signUp/SignUp';
 import { initializeApp } from '../store/thunks/thunks';
 import { path } from '../utils/constants';
-import { useAppDispatch, useAppSelector } from '../utils/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks/useSelectorUseDispatch';
 
 import s from './app.module.scss';
 
@@ -48,6 +49,7 @@ export const App = () => {
         <Route path={path.forgot} element={<Forgot />} />
         <Route path={path.checkEmail} element={<CheckEmail />} />
         <Route path={`${path.newPassword}/:token`} element={<NewPassword />} />
+        <Route path={path.packsList} element={<PacksList />} />
       </Routes>
     </>
   );

@@ -3,10 +3,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { sentEmail } from '../../store/reducers/AuthReducer';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/hooks';
-import { SvgSelector } from '../../utils/SvgSelector';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './checkEmail.module.scss';
 

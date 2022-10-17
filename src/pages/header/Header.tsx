@@ -3,8 +3,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
-import { useAppSelector } from '../../utils/hooks/hooks';
-import { SvgSelector } from '../../utils/SvgSelector';
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
+import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './header.module.scss';
 
