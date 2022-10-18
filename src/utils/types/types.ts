@@ -1,6 +1,5 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { PackType } from '../../api/packsAPI';
 import { AppActionsType } from '../../store/reducers/AppReducer';
 import { AuthActionsType } from '../../store/reducers/AuthReducer';
 import { PacksActionsType } from '../../store/reducers/PacksReducer';
@@ -48,9 +47,4 @@ export type EditDataUserType = {
 export type SetNewPasswordType = {
   password: string;
   resetPasswordToken: string;
-};
-
-export type SetPacksDataType = {
-  cardPacks: PackType[];
-  cardPacksTotalCount: number;
 };

@@ -8,13 +8,11 @@ export const packsAPI = {
   },
 };
 
-type ResponsePacksType = {
+export type ResponsePacksType = {
   cardPacks: PackType[];
   cardPacksTotalCount: number;
   maxCardsCount: number;
   minCardsCount: number;
-  page: number;
-  pageCount: number;
 };
 
 export type PackType = {
@@ -33,6 +31,8 @@ export type PackType = {
 export type GetParamsType = {
   page: number;
   pageCount: number;
-  packName?: string;
-  user_id?: string;
+  packName: string;
+  user_id: string;
+  min: number;
+  max: number;
 };

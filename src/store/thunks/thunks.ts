@@ -1,5 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
-import { GetParamsType, packsAPI } from '../../api/packsAPI';
+import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
   AppThunkType,
@@ -10,8 +10,9 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setCurrentPage, setPacks } from '../reducers/PacksReducer';
+import { setPacks } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
+import { RootStateType } from '../store';
 
 export const forgot =
   (email: string): AppThunkType =>
@@ -126,16 +127,26 @@ export const setNewPassword =
   };
 
 export const getPacks =
-  (params: GetParamsType): AppThunkType =>
-  async dispatch => {
+  (): AppThunkType => async (dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatus('loading'));
     try {
-      const response = await packsAPI.getPacks({ ...params });
-      const { cardPacks, cardPacksTotalCount, page, pageCount } = response.data;
-      const { packName } = params;
+      const { page, pageCount, user_id, packName, min, max } =
+        getState().packs.queryParams;
 
-      dispatch(setPacks({ cardPacks, cardPacksTotalCount, pageCount, packName }));
-      dispatch(setCurrentPage(page));
+      const response = await packsAPI.getPacks({
+        page,
+        pageCount,
+        user_id,
+        packName,
+        min,
+        max,
+      });
+      const { cardPacks, cardPacksTotalCount, maxCardsCount, minCardsCount } =
+        response.data;
+
+      dispatch(
+        setPacks({ cardPacks, cardPacksTotalCount, maxCardsCount, minCardsCount }),
+      );
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

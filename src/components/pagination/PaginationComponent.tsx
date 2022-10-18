@@ -8,28 +8,27 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import { getPacks } from '../../store/thunks/thunks';
+import { setCurrentPage, setPacksPerPage } from '../../store/reducers/PacksReducer';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './pagination.module.scss';
 
 export const PaginationComponent = () => {
-  const pageCount = useAppSelector(state => state.packs.pageCount);
+  const pageCount = useAppSelector(state => state.packs.queryParams.pageCount);
   const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
-  const currentPage = useAppSelector(state => state.packs.page);
-  const packName = useAppSelector(state => state.packs.packName);
+  const currentPage = useAppSelector(state => state.packs.queryParams.page);
   const limit = Math.ceil(cardPacksTotalCount / pageCount);
   const dispatch = useAppDispatch();
   const perPageValue = pageCount.toString();
 
   const handler = (event: React.ChangeEvent<unknown>, currentPage: number) => {
-    dispatch(getPacks({ page: currentPage, pageCount, packName }));
+    dispatch(setCurrentPage(currentPage));
   };
 
   const perPageHandler = (event: SelectChangeEvent) => {
     const pageCount = +event.target.value;
 
-    dispatch(getPacks({ page: currentPage, pageCount, packName }));
+    dispatch(setPacksPerPage(pageCount));
   };
 
   return (
