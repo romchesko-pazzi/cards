@@ -1,3 +1,5 @@
+@import "src/assets/sass/abstracts/vars";
+
 .main {
   margin-right: 6rem;
 }
@@ -18,4 +20,12 @@
   background-color: white;
   box-shadow: 0 0 0 .1rem rgba(0, 0, 0, 0.15);
   padding: .7rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  border-radius: .3rem;
+}
+
+.active {
+  background-color: $color-blue-light;
+  color: white;
 }
