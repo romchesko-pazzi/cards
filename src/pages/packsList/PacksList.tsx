@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import loaderStyles from '../../app/app.module.scss';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { MyOrAll } from '../../components/myOrAll/MyOrAll';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
@@ -18,6 +19,7 @@ export const PacksList = () => {
   const navigate = useNavigate();
   const packs = useAppSelector(state => state.packs.cardPacks);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const isPacksFetched = useAppSelector(state => state.packs.isPacksFetched);
 
   // dependencies for request (query params)
   const page = useAppSelector(state => state.packs.queryParams.page);
@@ -37,6 +39,14 @@ export const PacksList = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  if (!isPacksFetched) {
+    return (
+      <div className={loaderStyles.center}>
+        <div className={loaderStyles.loader} />
+      </div>
+    );
+  }
+
   return (
     <div className={s.frame}>
       <div className={s.heading}>
@@ -50,27 +60,34 @@ export const PacksList = () => {
         <MyOrAll />
         <SliderComponent min={min} max={max} />
       </div>
-      <div className={s.table}>
-        <div className={s.captions}>
-          <div>Name</div>
-          <div>Cards</div>
-          <div>Last Updated</div>
-          <div>Created by</div>
-          <div>Actions</div>
+      {packs.length === 0 ? (
+        <div className={s.noData}>No data.</div>
+      ) : (
+        <div className={s.wrapperForTable}>
+          <div className={s.table}>
+            <div className={s.captions}>
+              <div>Name</div>
+              <div>Cards</div>
+              <div>Last Updated</div>
+              <div>Created by</div>
+              <div>Actions</div>
+            </div>
+            {packs.map(item => {
+              return (
+                <Pack
+                  key={item._id}
+                  packName={item.name}
+                  cardsCount={item.cardsCount}
+                  updated={item.updated}
+                  author={item.user_name}
+                  packId={item._id}
+                />
+              );
+            })}
+          </div>
+          <PaginationComponent />
         </div>
-        {packs.map(item => {
-          return (
-            <Pack
-              key={item._id}
-              packName={item.name}
-              cardsCount={item.cardsCount}
-              updated={item.updated}
-              author={item.user_name}
-            />
-          );
-        })}
-      </div>
-      <PaginationComponent />
+      )}
     </div>
   );
 };

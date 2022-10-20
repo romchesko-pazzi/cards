@@ -10,7 +10,7 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setPacks } from '../reducers/PacksReducer';
+import { removePack, setIsPacksFetched, setPacks } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 import { RootStateType } from '../store';
 
@@ -147,6 +147,21 @@ export const getPacks =
       dispatch(
         setPacks({ cardPacks, cardPacksTotalCount, maxCardsCount, minCardsCount }),
       );
+      dispatch(setIsPacksFetched(true));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const deletePack =
+  (packId: string): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      await packsAPI.deletePack(packId);
+      dispatch(removePack(packId));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

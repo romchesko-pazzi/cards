@@ -6,6 +6,9 @@ export const packsAPI = {
       params: { ...params },
     });
   },
+  deletePack(packId: string) {
+    return instance.delete(`/cards/pack?id=${packId}`);
+  },
 };
 
 export type ResponsePacksType = {

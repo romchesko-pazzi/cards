@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
+import { path } from '../../utils/constants';
 import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './header.module.scss';
@@ -14,8 +15,9 @@ export const Header = () => {
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const name = useAppSelector(state => state.profile.name);
   const avatar = useAppSelector(state => state.profile.avatar);
-  const navigateHandler = () => navigate('/');
+  const navigateToSignIn = () => navigate('/');
   const status = useAppSelector(state => state.app.status);
+  const navigateToProfile = () => navigate(path.profile);
 
   return (
     <>
@@ -33,13 +35,15 @@ export const Header = () => {
               {avatar && avatar !== 'https//avatar-url.img' ? (
                 <img src={avatar} alt="" />
               ) : (
-                <SvgSelector id="user" />
+                <button type="button" onClick={navigateToProfile}>
+                  <SvgSelector id="user" />
+                </button>
               )}
             </div>
           </div>
         ) : (
           <div className={s.userHeader}>
-            <ButtonComponent callback={navigateHandler} type="button" title="Sign in" />
+            <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
           </div>
         )}
       </div>

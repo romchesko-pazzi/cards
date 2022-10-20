@@ -5,6 +5,7 @@ const initState: initStateType = {
   cardPacksTotalCount: 0,
   maxCardsCount: 0,
   minCardsCount: 0,
+  isPacksFetched: false, // for loading in PacksList.tsx
   queryParams: {
     pageCount: 5,
     page: 1,
@@ -21,6 +22,7 @@ export const PacksReducer = (
 ): initStateType => {
   switch (action.type) {
     case 'PACKS/SET-PACKS':
+    case 'PACKS/SET-IS-PACKS-FETCHED':
       return { ...state, ...action.payload };
     case 'PACKS/SET-CURRENT-PAGE':
     case 'PACKS/SET-PACK-NAME':
@@ -28,6 +30,11 @@ export const PacksReducer = (
     case 'PACKS/SET-USER-ID':
     case 'PACKS/SET-SLIDER-VALUE':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
+    case 'PACKS/DELETE-PACK':
+      return {
+        ...state,
+        cardPacks: state.cardPacks.filter(f => f._id !== action.payload.packId),
+      };
     default: {
       return state;
     }
@@ -76,13 +83,29 @@ export const setSliderValue = (sliderValue: number[]) => {
   } as const;
 };
 
+export const setIsPacksFetched = (isPacksFetched: boolean) => {
+  return {
+    type: 'PACKS/SET-IS-PACKS-FETCHED',
+    payload: { isPacksFetched },
+  } as const;
+};
+
+export const removePack = (packId: string) => {
+  return {
+    type: 'PACKS/DELETE-PACK',
+    payload: { packId },
+  } as const;
+};
+
 export type PacksActionsType =
   | SetPacksType
   | SetCurrentPageType
   | SetPackNameType
   | SetPacksPerPage
   | SetUserIdType
-  | SetSliderValue;
+  | SetSliderValue
+  | SetIsPacksFetched
+  | RemovePackType;
 
 type SetPacksType = ReturnType<typeof setPacks>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
@@ -90,12 +113,15 @@ type SetPackNameType = ReturnType<typeof setPackName>;
 type SetPacksPerPage = ReturnType<typeof setPacksPerPage>;
 type SetUserIdType = ReturnType<typeof setUserId>;
 type SetSliderValue = ReturnType<typeof setSliderValue>;
+type SetIsPacksFetched = ReturnType<typeof setIsPacksFetched>;
+type RemovePackType = ReturnType<typeof removePack>;
 
 type initStateType = {
   cardPacks: PackType[];
   cardPacksTotalCount: number;
   maxCardsCount: number;
   minCardsCount: number;
+  isPacksFetched: boolean;
   queryParams: {
     user_id: string;
     packName: string;
