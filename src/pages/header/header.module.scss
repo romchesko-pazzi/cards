@@ -14,12 +14,14 @@
   text-transform: uppercase;
   color: $color-blue-main;
   margin-left: 15rem;
+  margin-bottom: .4rem;
 }
 
 .userHeader {
   display: flex;
   align-items: center;
   margin-right: 15rem;
+  margin-bottom: .4rem;
 
   & span {
     font-size: 2rem;
@@ -37,6 +39,10 @@
     width: 4rem;
     border-radius: 50%;
     object-fit: cover;
+  }
+
+  & button {
+    cursor: pointer;
   }
 }
 
