@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { LinearProgress } from '@mui/material';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
@@ -14,26 +15,35 @@ export const Header = () => {
   const name = useAppSelector(state => state.profile.name);
   const avatar = useAppSelector(state => state.profile.avatar);
   const navigateHandler = () => navigate('/');
+  const status = useAppSelector(state => state.app.status);
 
   return (
-    <div className={s.main}>
-      <h1 className={s.heading}>Cards</h1>
-      {isLoggedIn ? (
-        <div className={s.userHeader}>
-          <span>{name}</span>
-          <div className={s.userPhoto}>
-            {avatar && avatar !== 'https//avatar-url.img' ? (
-              <img src={avatar} alt="" />
-            ) : (
-              <SvgSelector id="user" />
-            )}{' '}
-          </div>
-        </div>
+    <>
+      {status === 'loading' ? (
+        <LinearProgress />
       ) : (
-        <div className={s.userHeader}>
-          <ButtonComponent callback={navigateHandler} type="button" title="Sign in" />
-        </div>
+        <div className={s.transparentLoading} />
       )}
-    </div>
+      <div className={s.main}>
+        <h1 className={s.heading}>Cards</h1>
+        {isLoggedIn ? (
+          <div className={s.userHeader}>
+            <span>{name}</span>
+            <div className={s.userPhoto}>
+              {avatar && avatar !== 'https//avatar-url.img' ? (
+                <img src={avatar} alt="" />
+              ) : (
+                <SvgSelector id="user" />
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className={s.userHeader}>
+            <ButtonComponent callback={navigateHandler} type="button" title="Sign in" />
+          </div>
+        )}
+      </div>
+      <Outlet />
+    </>
   );
 };

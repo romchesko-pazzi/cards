@@ -4,7 +4,8 @@ export enum path {
   forgot = '/forgot',
   checkEmail = '/check-email',
   newPassword = '/set-new-password',
-  packsList = '/packsList',
+  packsList = '/packs-list',
+  notFound = '/not-found',
 }
 
 export const minPasswordLength = 8;
