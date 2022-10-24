@@ -9,6 +9,14 @@ export const packsAPI = {
   deletePack(packId: string) {
     return instance.delete(`/cards/pack?id=${packId}`);
   },
+  updatePack(packId: string, packName: string) {
+    return instance.put<UpdatePackType>('/cards/pack', {
+      cardsPack: {
+        _id: packId,
+        name: packName,
+      },
+    });
+  },
 };
 
 export type ResponsePacksType = {
@@ -38,4 +46,10 @@ export type GetParamsType = {
   user_id: string;
   min: number;
   max: number;
+};
+
+type UpdatePackType = {
+  updatedCardsPack: {
+    name: string;
+  };
 };

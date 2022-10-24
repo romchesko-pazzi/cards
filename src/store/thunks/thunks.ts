@@ -10,7 +10,12 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { removePack, setIsPacksFetched, setPacks } from '../reducers/PacksReducer';
+import {
+  removePack,
+  setIsPacksFetched,
+  setPacks,
+  updatePack,
+} from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 import { RootStateType } from '../store';
 
@@ -150,6 +155,7 @@ export const getPacks =
       dispatch(setIsPacksFetched(true));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
+      dispatch(setIsLogin(false));
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -162,6 +168,24 @@ export const deletePack =
     try {
       await packsAPI.deletePack(packId);
       dispatch(removePack(packId));
+      dispatch(setPopUp('pack have been deleted successful'));
+      dispatch(getPacks());
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const updatePackName =
+  (packId: string, packName: string): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await packsAPI.updatePack(packId, packName);
+
+      dispatch(updatePack(packId, response.data.updatedCardsPack.name));
+      dispatch(setPopUp('name have been changed successful'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

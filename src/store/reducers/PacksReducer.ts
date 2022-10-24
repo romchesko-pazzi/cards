@@ -35,6 +35,14 @@ export const PacksReducer = (
         ...state,
         cardPacks: state.cardPacks.filter(f => f._id !== action.payload.packId),
       };
+    case 'PACKS/UPDATE-PACK-NAME': {
+      return {
+        ...state,
+        cardPacks: state.cardPacks.map(m =>
+          m._id === action.payload.packId ? { ...m, name: action.payload.packName } : m,
+        ),
+      };
+    }
     default: {
       return state;
     }
@@ -97,6 +105,13 @@ export const removePack = (packId: string) => {
   } as const;
 };
 
+export const updatePack = (packId: string, packName: string) => {
+  return {
+    type: 'PACKS/UPDATE-PACK-NAME',
+    payload: { packId, packName },
+  } as const;
+};
+
 export type PacksActionsType =
   | SetPacksType
   | SetCurrentPageType
@@ -105,7 +120,8 @@ export type PacksActionsType =
   | SetUserIdType
   | SetSliderValue
   | SetIsPacksFetched
-  | RemovePackType;
+  | RemovePackType
+  | UpdatePackNameType;
 
 type SetPacksType = ReturnType<typeof setPacks>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
@@ -115,6 +131,7 @@ type SetUserIdType = ReturnType<typeof setUserId>;
 type SetSliderValue = ReturnType<typeof setSliderValue>;
 type SetIsPacksFetched = ReturnType<typeof setIsPacksFetched>;
 type RemovePackType = ReturnType<typeof removePack>;
+type UpdatePackNameType = ReturnType<typeof updatePack>;
 
 type initStateType = {
   cardPacks: PackType[];

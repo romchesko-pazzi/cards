@@ -8,6 +8,7 @@ import { MyOrAll } from '../../components/myOrAll/MyOrAll';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { Search } from '../../components/search/Search';
 import { SliderComponent } from '../../components/slider/SliderComponent';
+import { SnackBar } from '../../components/snackBar/SnackBar';
 import { getPacks } from '../../store/thunks/thunks';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Pack } from '../pack/Pack';
@@ -77,6 +78,7 @@ export const PacksList = () => {
                 <Pack
                   key={item._id}
                   packName={item.name}
+                  userId={item.user_id}
                   cardsCount={item.cardsCount}
                   updated={item.updated}
                   author={item.user_name}
@@ -88,6 +90,7 @@ export const PacksList = () => {
           <PaginationComponent />
         </div>
       )}
+      <SnackBar />
     </div>
   );
 };

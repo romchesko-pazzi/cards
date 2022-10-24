@@ -1,21 +1,15 @@
 import React from 'react';
 
+import { DeleteModal } from '../../components/modals/deleteModal/DeleteModal';
+import { EditModal } from '../../components/modals/editModal/EditModal';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
-import { deletePack } from '../../store/thunks/thunks';
-import { useAppDispatch } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './pack.module.scss';
 
 export const Pack = (props: PackPropsType) => {
-  const { author, packName, updated, cardsCount, packId } = props;
-
-  const dispatch = useAppDispatch();
+  const { author, packName, updated, cardsCount, packId, userId } = props;
 
   const time = new Date(updated).toLocaleDateString('ru');
-
-  const deletePackHandler = () => {
-    dispatch(deletePack(packId));
-  };
 
   return (
     <div className={s.pack}>
@@ -27,12 +21,8 @@ export const Pack = (props: PackPropsType) => {
         <button type="button">
           <SvgSelector id="learn" />
         </button>
-        <button type="button">
-          <SvgSelector id="edit" />
-        </button>
-        <button onClick={deletePackHandler} type="button">
-          <SvgSelector id="trash" />
-        </button>
+        <EditModal userId={userId} packId={packId} packName={packName} />
+        <DeleteModal userId={userId} packId={packId} packName={packName} />
       </div>
     </div>
   );
@@ -44,4 +34,5 @@ type PackPropsType = {
   updated: string;
   author: string;
   packId: string;
+  userId: string;
 };
