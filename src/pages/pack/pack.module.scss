@@ -23,3 +23,11 @@
     height: 2.5rem;
   }
 }
+
+.btnDisabled {
+  opacity: .1;
+
+  & svg {
+    cursor: not-allowed;
+  }
+}
