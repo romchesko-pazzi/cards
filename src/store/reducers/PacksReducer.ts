@@ -43,6 +43,8 @@ export const PacksReducer = (
         ),
       };
     }
+    case 'PACKS/SET-NEW-PACK':
+      return { ...state, cardPacks: [action.payload.newPack, ...state.cardPacks] };
     default: {
       return state;
     }
@@ -112,6 +114,13 @@ export const updatePack = (packId: string, packName: string) => {
   } as const;
 };
 
+export const setNewPack = (newPack: PackType) => {
+  return {
+    type: 'PACKS/SET-NEW-PACK',
+    payload: { newPack },
+  } as const;
+};
+
 export type PacksActionsType =
   | SetPacksType
   | SetCurrentPageType
@@ -121,7 +130,8 @@ export type PacksActionsType =
   | SetSliderValue
   | SetIsPacksFetched
   | RemovePackType
-  | UpdatePackNameType;
+  | UpdatePackNameType
+  | SetNewPackType;
 
 type SetPacksType = ReturnType<typeof setPacks>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
@@ -132,6 +142,7 @@ type SetSliderValue = ReturnType<typeof setSliderValue>;
 type SetIsPacksFetched = ReturnType<typeof setIsPacksFetched>;
 type RemovePackType = ReturnType<typeof removePack>;
 type UpdatePackNameType = ReturnType<typeof updatePack>;
+type SetNewPackType = ReturnType<typeof setNewPack>;
 
 type initStateType = {
   cardPacks: PackType[];

@@ -8,7 +8,7 @@ import s from '../../pages/pack/pack.module.scss';
 import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { SvgSelector } from '../svgSelector/SvgSelector';
 
-const style = {
+export const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',

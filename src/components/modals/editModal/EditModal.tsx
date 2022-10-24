@@ -11,7 +11,8 @@ import common from '../BaseModal.module.scss';
 
 import s from './editModal.module.scss';
 
-export const EditModal: React.FC<PropsType> = ({ userId, packId, packName }) => {
+export const EditModal = (props: PropsType) => {
+  const { userId, packId, packName } = props;
   const [value, setValue] = useState<string>(packName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();

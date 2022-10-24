@@ -9,12 +9,17 @@ export const packsAPI = {
   deletePack(packId: string) {
     return instance.delete(`/cards/pack?id=${packId}`);
   },
-  updatePack(packId: string, packName: string) {
+  updatePack(packId: string, name: string) {
     return instance.put<UpdatePackType>('/cards/pack', {
       cardsPack: {
         _id: packId,
-        name: packName,
+        name,
       },
+    });
+  },
+  createPack(name: string) {
+    return instance.post<CreatePackType>('/cards/pack', {
+      cardsPack: { name },
     });
   },
 };
@@ -52,4 +57,8 @@ type UpdatePackType = {
   updatedCardsPack: {
     name: string;
   };
+};
+
+type CreatePackType = {
+  newCardsPack: PackType;
 };

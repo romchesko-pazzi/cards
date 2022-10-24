@@ -13,6 +13,7 @@ import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
 import {
   removePack,
   setIsPacksFetched,
+  setNewPack,
   setPacks,
   updatePack,
 } from '../reducers/PacksReducer';
@@ -168,7 +169,7 @@ export const deletePack =
     try {
       await packsAPI.deletePack(packId);
       dispatch(removePack(packId));
-      dispatch(setPopUp('pack have been deleted successful'));
+      dispatch(setPopUp('pack have been deleted successfully'));
       dispatch(getPacks());
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
@@ -185,7 +186,22 @@ export const updatePackName =
       const response = await packsAPI.updatePack(packId, packName);
 
       dispatch(updatePack(packId, response.data.updatedCardsPack.name));
-      dispatch(setPopUp('name have been changed successful'));
+      dispatch(setPopUp('name have been changed successfully'));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+export const createPack =
+  (packName: string): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await packsAPI.createPack(packName);
+
+      dispatch(setNewPack(response.data.newCardsPack));
+      dispatch(setPopUp('pack have been added successfully'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import loaderStyles from '../../app/app.module.scss';
-import { ButtonComponent } from '../../components/button/ButtonComponent';
+import { AddModal } from '../../components/modals/addModal/AddModal';
 import { MyOrAll } from '../../components/myOrAll/MyOrAll';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { Search } from '../../components/search/Search';
@@ -52,9 +52,7 @@ export const PacksList = () => {
     <div className={s.frame}>
       <div className={s.heading}>
         <h3>Packs list</h3>
-        <div>
-          <ButtonComponent title="Add new pack" />
-        </div>{' '}
+        <AddModal />
       </div>
       <div className={s.settings}>
         <Search />
