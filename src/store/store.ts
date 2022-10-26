@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 import { AppReducer } from './reducers/AppReducer';
 import { AuthReducer } from './reducers/AuthReducer';
+import { CardsReducer } from './reducers/CardsReducer';
 import { PacksReducer } from './reducers/PacksReducer';
 import { ProfileReducer } from './reducers/ProfileReducer';
 
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   auth: AuthReducer,
   profile: ProfileReducer,
   packs: PacksReducer,
+  cards: CardsReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

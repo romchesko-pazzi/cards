@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { CardsList } from '../pages/cardsList/CardsList';
 import { CheckEmail } from '../pages/checkEmail/CheckEmail';
 import { Forgot } from '../pages/forgot/Forgot';
 import { Header } from '../pages/header/Header';
@@ -43,6 +44,7 @@ export const App = () => {
         <Route path={path.checkEmail} element={<CheckEmail />} />
         <Route path={`${path.newPassword}/:token`} element={<NewPassword />} />
         <Route path={path.packsList} element={<PacksList />} />
+        <Route path={path.cardsList} element={<CardsList />} />
         <Route path="*" element={<Navigate to="not-found" />} />
       </Route>
       <Route path={path.notFound} element={<NotFound />} />
