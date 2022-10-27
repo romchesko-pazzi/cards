@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import loaderStyles from '../../app/app.module.scss';
+import c from '../../assets/commonStyles/common.module.scss';
 import { AddModal } from '../../components/modals/addModal/AddModal';
 import { MyOrAll } from '../../components/myOrAll/MyOrAll';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
@@ -49,12 +50,12 @@ export const PacksList = () => {
   }
 
   return (
-    <div className={s.frame}>
-      <div className={s.heading}>
+    <div className={c.frame}>
+      <div className={c.heading}>
         <h3>Packs list</h3>
         <AddModal />
       </div>
-      <div className={s.settings}>
+      <div className={c.settings}>
         <Search />
         <MyOrAll />
         <SliderComponent min={min} max={max} />
@@ -62,9 +63,9 @@ export const PacksList = () => {
       {packs.length === 0 ? (
         <div className={s.noData}>No data.</div>
       ) : (
-        <div className={s.wrapperForTable}>
-          <div className={s.table}>
-            <div className={s.captions}>
+        <>
+          <div className={c.table}>
+            <div className={c.captions}>
               <div>Name</div>
               <div>Cards</div>
               <div>Last Updated</div>
@@ -86,7 +87,7 @@ export const PacksList = () => {
             })}
           </div>
           <PaginationComponent />
-        </div>
+        </>
       )}
       <SnackBar />
     </div>

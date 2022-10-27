@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, useLocation } from 'react-router-dom';
 
+import c from '../../assets/commonStyles/common.module.scss';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
+import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { Search } from '../../components/search/Search';
 import { getCards } from '../../store/thunks/thunks';
 import { path } from '../../utils/constants';
@@ -20,25 +22,25 @@ export const CardsList = () => {
 
   useEffect(() => {
     dispatch(getCards(packId));
-  }, [dispatch]);
+  }, [dispatch, packId]);
 
   return (
-    <div className={s.frame}>
+    <div className={c.frame}>
       <Link to={path.packsList}>
         <div className={s.returnToPackList}>
           <ArrowBackIcon fontSize="large" />
           <span>Back to pack list</span>
         </div>
       </Link>
-      <div className={s.heading}>
+      <div className={c.heading}>
         <h3>{packName}</h3>
         <ButtonComponent title="Learn the pack" />
       </div>
-      <div className={s.settings}>
+      <div className={c.settings}>
         <Search />
       </div>
-      <div className={s.table}>
-        <div className={s.captions}>
+      <div className={c.table}>
+        <div className={c.captions}>
           <div>Question</div>
           <div>Answer</div>
           <div>Last updated</div>
@@ -56,6 +58,7 @@ export const CardsList = () => {
           );
         })}
       </div>
+      <PaginationComponent />
     </div>
   );
 };

@@ -1,0 +1,9 @@
+.returnToPackList {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+
+  & span {
+    margin-left: 1rem;
+  }
+}

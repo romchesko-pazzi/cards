@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import c from '../../assets/commonStyles/common.module.scss';
 import { DeleteModal } from '../../components/modals/deleteModal/DeleteModal';
 import { EditModal } from '../../components/modals/editModal/EditModal';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
@@ -25,7 +26,7 @@ export const Pack = (props: PackPropsType) => {
   };
 
   return (
-    <div className={s.pack}>
+    <div className={c.item}>
       <div>{packName}</div>
       <div>{cardsCount}</div>
       <div>{time}</div>

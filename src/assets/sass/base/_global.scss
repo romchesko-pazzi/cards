@@ -18,6 +18,11 @@ body {
 
 a {
   text-decoration: none;
+
+  &:visited,
+  &:active {
+    color: #000000;
+  }
 }
 
 button {
