@@ -2,14 +2,14 @@ import { v1 } from 'uuid';
 
 import { PackType } from '../../../api/packsAPI';
 import {
-  initStateType,
+  InitStateType,
   PacksReducer,
   removePack,
   setNewPack,
   updatePack,
 } from '../PacksReducer';
 
-let startState: initStateType;
+let startState: InitStateType;
 let packId1: string;
 let packId2: string;
 let packId3: string;

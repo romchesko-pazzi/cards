@@ -33,7 +33,9 @@ export const Header = () => {
             <span>{name}</span>
             <div className={s.userPhoto}>
               {avatar && avatar !== 'https//avatar-url.img' ? (
-                <img src={avatar} alt="" />
+                <button type="button" onClick={navigateToProfile}>
+                  <img src={avatar} alt="" />
+                </button>
               ) : (
                 <button type="button" onClick={navigateToProfile}>
                   <SvgSelector id="user" />

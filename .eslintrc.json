@@ -131,12 +131,13 @@
     "no-debugger": "error",
     "no-unused-vars": "off",
     "no-magic-numbers": [
-      "error",
+      "warn",
       {
         "ignore": [
           0,
           1,
-          -1
+          -1,
+          2
         ]
       }
     ],

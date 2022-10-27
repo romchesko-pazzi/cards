@@ -1,25 +1,25 @@
 import { PackType, ResponsePacksType } from '../../api/packsAPI';
 
-const initState: initStateType = {
+const initState: InitStateType = {
   cardPacks: [],
   cardPacksTotalCount: 0,
   maxCardsCount: 0,
   minCardsCount: 0,
   isPacksFetched: false, // for loading in PacksList.tsx
   queryParams: {
-    pageCount: 5,
-    page: 1,
+    pageCount: 5, // how many items on the page
+    page: 1, // current page
     min: 0,
     max: 110,
     user_id: '',
-    packName: '',
+    packName: '', // for Search.tsx
   },
 };
 
 export const PacksReducer = (
   state = initState,
   action: PacksActionsType,
-): initStateType => {
+): InitStateType => {
   switch (action.type) {
     case 'PACKS/SET-PACKS':
     case 'PACKS/SET-IS-PACKS-FETCHED':
@@ -144,11 +144,7 @@ type RemovePackType = ReturnType<typeof removePack>;
 type UpdatePackNameType = ReturnType<typeof updatePack>;
 type SetNewPackType = ReturnType<typeof setNewPack>;
 
-type initStateType = {
-  cardPacks: PackType[];
-  cardPacksTotalCount: number;
-  maxCardsCount: number;
-  minCardsCount: number;
+export type InitStateType = ResponsePacksType & {
   isPacksFetched: boolean;
   queryParams: {
     user_id: string;
