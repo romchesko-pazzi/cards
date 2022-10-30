@@ -10,6 +10,8 @@ export const cardsAPI = {
 
 export type GetParamsType = {
   cardsPack_id: string;
+  pageCount: number;
+  cardQuestion: string;
 };
 
 export type CardType = {
@@ -25,9 +27,5 @@ export type CardType = {
 export type ResponseCardsType = {
   cards: CardType[];
   cardsTotalCount: number;
-  maxGrade: number;
-  minGrade: number;
-  packUpdated: string;
-  packUserId: string;
   packName: string;
 };

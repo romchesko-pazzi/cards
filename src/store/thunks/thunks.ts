@@ -1,4 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
+import { cardsAPI } from '../../api/cardsAPI';
 import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
@@ -10,6 +11,7 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
+import { setCards } from '../reducers/CardsReducer';
 import {
   removePack,
   setIsPacksFetched,
@@ -63,7 +65,6 @@ export const login =
       dispatch(setError(false));
       dispatch(setUserData({ name, _id, email, avatar }));
       dispatch(setIsLogin(true));
-      dispatch(setPopUp('logging was successful'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
       dispatch(setError(true));
@@ -136,7 +137,7 @@ export const getPacks =
   (): AppThunkType => async (dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatus('loading'));
     try {
-      const { page, pageCount, user_id, packName, min, max } =
+      const { page, pageCount, user_id, packName, min, max, sortPacks } =
         getState().packs.queryParams;
 
       const response = await packsAPI.getPacks({
@@ -146,14 +147,33 @@ export const getPacks =
         packName,
         min,
         max,
+        sortPacks,
       });
-      const { cardPacks, cardPacksTotalCount, maxCardsCount, minCardsCount } =
+      const { cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount } =
         response.data;
 
       dispatch(
-        setPacks({ cardPacks, cardPacksTotalCount, maxCardsCount, minCardsCount }),
+        setPacks({ cardPacks, cardPacksTotalCount, minCardsCount, maxCardsCount }),
       );
       dispatch(setIsPacksFetched(true));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+      dispatch(setIsLogin(false));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const getCards =
+  (cardsPack_id: string): AppThunkType =>
+  async (dispatch, getState: () => RootStateType) => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const { pageCount, cardQuestion } = getState().cards.queryParams;
+      const response = await cardsAPI.getCards({ cardsPack_id, pageCount, cardQuestion });
+      const { cards } = response.data;
+
+      dispatch(setCards(cards));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
       dispatch(setIsLogin(false));
