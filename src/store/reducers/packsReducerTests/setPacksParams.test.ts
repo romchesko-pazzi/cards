@@ -1,8 +1,9 @@
 import { v1 } from 'uuid';
 
 import { ResponsePacksType } from '../../../api/packsAPI';
+import { sortingMethods } from '../../../utils/constants/constants';
 import {
-  initStateType,
+  InitStateType,
   PacksReducer,
   setCurrentPage,
   setIsPacksFetched,
@@ -13,7 +14,7 @@ import {
   setUserId,
 } from '../PacksReducer';
 
-let startState: initStateType;
+let startState: InitStateType;
 let packId1: string;
 let packId2: string;
 
@@ -31,6 +32,7 @@ beforeEach(() => {
       max: 110,
       user_id: '',
       packName: '',
+      sortPacks: sortingMethods.DES_UPDATE,
     },
   };
   packId1 = v1();

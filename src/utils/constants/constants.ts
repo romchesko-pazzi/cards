@@ -9,6 +9,19 @@ export enum path {
   notFound = '/not-found',
 }
 
+export enum sortingMethods {
+  ASC_USER_NAME = '1user_name',
+  DES_USER_NAME = '0user_name',
+  ASC_NAME = '1name',
+  DES_NAME = '0name',
+  ASC_CARDS_COUNT = '1cardsCount',
+  DES_CARDS_COUNT = '0cardsCount',
+  ASC_CREATED = '1created',
+  DES_CREATED = '0created',
+  ASC_UPDATE = '1updated',
+  DES_UPDATE = '0updated',
+}
+
 export const minPasswordLength = 8;
 
 export const message = `

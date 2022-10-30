@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
-import { path } from '../../utils/constants';
+import { path } from '../../utils/constants/constants';
 import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './header.module.scss';

@@ -8,7 +8,7 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { changeUserData, logout } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants';
+import { path } from '../../utils/constants/constants';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './profile.module.scss';

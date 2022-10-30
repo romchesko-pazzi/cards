@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { minPasswordLength } from '../constants';
+import { minPasswordLength } from '../constants/constants';
 
 export const signUpValidate = yup.object().shape({
   email: yup.string().email('Invalid email format').required('Email is required'),

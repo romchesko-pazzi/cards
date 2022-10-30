@@ -6,7 +6,7 @@ import c from '../../assets/commonStyles/common.module.scss';
 import { DeleteModal } from '../../components/modals/deleteModal/DeleteModal';
 import { EditModal } from '../../components/modals/editModal/EditModal';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
-import { path } from '../../utils/constants';
+import { path } from '../../utils/constants/constants';
 
 import s from './pack.module.scss';
 

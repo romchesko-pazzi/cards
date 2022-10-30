@@ -8,7 +8,7 @@ import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { Search } from '../../components/search/Search';
 import { getCards } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants';
+import { path } from '../../utils/constants/constants';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Card } from '../card/Card';
 
@@ -20,9 +20,12 @@ export const CardsList = () => {
   const cards = useAppSelector(state => state.cards.cards);
   const { packName, packId } = location.state as LocationStateType;
 
+  // dependencies for request (query params)
+  const cardQuestion = useAppSelector(state => state.cards.queryParams.cardQuestion);
+
   useEffect(() => {
     dispatch(getCards(packId));
-  }, [dispatch, packId]);
+  }, [dispatch, packId, cardQuestion]);
 
   return (
     <div className={c.frame}>
@@ -37,7 +40,7 @@ export const CardsList = () => {
         <ButtonComponent title="Learn the pack" />
       </div>
       <div className={c.settings}>
-        <Search />
+        <Search isThisPlaceCards />
       </div>
       <div className={c.table}>
         <div className={c.captions}>
