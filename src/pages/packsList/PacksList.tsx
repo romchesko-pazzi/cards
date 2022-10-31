@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import loaderStyles from '../../app/app.module.scss';
 import c from '../../assets/commonStyles/common.module.scss';
+import { Captions } from '../../components/captions/Captions';
 import { AddModal } from '../../components/modals/addModal/AddModal';
 import { MyOrAll } from '../../components/myOrAll/MyOrAll';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
@@ -30,10 +31,11 @@ export const PacksList = () => {
   const packName = useAppSelector(state => state.packs.queryParams.packName);
   const min = useAppSelector(state => state.packs.queryParams.min);
   const max = useAppSelector(state => state.packs.queryParams.max);
+  const sortBy = useAppSelector(state => state.packs.queryParams.sortPacks);
 
   useEffect(() => {
     dispatch(getPacks());
-  }, [dispatch, page, packName, pageCount, user_id, min, max]);
+  }, [dispatch, page, packName, pageCount, user_id, min, max, sortBy]);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -56,22 +58,16 @@ export const PacksList = () => {
         <AddModal />
       </div>
       <div className={c.settings}>
-        <Search />
+        <Search isThisPlaceCards={false} />
         <MyOrAll />
-        <SliderComponent min={min} max={max} />
+        <SliderComponent />
       </div>
       {packs.length === 0 ? (
         <div className={s.noData}>No data.</div>
       ) : (
         <>
           <div className={c.table}>
-            <div className={c.captions}>
-              <div>Name</div>
-              <div>Cards</div>
-              <div>Last Updated</div>
-              <div>Created by</div>
-              <div>Actions</div>
-            </div>
+            <Captions />
             {packs.map(item => {
               return (
                 <Pack

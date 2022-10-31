@@ -1,10 +1,11 @@
 import { PackType, ResponsePacksType } from '../../api/packsAPI';
+import { sortingMethods } from '../../utils/constants/constants';
 
 const initState: InitStateType = {
   cardPacks: [],
   cardPacksTotalCount: 0,
-  maxCardsCount: 0,
   minCardsCount: 0,
+  maxCardsCount: 0,
   isPacksFetched: false, // for loading in PacksList.tsx
   queryParams: {
     pageCount: 5, // how many items on the page
@@ -13,6 +14,7 @@ const initState: InitStateType = {
     max: 110,
     user_id: '',
     packName: '', // for Search.tsx
+    sortPacks: sortingMethods.DES_UPDATE,
   },
 };
 
@@ -29,6 +31,7 @@ export const PacksReducer = (
     case 'PACKS/SET-PACKS-PER-PAGE':
     case 'PACKS/SET-USER-ID':
     case 'PACKS/SET-SLIDER-VALUE':
+    case 'PACKS/SET-SORT-PACK-BY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
     case 'PACKS/DELETE-PACK':
       return {
@@ -121,6 +124,13 @@ export const setNewPack = (newPack: PackType) => {
   } as const;
 };
 
+export const setSortPackBy = (sortPacks: sortingMethods) => {
+  return {
+    type: 'PACKS/SET-SORT-PACK-BY',
+    payload: { sortPacks },
+  } as const;
+};
+
 export type PacksActionsType =
   | SetPacksType
   | SetCurrentPageType
@@ -131,7 +141,8 @@ export type PacksActionsType =
   | SetIsPacksFetched
   | RemovePackType
   | UpdatePackNameType
-  | SetNewPackType;
+  | SetNewPackType
+  | SetSortPackByType;
 
 type SetPacksType = ReturnType<typeof setPacks>;
 type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
@@ -143,6 +154,7 @@ type SetIsPacksFetched = ReturnType<typeof setIsPacksFetched>;
 type RemovePackType = ReturnType<typeof removePack>;
 type UpdatePackNameType = ReturnType<typeof updatePack>;
 type SetNewPackType = ReturnType<typeof setNewPack>;
+type SetSortPackByType = ReturnType<typeof setSortPackBy>;
 
 export type InitStateType = ResponsePacksType & {
   isPacksFetched: boolean;
@@ -153,5 +165,6 @@ export type InitStateType = ResponsePacksType & {
     page: number;
     min: number;
     max: number;
+    sortPacks: sortingMethods;
   };
 };
