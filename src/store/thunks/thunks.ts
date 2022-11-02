@@ -1,5 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
-import { cardsAPI } from '../../api/cardsAPI';
+import { cardsAPI, CreateDataType } from '../../api/cardsAPI';
 import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setCards } from '../reducers/CardsReducer';
+import { setCards, setNewCard } from '../reducers/CardsReducer';
 import {
   removePack,
   setIsPacksFetched,
@@ -164,24 +164,6 @@ export const getPacks =
     }
   };
 
-export const getCards =
-  (cardsPack_id: string): AppThunkType =>
-  async (dispatch, getState: () => RootStateType) => {
-    dispatch(setAppStatus('loading'));
-    try {
-      const { pageCount, cardQuestion } = getState().cards.queryParams;
-      const response = await cardsAPI.getCards({ cardsPack_id, pageCount, cardQuestion });
-      const { cards } = response.data;
-
-      dispatch(setCards(cards));
-    } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-      dispatch(setIsLogin(false));
-    } finally {
-      dispatch(setAppStatus('finished'));
-    }
-  };
-
 export const deletePack =
   (packId: string): AppThunkType =>
   async dispatch => {
@@ -213,6 +195,7 @@ export const updatePackName =
       dispatch(setAppStatus('finished'));
     }
   };
+
 export const createPack =
   (packName: string): AppThunkType =>
   async dispatch => {
@@ -222,6 +205,44 @@ export const createPack =
 
       dispatch(setNewPack(response.data.newCardsPack));
       dispatch(setPopUp('pack have been added successfully'));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const getCards =
+  (cardsPack_id: string): AppThunkType =>
+  async (dispatch, getState: () => RootStateType) => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const { pageCount, cardQuestion } = getState().cards.queryParams;
+      const response = await cardsAPI.getCards({
+        cardsPack_id,
+        pageCount,
+        cardQuestion,
+      });
+      const { cards } = response.data;
+
+      dispatch(setCards(cards));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+      dispatch(setIsLogin(false));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const createCard =
+  (card: CreateDataType): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await cardsAPI.createCard(card);
+
+      dispatch(setNewCard(response.data.newCard));
+      dispatch(setPopUp('card have been added successfully'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {

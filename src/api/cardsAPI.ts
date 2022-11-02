@@ -6,6 +6,9 @@ export const cardsAPI = {
       params: { ...params },
     });
   },
+  createCard(card: CreateDataType) {
+    return instance.post<ResponsePostCard>('/cards/card', { card });
+  },
 };
 
 export type GetParamsType = {
@@ -14,12 +17,15 @@ export type GetParamsType = {
   cardQuestion: string;
 };
 
-export type CardType = {
-  _id: string;
+export type CreateDataType = {
   cardsPack_id: string;
-  user_id: string;
-  answer: string;
   question: string;
+  answer: string;
+};
+
+export type CardType = CreateDataType & {
+  _id: string;
+  user_id: string;
   updated: string;
   grade: number;
 };
@@ -28,4 +34,8 @@ export type ResponseCardsType = {
   cards: CardType[];
   cardsTotalCount: number;
   packName: string;
+};
+
+export type ResponsePostCard = {
+  newCard: CardType;
 };

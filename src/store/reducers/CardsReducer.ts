@@ -3,11 +3,7 @@ import { CardType, ResponseCardsType } from '../../api/cardsAPI';
 const initState: InitStateType = {
   cards: [],
   cardsTotalCount: 0,
-  // maxGrade: 0,
-  // minGrade: 0,
   packName: '',
-  // packUpdated: '',
-  // packUserId: '',
   queryParams: {
     pageCount: 5,
     cardQuestion: '',
@@ -21,8 +17,10 @@ export const CardsReducer = (
   switch (action.type) {
     case 'CARDS/SET-CARDS':
       return { ...state, cards: [...action.payload.cards] };
-    case 'PACKS/SET-CARD-QUESTION':
+    case 'CARDS/SET-CARD-QUESTION':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
+    case 'CARDS/SET-NEW-CARD':
+      return { ...state, cards: [action.payload.newCard, ...state.cards] };
     default: {
       return state;
     }
@@ -38,15 +36,23 @@ export const setCards = (cards: CardType[]) => {
 
 export const setCardQuestion = (cardQuestion: string) => {
   return {
-    type: 'PACKS/SET-CARD-QUESTION',
+    type: 'CARDS/SET-CARD-QUESTION',
     payload: { cardQuestion },
   } as const;
 };
 
-export type CardsActionsType = SetCardsType | SetCardQuestion;
+export const setNewCard = (newCard: CardType) => {
+  return {
+    type: 'CARDS/SET-NEW-CARD',
+    payload: { newCard },
+  } as const;
+};
+
+export type CardsActionsType = SetCardsType | SetCardQuestionType | SetNewCardType;
 
 type SetCardsType = ReturnType<typeof setCards>;
-type SetCardQuestion = ReturnType<typeof setCardQuestion>;
+type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
+type SetNewCardType = ReturnType<typeof setNewCard>;
 
 export type InitStateType = ResponseCardsType & {
   queryParams: {

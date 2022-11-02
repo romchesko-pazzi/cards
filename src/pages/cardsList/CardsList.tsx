@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 import c from '../../assets/commonStyles/common.module.scss';
-import { ButtonComponent } from '../../components/button/ButtonComponent';
+import { Captions } from '../../components/captions/Captions';
+import { AddModal } from '../../components/modals/addModal/AddModal';
 import { PaginationComponent } from '../../components/pagination/PaginationComponent';
 import { Search } from '../../components/search/Search';
 import { getCards } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants/constants';
+import { cardsCaptions, path } from '../../utils/constants/constants';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Card } from '../card/Card';
 
 import s from './cardsList.module.scss';
 
 export const CardsList = () => {
+  const [, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const cards = useAppSelector(state => state.cards.cards);
@@ -25,6 +27,9 @@ export const CardsList = () => {
 
   useEffect(() => {
     dispatch(getCards(packId));
+
+    // задаём init state, иначе setSearchParams location.state = null
+    setSearchParams({ packId }, { state: { packId, packName } });
   }, [dispatch, packId, cardQuestion]);
 
   return (
@@ -37,31 +42,32 @@ export const CardsList = () => {
       </Link>
       <div className={c.heading}>
         <h3>{packName}</h3>
-        <ButtonComponent title="Learn the pack" />
+        <AddModal isThisPlaceCards />
       </div>
       <div className={c.settings}>
         <Search isThisPlaceCards />
       </div>
-      <div className={c.table}>
-        <div className={c.captions}>
-          <div>Question</div>
-          <div>Answer</div>
-          <div>Last updated</div>
-          <div>Grade</div>
-        </div>
-        {cards.map(card => {
-          return (
-            <Card
-              key={card._id}
-              question={card.question}
-              answer={card.answer}
-              updated={card.updated}
-              grade={card.grade}
-            />
-          );
-        })}
-      </div>
-      <PaginationComponent />
+      {cards.length === 0 ? (
+        <div className={s.emptyPack}>This pack is empty.</div>
+      ) : (
+        <>
+          <div className={c.table}>
+            <Captions name="cards" captions={cardsCaptions} />
+            {cards.map(card => {
+              return (
+                <Card
+                  key={card._id}
+                  question={card.question}
+                  answer={card.answer}
+                  updated={card.updated}
+                  grade={card.grade}
+                />
+              );
+            })}
+          </div>
+          <PaginationComponent />
+        </>
+      )}
     </div>
   );
 };
