@@ -1,4 +1,5 @@
 @import "../sass/abstracts/vars";
+@import "../sass/base/animations";
 
 .frame {
   max-width: 160rem;
@@ -54,6 +55,15 @@
 
   & div {
     font-weight: 500;
+    display: flex;
+    align-items: center;
+
+    & svg {
+      width: 2rem;
+      height: 2rem;
+      fill: #000000;
+      padding: .2rem;
+    }
   }
 
   & div:not(:last-child) {
@@ -63,4 +73,31 @@
   & div:last-child {
     flex: 5%;
   }
+
+  & div:not(:first-child) {
+    & button {
+      opacity: 0;
+    }
+
+    & button:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.loader {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  border-top: .8rem solid rgba($color-blue-main, 1);
+  border-left: .8rem solid rgba($color-blue-main, 1);
+  border-right: .8rem solid rgba($color-blue-main, 0);
+  animation: spin 0.575s infinite linear;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
