@@ -11,7 +11,7 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setCards, setUpdatedCard } from '../reducers/CardsReducer';
+import { setCards, setCardsTotalCount, setUpdatedCard } from '../reducers/CardsReducer';
 import { setIsPacksFetched, setPacks, updatePack } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 import { RootStateType } from '../store';
@@ -216,9 +216,10 @@ export const getCards =
         cardQuestion,
         page,
       });
-      const { cards } = response.data;
+      const { cards, cardsTotalCount } = response.data;
 
       dispatch(setCards(cards));
+      dispatch(setCardsTotalCount(cardsTotalCount));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
       dispatch(setIsLogin(false));

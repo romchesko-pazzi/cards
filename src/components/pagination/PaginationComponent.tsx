@@ -8,27 +8,29 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 
-import { setCurrentPage, setPacksPerPage } from '../../store/reducers/PacksReducer';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
+import { setCardsCurrentPage, setCardsPerPage } from '../../store/reducers/CardsReducer';
+import { setPacksCurrentPage, setPacksPerPage } from '../../store/reducers/PacksReducer';
+import { useAppDispatch } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './pagination.module.scss';
 
-export const PaginationComponent = () => {
-  const pageCount = useAppSelector(state => state.packs.queryParams.pageCount);
-  const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
-  const currentPage = useAppSelector(state => state.packs.queryParams.page);
-  const limit = Math.ceil(cardPacksTotalCount / pageCount);
+export const PaginationComponent = (props: PaginationPropsType) => {
+  const { currentPage, pageCount, totalCount, isThisPlaceCards } = props;
+
+  const limit = Math.ceil(totalCount / pageCount);
   const dispatch = useAppDispatch();
   const perPageValue = pageCount.toString();
 
   const handler = (event: React.ChangeEvent<unknown>, currentPage: number) => {
-    dispatch(setCurrentPage(currentPage));
+    if (isThisPlaceCards) dispatch(setCardsCurrentPage(currentPage));
+    if (!isThisPlaceCards) dispatch(setPacksCurrentPage(currentPage));
   };
 
   const perPageHandler = (event: SelectChangeEvent) => {
     const pageCount = +event.target.value;
 
-    dispatch(setPacksPerPage(pageCount));
+    if (isThisPlaceCards) dispatch(setCardsPerPage(pageCount));
+    if (!isThisPlaceCards) dispatch(setPacksPerPage(pageCount));
   };
 
   return (
@@ -57,4 +59,11 @@ export const PaginationComponent = () => {
       </div>
     </div>
   );
+};
+
+type PaginationPropsType = {
+  pageCount: number;
+  totalCount: number;
+  currentPage: number;
+  isThisPlaceCards: boolean;
 };
