@@ -34,3 +34,11 @@
   padding: 2rem 0;
   font-size: 1.8rem;
 }
+
+.btnDisabled {
+  opacity: .1;
+
+  & svg {
+    cursor: not-allowed;
+  }
+}
