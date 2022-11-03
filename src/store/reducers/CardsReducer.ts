@@ -1,4 +1,4 @@
-import { CardType, ResponseCardsType } from '../../api/cardsAPI';
+import { CardType, ResponseGetType, UpdateCardType } from '../../api/cardsAPI';
 
 const initState: InitStateType = {
   cards: [],
@@ -6,6 +6,7 @@ const initState: InitStateType = {
   packName: '',
   queryParams: {
     pageCount: 5,
+    page: 1,
     cardQuestion: '',
   },
 };
@@ -18,9 +19,22 @@ export const CardsReducer = (
     case 'CARDS/SET-CARDS':
       return { ...state, cards: [...action.payload.cards] };
     case 'CARDS/SET-CARD-QUESTION':
+    case 'CARDS/SET-CURRENT-PAGE':
+    case 'CARDS/SET-CARDS-PER-PAGE':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
-    case 'CARDS/SET-NEW-CARD':
-      return { ...state, cards: [action.payload.newCard, ...state.cards] };
+    case 'CARDS/SET-UPDATED-CARD':
+      return {
+        ...state,
+        cards: state.cards.map(m =>
+          m._id === action.payload.card._id
+            ? {
+                ...m,
+                question: action.payload.card.question,
+                answer: action.payload.card.answer,
+              }
+            : m,
+        ),
+      };
     default: {
       return state;
     }
@@ -41,22 +55,44 @@ export const setCardQuestion = (cardQuestion: string) => {
   } as const;
 };
 
-export const setNewCard = (newCard: CardType) => {
+export const setCardsCurrentPage = (page: number) => {
   return {
-    type: 'CARDS/SET-NEW-CARD',
-    payload: { newCard },
+    type: 'CARDS/SET-CURRENT-PAGE',
+    payload: { page },
   } as const;
 };
 
-export type CardsActionsType = SetCardsType | SetCardQuestionType | SetNewCardType;
+export const setCardsPerPage = (pageCount: number) => {
+  return {
+    type: 'CARDS/SET-CARDS-PER-PAGE',
+    payload: { pageCount },
+  } as const;
+};
+
+export const setUpdatedCard = (card: UpdateCardType) => {
+  return {
+    type: 'CARDS/SET-UPDATED-CARD',
+    payload: { card },
+  } as const;
+};
+
+export type CardsActionsType =
+  | SetCardsType
+  | SetCardQuestionType
+  | SetCardsCurrentPageType
+  | SetCardsPerPageType
+  | SetUpdatedCardType;
 
 type SetCardsType = ReturnType<typeof setCards>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
-type SetNewCardType = ReturnType<typeof setNewCard>;
+type SetCardsCurrentPageType = ReturnType<typeof setCardsCurrentPage>;
+type SetCardsPerPageType = ReturnType<typeof setCardsPerPage>;
+type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
 
-export type InitStateType = ResponseCardsType & {
+export type InitStateType = ResponseGetType & {
   queryParams: {
     pageCount: number;
+    page: number;
     cardQuestion: string;
   };
 };

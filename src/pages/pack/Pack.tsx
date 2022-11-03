@@ -8,8 +8,6 @@ import { EditModal } from '../../components/modals/editModal/EditModal';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { path } from '../../utils/constants/constants';
 
-import s from './pack.module.scss';
-
 export const Pack = (props: PackPropsType) => {
   const { author, packName, updated, cardsCount, packId, userId } = props;
   const navigate = useNavigate();
@@ -21,6 +19,7 @@ export const Pack = (props: PackPropsType) => {
       state: {
         packName,
         packId,
+        userId,
       },
     });
   };
@@ -31,15 +30,25 @@ export const Pack = (props: PackPropsType) => {
       <div>{cardsCount}</div>
       <div>{time}</div>
       <div>{author}</div>
-      <div className={s.icons}>
+      <div className={c.icons}>
         <button onClick={navigateToCardsPage} type="button">
           <SvgSelector id="open" />
         </button>
         <button type="button">
           <SvgSelector id="learn" />
         </button>
-        <EditModal userId={userId} packId={packId} packName={packName} />
-        <DeleteModal userId={userId} packId={packId} packName={packName} />
+        <EditModal
+          isThisPlaceCards={false}
+          propsUserId={userId}
+          id={packId}
+          name={packName}
+        />
+        <DeleteModal
+          isThisPlaceCards={false}
+          propsUserId={userId}
+          id={packId}
+          name={packName}
+        />
       </div>
     </div>
   );

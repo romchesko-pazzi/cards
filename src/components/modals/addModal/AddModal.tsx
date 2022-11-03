@@ -9,8 +9,8 @@ import { useSearchParams } from 'react-router-dom';
 import { createCard, createPack } from '../../../store/thunks/thunks';
 import { useAppDispatch } from '../../../utils/hooks/useSelectorUseDispatch';
 import { ButtonComponent } from '../../button/ButtonComponent';
-import { style } from '../basePackModal/BaseModal';
-import c from '../common.module.scss';
+import { style } from '../baseModal/BaseModal';
+import c from '../commonModal.module.scss';
 
 export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) => {
   const [searchParams] = useSearchParams();

@@ -4,9 +4,9 @@ import { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
-import s from '../../pages/pack/pack.module.scss';
-import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
-import { SvgSelector } from '../svgSelector/SvgSelector';
+import { useAppSelector } from '../../../utils/hooks/useSelectorUseDispatch';
+import { SvgSelector } from '../../svgSelector/SvgSelector';
+import c from '../commonModal.module.scss';
 
 export const style = {
   position: 'absolute' as 'absolute',
@@ -24,7 +24,7 @@ export const style = {
 export const BaseModal = ({ children, userId, type, isOpen, setIsOpen }: PropsType) => {
   // for disable actions (delete pack, change name)
   const userIdFromProfile = useAppSelector(state => state.profile._id);
-  const btnDisabledStyle = userIdFromProfile !== userId ? s.btnDisabled : '';
+  const btnDisabledStyle = userIdFromProfile !== userId ? c.btnDisabled : '';
   const isButtonDisabled = userIdFromProfile !== userId;
 
   const openCloseModalHandler = () => setIsOpen();

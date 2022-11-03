@@ -1,40 +1,49 @@
 import React, { useState } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
+import { useSearchParams } from 'react-router-dom';
 
-import { deletePack } from '../../../store/thunks/thunks';
+import { deleteCard, deletePack } from '../../../store/thunks/thunks';
 import { useAppDispatch } from '../../../utils/hooks/useSelectorUseDispatch';
 import { ButtonComponent } from '../../button/ButtonComponent';
-import { BaseModal } from '../BaseModal';
-import common from '../BaseModal.module.scss';
+import { BaseModal } from '../baseModal/BaseModal';
+import c from '../commonModal.module.scss';
 
-import s from './deleteModal.module.scss';
-
-export const DeleteModal: React.FC<PropsType> = ({ userId, packId, packName }) => {
-  const dispatch = useAppDispatch();
+export const DeleteModal: React.FC<PropsType> = props => {
+  const { propsUserId, id, name, isThisPlaceCards } = props;
+  const [searchParams] = useSearchParams(); // for cardsComponent
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const userId = searchParams.get('userId') || propsUserId;
 
   const setIsOpenHandler = () => setIsOpen(!isOpen);
 
   const deletePackHandler = () => {
-    dispatch(deletePack(packId));
+    if (!isThisPlaceCards) dispatch(deletePack(id));
+    if (isThisPlaceCards) dispatch(deleteCard(id));
+    setIsOpenHandler();
   };
 
   return (
-    <BaseModal setIsOpen={setIsOpenHandler} isOpen={isOpen} userId={userId} type="delete">
-      <div className={common.heading}>
+    <BaseModal
+      setIsOpen={setIsOpenHandler}
+      isOpen={isOpen}
+      userId={userId!}
+      type="delete"
+    >
+      <div className={c.heading}>
         <h3>Delete pack</h3>
         <button type="button" onClick={setIsOpenHandler}>
           <CloseIcon cursor="pointer" fontSize="large" />
         </button>
       </div>
-      <div className={s.paragraphs}>
+      <div className={c.paragraphs}>
         <div>
-          Do you really want to remove <b>{packName}</b>?
+          Do you really want to remove <b>{name}</b>?
         </div>
-        <div>All cards will be deleted.</div>
+        <div>All data will be deleted.</div>
       </div>
-      <div className={s.buttons}>
+      <div className={c.buttons}>
         <ButtonComponent title="Cancel" callback={setIsOpenHandler} />
         <ButtonComponent title="Delete" callback={deletePackHandler} color="red" />
       </div>
@@ -43,7 +52,8 @@ export const DeleteModal: React.FC<PropsType> = ({ userId, packId, packName }) =
 };
 
 type PropsType = {
-  userId: string;
-  packId: string;
-  packName: string;
+  id: string;
+  propsUserId?: string; // for PackComponent
+  name: string;
+  isThisPlaceCards: boolean;
 };

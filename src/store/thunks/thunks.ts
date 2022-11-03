@@ -1,5 +1,5 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
-import { cardsAPI, CreateDataType } from '../../api/cardsAPI';
+import { cardsAPI, CreateDataType, UpdateCardType } from '../../api/cardsAPI';
 import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
@@ -11,14 +11,8 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setCards, setNewCard } from '../reducers/CardsReducer';
-import {
-  removePack,
-  setIsPacksFetched,
-  setNewPack,
-  setPacks,
-  updatePack,
-} from '../reducers/PacksReducer';
+import { setCards, setUpdatedCard } from '../reducers/CardsReducer';
+import { setIsPacksFetched, setPacks, updatePack } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 import { RootStateType } from '../store';
 
@@ -94,7 +88,7 @@ export const changeUserData =
       const response = await profileAPI.editUserData(data);
       const { name, email, _id, avatar } = response.data.updatedUser;
 
-      dispatch(setPopUp('name changed successfully'));
+      dispatch(setPopUp('name has been changed successfully'));
       dispatch(setUserData({ name, _id, email, avatar }));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
@@ -170,8 +164,7 @@ export const deletePack =
     dispatch(setAppStatus('loading'));
     try {
       await packsAPI.deletePack(packId);
-      dispatch(removePack(packId));
-      dispatch(setPopUp('pack have been deleted successfully'));
+      dispatch(setPopUp('pack has been deleted successfully'));
       dispatch(getPacks());
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
@@ -188,7 +181,7 @@ export const updatePackName =
       const response = await packsAPI.updatePack(packId, packName);
 
       dispatch(updatePack(packId, response.data.updatedCardsPack.name));
-      dispatch(setPopUp('name have been changed successfully'));
+      dispatch(setPopUp('name has been changed successfully'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {
@@ -201,10 +194,9 @@ export const createPack =
   async dispatch => {
     dispatch(setAppStatus('loading'));
     try {
-      const response = await packsAPI.createPack(packName);
-
-      dispatch(setNewPack(response.data.newCardsPack));
-      dispatch(setPopUp('pack have been added successfully'));
+      await packsAPI.createPack(packName);
+      dispatch(getPacks());
+      dispatch(setPopUp('pack has been added successfully'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {
@@ -217,11 +209,12 @@ export const getCards =
   async (dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatus('loading'));
     try {
-      const { pageCount, cardQuestion } = getState().cards.queryParams;
+      const { pageCount, cardQuestion, page } = getState().cards.queryParams;
       const response = await cardsAPI.getCards({
         cardsPack_id,
         pageCount,
         cardQuestion,
+        page,
       });
       const { cards } = response.data;
 
@@ -241,8 +234,42 @@ export const createCard =
     try {
       const response = await cardsAPI.createCard(card);
 
-      dispatch(setNewCard(response.data.newCard));
-      dispatch(setPopUp('card have been added successfully'));
+      dispatch(setPopUp('card has been added successfully'));
+      dispatch(getCards(response.data.newCard.cardsPack_id));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const deleteCard =
+  (cardId: string): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    try {
+      const response = await cardsAPI.deleteCard(cardId);
+
+      dispatch(getCards(response.data.deletedCard.cardsPack_id));
+      dispatch(setPopUp('card has been deleted successfully'));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const updateCard =
+  (question: string, answer: string, _id: string): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    const card: UpdateCardType = { question, answer, _id };
+
+    try {
+      const response = await cardsAPI.updateCard(card);
+
+      dispatch(setUpdatedCard(response.data.updatedCard));
+      dispatch(setPopUp('card has been updated successfully'));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
     } finally {
