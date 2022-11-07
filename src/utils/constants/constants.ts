@@ -8,18 +8,24 @@ export enum path {
   newPassword = '/set-new-password',
   packsList = '/packs-list',
   cardsList = '/cards-list',
+  learn = '/learn',
   notFound = '/not-found',
 }
 
-export enum sortingMethods {
+export enum sortingPacksMethods {
   ASC_USER_NAME = '1user_name',
   DES_USER_NAME = '0user_name',
   ASC_NAME = '1name',
   DES_NAME = '0name',
   ASC_CARDS_COUNT = '1cardsCount',
   DES_CARDS_COUNT = '0cardsCount',
-  ASC_CREATED = '1created',
-  DES_CREATED = '0created',
+  ASC_UPDATE = '1updated',
+  DES_UPDATE = '0updated',
+}
+
+export enum sortingCardsMethods {
+  ASC_GRADE = '1grade',
+  DES_GRADE = '0grade',
   ASC_UPDATE = '1updated',
   DES_UPDATE = '0updated',
 }
@@ -47,7 +53,7 @@ export const cardsCaptions: { id: string; label: string }[] = [
 
 export const emptyQueryParams: InitStateType['queryParams'] = {
   pageCount: 5,
-  sortPacks: sortingMethods.DES_UPDATE,
+  sortPacks: sortingPacksMethods.DES_UPDATE,
   user_id: '',
   packName: '',
   min: 0,

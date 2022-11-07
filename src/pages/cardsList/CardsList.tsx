@@ -33,6 +33,7 @@ export const CardsList = () => {
   const pageCount = useAppSelector(state => state.cards.queryParams.pageCount);
   const currentPage = useAppSelector(state => state.cards.queryParams.page);
   const totalCount = useAppSelector(state => state.cards.cardsTotalCount);
+  const sortBy = useAppSelector(state => state.cards.queryParams.sortCards);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -43,12 +44,12 @@ export const CardsList = () => {
     dispatch(getCards(packId));
     // задаём init state, иначе setSearchParams location.state = null
     setSearchParams({ packId, userId }, { state: { packId, packName, userId } });
-  }, [dispatch, packId, cardQuestion, pageCount, currentPage]);
+  }, [dispatch, packId, cardQuestion, pageCount, currentPage, sortBy]);
 
   return (
     <div className={c.frame}>
       <Link to={path.packsList}>
-        <div className={s.returnToPackList}>
+        <div className={c.returnToPackList}>
           <ArrowBackIcon fontSize="large" />
           <span>Back to pack list</span>
         </div>
@@ -65,8 +66,14 @@ export const CardsList = () => {
       ) : (
         <>
           <div className={c.table}>
-            <Captions name="cards" captions={cardsCaptions} />
-            {status !== 'loading' && (
+            <Captions isThisPlaceCards captions={cardsCaptions} />
+            {status === 'loading' ? (
+              <div className={s.loadingBlock}>
+                <div className={s.center}>
+                  <div className={c.loader} />
+                </div>
+              </div>
+            ) : (
               <>
                 {cards.map(card => {
                   return (

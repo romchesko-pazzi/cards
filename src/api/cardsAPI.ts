@@ -1,3 +1,5 @@
+import { sortingCardsMethods } from '../utils/constants/constants';
+
 import { instance } from './instance';
 
 export const cardsAPI = {
@@ -22,6 +24,7 @@ export type GetParamsType = {
   pageCount: number;
   cardQuestion: string;
   page: number;
+  sortCards: sortingCardsMethods;
 };
 
 export type CreateDataType = {

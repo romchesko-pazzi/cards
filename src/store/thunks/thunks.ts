@@ -209,12 +209,13 @@ export const getCards =
   async (dispatch, getState: () => RootStateType) => {
     dispatch(setAppStatus('loading'));
     try {
-      const { pageCount, cardQuestion, page } = getState().cards.queryParams;
+      const { pageCount, cardQuestion, page, sortCards } = getState().cards.queryParams;
       const response = await cardsAPI.getCards({
         cardsPack_id,
         pageCount,
         cardQuestion,
         page,
+        sortCards,
       });
       const { cards, cardsTotalCount } = response.data;
 

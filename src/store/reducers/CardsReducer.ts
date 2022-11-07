@@ -1,4 +1,5 @@
 import { CardType, ResponseGetType, UpdateCardType } from '../../api/cardsAPI';
+import { sortingCardsMethods } from '../../utils/constants/constants';
 
 const initState: InitStateType = {
   cards: [],
@@ -8,6 +9,7 @@ const initState: InitStateType = {
     pageCount: 5,
     page: 1,
     cardQuestion: '',
+    sortCards: sortingCardsMethods.DES_UPDATE,
   },
 };
 
@@ -21,6 +23,7 @@ export const CardsReducer = (
     case 'CARDS/SET-CARD-QUESTION':
     case 'CARDS/SET-CURRENT-PAGE':
     case 'CARDS/SET-CARDS-PER-PAGE':
+    case 'CARDS/SET-SORT-CARD-BY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
     case 'CARDS/SET-UPDATED-CARD':
       return {
@@ -35,6 +38,8 @@ export const CardsReducer = (
             : m,
         ),
       };
+    case 'CARDS/SET-CARDS-TOTAL-COUNT':
+      return { ...state, ...action.payload };
     default: {
       return state;
     }
@@ -76,23 +81,42 @@ export const setUpdatedCard = (card: UpdateCardType) => {
   } as const;
 };
 
+export const setCardsTotalCount = (cardsTotalCount: number) => {
+  return {
+    type: 'CARDS/SET-CARDS-TOTAL-COUNT',
+    payload: { cardsTotalCount },
+  } as const;
+};
+
+export const setSortCardBy = (sortCards: sortingCardsMethods) => {
+  return {
+    type: 'CARDS/SET-SORT-CARD-BY',
+    payload: { sortCards },
+  } as const;
+};
+
 export type CardsActionsType =
   | SetCardsType
   | SetCardQuestionType
   | SetCardsCurrentPageType
   | SetCardsPerPageType
-  | SetUpdatedCardType;
+  | SetUpdatedCardType
+  | SetCardsTotalCountType
+  | SetSortCardByType;
 
 type SetCardsType = ReturnType<typeof setCards>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
 type SetCardsCurrentPageType = ReturnType<typeof setCardsCurrentPage>;
 type SetCardsPerPageType = ReturnType<typeof setCardsPerPage>;
 type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
+type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCount>;
+type SetSortCardByType = ReturnType<typeof setSortCardBy>;
 
 export type InitStateType = ResponseGetType & {
   queryParams: {
     pageCount: number;
     page: number;
     cardQuestion: string;
+    sortCards: sortingCardsMethods;
   };
 };
