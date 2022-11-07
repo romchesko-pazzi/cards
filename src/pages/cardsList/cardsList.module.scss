@@ -18,3 +18,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.loadingBlock {
+  min-height: 40rem;
+}
+
+.center {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

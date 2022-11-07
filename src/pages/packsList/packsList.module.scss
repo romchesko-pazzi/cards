@@ -3,3 +3,18 @@
   text-align: center;
   font-size: 2.4rem;
 }
+
+.refreshButton {
+  padding: .4rem .7rem;
+  box-shadow: 0 0 0 .1rem rgba(0, 0, 0, 0.15);
+  background-color: white;
+  display: flex;
+  align-self: end;
+
+  & svg {
+    display: flex;
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
