@@ -24,6 +24,7 @@ export const CardsList = () => {
 
   const cards = useAppSelector(state => state.cards.cards);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const status = useAppSelector(state => state.app.status);
 
   const { packName, packId, userId } = location.state as LocationStateType;
 
@@ -59,24 +60,28 @@ export const CardsList = () => {
       <div className={c.settings}>
         <Search isThisPlaceCards />
       </div>
-      {cards.length === 0 ? (
+      {cards.length === 0 && status !== 'loading' ? (
         <div className={s.emptyPack}>This pack is empty.</div>
       ) : (
         <>
           <div className={c.table}>
             <Captions name="cards" captions={cardsCaptions} />
-            {cards.map(card => {
-              return (
-                <Card
-                  key={card._id}
-                  question={card.question}
-                  answer={card.answer}
-                  updated={card.updated}
-                  grade={card.grade}
-                  cardId={card._id}
-                />
-              );
-            })}
+            {status !== 'loading' && (
+              <>
+                {cards.map(card => {
+                  return (
+                    <Card
+                      key={card._id}
+                      question={card.question}
+                      answer={card.answer}
+                      updated={card.updated}
+                      grade={card.grade}
+                      cardId={card._id}
+                    />
+                  );
+                })}
+              </>
+            )}
           </div>
           <PaginationComponent
             isThisPlaceCards

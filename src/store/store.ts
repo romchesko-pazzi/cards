@@ -22,3 +22,7 @@ export const rootReducer = combineReducers({
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
+
+// for browser development
+// @ts-ignore
+window.store = store;

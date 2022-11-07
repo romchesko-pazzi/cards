@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 
 import c from '../../assets/commonStyles/common.module.scss';
 import { setSortPackBy } from '../../store/reducers/PacksReducer';
-import { packsCaptions, sortingMethods } from '../../utils/constants/constants';
+import { sortingMethods } from '../../utils/constants/constants';
 import { useAppDispatch } from '../../utils/hooks/useSelectorUseDispatch';
 
 import { Caption } from './Caption';
 
-export const Captions = () => {
+export const Captions = ({ captions, name }: CaptionsType) => {
   const dispatch = useAppDispatch();
 
   const sortHandler = useCallback(
@@ -46,7 +46,7 @@ export const Captions = () => {
 
   return (
     <div className={c.captions}>
-      {packsCaptions.map(m => (
+      {captions.map(m => (
         <Caption key={m.id} name={m.label} callback={sortHandler} />
       ))}
       <div>
@@ -54,4 +54,9 @@ export const Captions = () => {
       </div>
     </div>
   );
+};
+
+type CaptionsType = {
+  captions: Array<{ id: string; label: string }>;
+  name: 'packs' | 'cards';
 };

@@ -9,7 +9,10 @@ export const ButtonComponent = memo((props: ButtonPropsType) => {
 
   return (
     <Button
-      sx={{ backgroundColor: color || '#366EFF' }}
+      sx={[
+        { backgroundColor: color || '#366EFF' },
+        { '&:hover': { backgroundColor: color || '#366EFF' } },
+      ]}
       onClick={callback}
       className={s.main}
       type={type}

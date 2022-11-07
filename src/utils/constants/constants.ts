@@ -1,3 +1,5 @@
+import { InitStateType } from '../../store/reducers/PacksReducer';
+
 export enum path {
   signUp = '/signUp',
   profile = '/profile',
@@ -36,3 +38,19 @@ export const packsCaptions: { id: string; label: string }[] = [
   { id: '3', label: 'Last Updated' },
   { id: '4', label: 'Created by' },
 ];
+export const cardsCaptions: { id: string; label: string }[] = [
+  { id: '5', label: 'Question' },
+  { id: '6', label: 'Answer' },
+  { id: '7', label: 'Last Updated' },
+  { id: '8', label: 'Grade' },
+];
+
+export const emptyQueryParams: InitStateType['queryParams'] = {
+  pageCount: 5,
+  sortPacks: sortingMethods.DES_UPDATE,
+  user_id: '',
+  packName: '',
+  min: 0,
+  max: 0,
+  page: 1,
+};

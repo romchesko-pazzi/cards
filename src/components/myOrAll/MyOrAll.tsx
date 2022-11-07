@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import { setUserId } from '../../store/reducers/PacksReducer';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
@@ -6,9 +6,16 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUse
 import s from './myOrAll.module.scss';
 
 export const MyOrAll = memo(() => {
-  const [isMy, setIsMy] = useState<boolean>(false);
+  const idForRefreshFilter = useAppSelector(state => state.packs.queryParams.user_id);
+  const [isMy, setIsMy] = useState<boolean>(!!idForRefreshFilter);
   const dispatch = useAppDispatch();
   const userId = useAppSelector(state => state.profile._id);
+
+  useEffect(() => {
+    if (!idForRefreshFilter) {
+      setIsMy(false);
+    }
+  }, [idForRefreshFilter]);
 
   const getMyPacksHandler = () => {
     dispatch(setUserId(userId));

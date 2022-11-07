@@ -28,7 +28,7 @@ export const setAppStatus = (status: AppStatusType) => {
   } as const;
 };
 
-export const setPopUp = (notification: string) => {
+export const setPopUp = (notification: string = 'some error') => {
   return {
     type: 'APP/SET-POP-UP',
     payload: { notification },

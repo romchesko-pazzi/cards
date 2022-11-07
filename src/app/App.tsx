@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import c from '../assets/commonStyles/common.module.scss';
 import { CardsList } from '../pages/cardsList/CardsList';
 import { CheckEmail } from '../pages/checkEmail/CheckEmail';
 import { Forgot } from '../pages/forgot/Forgot';
@@ -13,10 +14,8 @@ import { Profile } from '../pages/profile/Profile';
 import { SignIn } from '../pages/signIn/SignIn';
 import { SignUp } from '../pages/signUp/SignUp';
 import { initializeApp } from '../store/thunks/thunks';
-import { path } from '../utils/constants';
+import { path } from '../utils/constants/constants';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/useSelectorUseDispatch';
-
-import s from './app.module.scss';
 
 export const App = () => {
   const isInitialized = useAppSelector(state => state.app.isInitialized);
@@ -28,8 +27,8 @@ export const App = () => {
 
   if (!isInitialized) {
     return (
-      <div className={s.center}>
-        <div className={s.loader} />
+      <div className={c.center}>
+        <div className={c.loader} />
       </div>
     );
   }

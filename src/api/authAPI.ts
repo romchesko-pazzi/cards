@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { message } from '../utils/constants';
+import { message } from '../utils/constants/constants';
 import { RegistrationType, SetNewPasswordType, SignInType } from '../utils/types/types';
 
 import { instance } from './instance';
