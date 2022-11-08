@@ -1,0 +1,46 @@
+.heading {
+
+}
+
+.learnBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.contentBox {
+  box-shadow: 0 0 .8rem -.3rem rgba(0, 0, 0, 0.36);
+  background-color: white;
+  padding: 3.5rem;
+  margin-top: 1.5rem;
+
+  & div:not(:last-child) {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.button {
+  display: flex;
+
+  & > button {
+    flex: 1;
+  }
+}
+
+.rateLabel {
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
+
+.radioButton {
+  & span {
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: 400 !important;
+  }
+
+  & input {
+    color: red !important;
+  }
+}
