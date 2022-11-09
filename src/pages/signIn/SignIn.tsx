@@ -6,6 +6,7 @@ import { Checkbox, IconButton, InputAdornment, TextField } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
+import c from '../../assets/commonStyles/common.module.scss';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { Wrapper } from '../../components/wrapper/Wrapper';
@@ -18,6 +19,7 @@ import s from './signIn.module.scss';
 
 export const SignIn = () => {
   const { isLoggedIn } = useAppSelector(state => state.auth);
+  const status = useAppSelector(state => state.app.status);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +29,7 @@ export const SignIn = () => {
       navigate('/profile');
     }
   }, [isLoggedIn, navigate]);
+
   const {
     handleSubmit,
     reset,
@@ -36,6 +39,7 @@ export const SignIn = () => {
     mode: 'onBlur',
     resolver: yupResolver(signInValidate),
   });
+
   const onSubmit = (data: SignInType) => {
     dispatch(login(data));
     reset();
@@ -43,6 +47,14 @@ export const SignIn = () => {
 
   const navigateToSignUp = useCallback(() => navigate('/signUp'), [navigate]);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  if (status === 'loading') {
+    return (
+      <div className={c.center}>
+        <div className={c.loader} />
+      </div>
+    );
+  }
 
   return (
     <Wrapper heading="Sign In">
