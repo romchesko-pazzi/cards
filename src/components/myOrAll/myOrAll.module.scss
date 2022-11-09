@@ -1,0 +1,31 @@
+@import "src/assets/sass/abstracts/vars";
+
+.main {
+  margin-right: 6rem;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 1rem;
+
+  & button:not(:last-child) {
+    margin-right: .3rem;
+  }
+}
+
+.button {
+  cursor: pointer;
+  font-size: inherit;
+  display: block;
+  background-color: white;
+  box-shadow: 0 0 0 .1rem rgba(0, 0, 0, 0.15);
+  padding: .7rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  border-radius: .3rem;
+}
+
+.active {
+  background-color: $color-blue-light;
+  color: white;
+}

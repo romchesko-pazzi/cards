@@ -1,0 +1,12 @@
+.main {
+  font-size: 1.6rem !important;
+  font-family: inherit !important;
+  font-weight: 500 !important;
+  padding: 1rem 2rem !important;
+  border-radius: 1rem !important;
+  transition: all .1s !important;
+
+  &:active {
+    transform: translateY(0.3rem);
+  }
+}

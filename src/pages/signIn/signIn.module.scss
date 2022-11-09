@@ -1,0 +1,38 @@
+@import "/src/assets/sass/abstracts/vars";
+@import "/src/assets/sass/abstracts/mixins";
+
+.form {
+  @include formDirection;
+}
+
+.input {
+  @include setTextField;
+
+  & svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+.button {
+  display: flex;
+  & > button {
+    flex: 1;
+  }
+}
+
+.text {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.link {
+  color: $color-blue-main;
+  font-size: 1.8rem;
+}

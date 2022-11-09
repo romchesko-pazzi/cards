@@ -1,0 +1,51 @@
+@import "/src/assets/sass/abstracts/vars";
+
+.main {
+  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: .4rem .6rem .8rem rgba(34, 60, 80, 0.2);
+  background-color: white;
+}
+
+.heading {
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: $color-blue-main;
+  margin-left: 15rem;
+  margin-bottom: .4rem;
+}
+
+.userHeader {
+  display: flex;
+  align-items: center;
+  margin-right: 15rem;
+  margin-bottom: .4rem;
+
+  & span {
+    font-size: 2rem;
+  }
+}
+
+.userPhoto {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  margin-left: 2rem;
+
+  & img {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  & button {
+    cursor: pointer;
+  }
+}
+
+.transparentLoading {
+  height: .4rem;
+}

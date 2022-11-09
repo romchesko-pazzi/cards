@@ -1,0 +1,21 @@
+@mixin centerContent {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin setTextField {
+  font-size: 1.6rem !important;
+  font-family: inherit !important;
+}
+
+@mixin formDirection {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+
+  & > div {
+    margin-bottom: 3rem;
+  }
+}

@@ -1,0 +1,24 @@
+@import "/src/assets/sass/abstracts/mixins";
+
+.form {
+  @include formDirection;
+}
+
+.input {
+  @include setTextField;
+}
+
+.text p{
+  font-size: 1.6rem;
+  max-width: 40rem;
+  text-align: center;
+  color: #9a9a9a;
+}
+
+.button {
+  display: flex;
+
+  & > button {
+    flex: 1;
+  }
+}

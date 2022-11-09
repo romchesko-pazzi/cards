@@ -1,0 +1,44 @@
+@import "/src/assets/sass/abstracts/vars";
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: .1rem solid $color-gray-dark;
+  padding-bottom: 2rem;
+
+  & h3 {
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+}
+
+.input {
+  padding: 4rem 0;
+}
+
+.secondInput {
+  padding-bottom: 4rem;
+}
+
+.textField {
+  font-size: 2rem !important;
+  font-family: inherit !important;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.paragraphs {
+  padding: 2rem 0;
+  font-size: 1.8rem;
+}
+
+.btnDisabled {
+  opacity: .1;
+
+  & svg {
+    cursor: not-allowed;
+  }
+}

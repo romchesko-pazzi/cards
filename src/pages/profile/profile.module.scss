@@ -1,0 +1,40 @@
+@import "/src/assets/sass/abstracts/vars";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+
+  & > div, h2 {
+    margin-bottom: 3rem;
+  }
+
+  & a {
+    color: $color-blue-main;
+  }
+}
+
+.heading {
+  margin-top: 4rem;
+  font-size: 3rem;
+}
+
+.photo, .photo img {
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userData {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 4rem;
+
+  & span {
+    margin-right: 2rem;
+  }
+}
