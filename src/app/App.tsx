@@ -7,6 +7,7 @@ import { CardsList } from '../pages/cardsList/CardsList';
 import { CheckEmail } from '../pages/checkEmail/CheckEmail';
 import { Forgot } from '../pages/forgot/Forgot';
 import { Header } from '../pages/header/Header';
+import { LearnPage } from '../pages/learnPage/LearnPage';
 import { NewPassword } from '../pages/newPassword/NewPassword';
 import { NotFound } from '../pages/notFound/NotFound';
 import { PacksList } from '../pages/packsList/PacksList';
@@ -44,6 +45,7 @@ export const App = () => {
         <Route path={`${path.newPassword}/:token`} element={<NewPassword />} />
         <Route path={path.packsList} element={<PacksList />} />
         <Route path={path.cardsList} element={<CardsList />} />
+        <Route path={path.learn} element={<LearnPage />} />
         <Route path="*" element={<Navigate to="not-found" />} />
       </Route>
       <Route path={path.notFound} element={<NotFound />} />
