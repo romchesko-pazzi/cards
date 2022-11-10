@@ -5,6 +5,7 @@ const initState: InitStateType = {
   cards: [],
   cardsTotalCount: 0,
   packName: '',
+  isCardsFetched: false,
   queryParams: {
     pageCount: 5,
     page: 1,
@@ -39,7 +40,17 @@ export const CardsReducer = (
         ),
       };
     case 'CARDS/SET-CARDS-TOTAL-COUNT':
+    case 'CARDS/SET-IS-CARDS-FETCHED':
       return { ...state, ...action.payload };
+    case 'CARDS/SET-UPDATED-SHOTS-CARD':
+      return {
+        ...state,
+        cards: state.cards.map(m =>
+          m._id === action.payload.card_id
+            ? { ...m, shots: action.payload.updatedShots, grade: action.payload.grade }
+            : m,
+        ),
+      };
     default: {
       return state;
     }
@@ -95,6 +106,24 @@ export const setSortCardBy = (sortCards: sortingCardsMethods) => {
   } as const;
 };
 
+export const setIsCardsFetched = (isCardsFetched: boolean) => {
+  return {
+    type: 'CARDS/SET-IS-CARDS-FETCHED',
+    payload: { isCardsFetched },
+  } as const;
+};
+
+export const setUpdatedShotsCard = (
+  card_id: string,
+  updatedShots: number,
+  grade: number,
+) => {
+  return {
+    type: 'CARDS/SET-UPDATED-SHOTS-CARD',
+    payload: { card_id, updatedShots, grade },
+  } as const;
+};
+
 export type CardsActionsType =
   | SetCardsType
   | SetCardQuestionType
@@ -102,7 +131,9 @@ export type CardsActionsType =
   | SetCardsPerPageType
   | SetUpdatedCardType
   | SetCardsTotalCountType
-  | SetSortCardByType;
+  | SetSortCardByType
+  | SetIsCardsFetchedType
+  | SetUpdatedShotsCardType;
 
 type SetCardsType = ReturnType<typeof setCards>;
 type SetCardQuestionType = ReturnType<typeof setCardQuestion>;
@@ -111,8 +142,11 @@ type SetCardsPerPageType = ReturnType<typeof setCardsPerPage>;
 type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
 type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCount>;
 type SetSortCardByType = ReturnType<typeof setSortCardBy>;
+type SetIsCardsFetchedType = ReturnType<typeof setIsCardsFetched>;
+type SetUpdatedShotsCardType = ReturnType<typeof setUpdatedShotsCard>;
 
 export type InitStateType = ResponseGetType & {
+  isCardsFetched: boolean;
   queryParams: {
     pageCount: number;
     page: number;

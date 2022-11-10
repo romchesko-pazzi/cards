@@ -1,5 +1,10 @@
 import { authAPI, repairPasswordAPI } from '../../api/authAPI';
-import { cardsAPI, CreateDataType, UpdateCardType } from '../../api/cardsAPI';
+import {
+  cardsAPI,
+  CreateDataType,
+  RateCardType,
+  UpdateCardType,
+} from '../../api/cardsAPI';
 import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
 import {
@@ -11,7 +16,13 @@ import {
 } from '../../utils/types/types';
 import { initApp, setAppStatus, setError, setPopUp } from '../reducers/AppReducer';
 import { sentEmail, setIsLogin, setPassword } from '../reducers/AuthReducer';
-import { setCards, setCardsTotalCount, setUpdatedCard } from '../reducers/CardsReducer';
+import {
+  setCards,
+  setCardsTotalCount,
+  setIsCardsFetched,
+  setUpdatedCard,
+  setUpdatedShotsCard,
+} from '../reducers/CardsReducer';
 import { setIsPacksFetched, setPacks, updatePack } from '../reducers/PacksReducer';
 import { setUserData } from '../reducers/ProfileReducer';
 import { RootStateType } from '../store';
@@ -221,6 +232,7 @@ export const getCards =
 
       dispatch(setCards(cards));
       dispatch(setCardsTotalCount(cardsTotalCount));
+      dispatch(setIsCardsFetched(true));
     } catch (err: any) {
       dispatch(setPopUp(err.response.data.error));
       dispatch(setIsLogin(false));
@@ -276,5 +288,23 @@ export const updateCard =
       dispatch(setPopUp(err.response.data.error));
     } finally {
       dispatch(setAppStatus('finished'));
+    }
+  };
+
+export const rateCard =
+  (packId: string, rateCard: RateCardType): AppThunkType =>
+  async dispatch => {
+    dispatch(setAppStatus('loading'));
+    dispatch(setIsCardsFetched(false));
+    try {
+      const response = await cardsAPI.rateCard(rateCard);
+      const { shots, card_id, grade } = response.data.updatedGrade;
+
+      dispatch(setUpdatedShotsCard(card_id, shots, grade));
+    } catch (err: any) {
+      dispatch(setPopUp(err.response.data.error));
+    } finally {
+      dispatch(setAppStatus('finished'));
+      dispatch(setIsCardsFetched(true));
     }
   };

@@ -1,4 +1,4 @@
-import { sortingMethods } from '../utils/constants/constants';
+import { sortingPacksMethods } from '../utils/constants/constants';
 
 import { instance } from './instance';
 
@@ -53,7 +53,7 @@ export type GetParamsType = {
   user_id: string;
   min: number;
   max: number;
-  sortPacks: sortingMethods;
+  sortPacks: sortingPacksMethods;
 };
 
 type UpdatePackType = {

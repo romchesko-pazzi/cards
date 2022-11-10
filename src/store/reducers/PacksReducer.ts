@@ -1,5 +1,5 @@
-import { PackType, ResponsePacksType } from '../../api/packsAPI';
-import { sortingMethods } from '../../utils/constants/constants';
+import { ResponsePacksType } from '../../api/packsAPI';
+import { sortingPacksMethods } from '../../utils/constants/constants';
 
 const initState: InitStateType = {
   cardPacks: [],
@@ -12,9 +12,9 @@ const initState: InitStateType = {
     page: 1, // current page
     min: 0,
     max: 110,
-    user_id: '',
+    user_id: '', // only for search user's packs
     packName: '', // for Search.tsx
-    sortPacks: sortingMethods.DES_UPDATE,
+    sortPacks: sortingPacksMethods.DES_UPDATE,
   },
 };
 
@@ -32,12 +32,8 @@ export const PacksReducer = (
     case 'PACKS/SET-USER-ID':
     case 'PACKS/SET-SLIDER-VALUE':
     case 'PACKS/SET-SORT-PACK-BY':
+    case 'PACKS/SET-ZERO-QUERY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
-    case 'PACKS/DELETE-PACK':
-      return {
-        ...state,
-        cardPacks: state.cardPacks.filter(f => f._id !== action.payload.packId),
-      };
     case 'PACKS/UPDATE-PACK-NAME': {
       return {
         ...state,
@@ -46,8 +42,6 @@ export const PacksReducer = (
         ),
       };
     }
-    case 'PACKS/SET-NEW-PACK':
-      return { ...state, cardPacks: [action.payload.newPack, ...state.cardPacks] };
     default: {
       return state;
     }
@@ -61,7 +55,7 @@ export const setPacks = (data: ResponsePacksType) => {
   } as const;
 };
 
-export const setCurrentPage = (page: number) => {
+export const setPacksCurrentPage = (page: number) => {
   return {
     type: 'PACKS/SET-CURRENT-PAGE',
     payload: { page },
@@ -103,13 +97,6 @@ export const setIsPacksFetched = (isPacksFetched: boolean) => {
   } as const;
 };
 
-export const removePack = (packId: string) => {
-  return {
-    type: 'PACKS/DELETE-PACK',
-    payload: { packId },
-  } as const;
-};
-
 export const updatePack = (packId: string, packName: string) => {
   return {
     type: 'PACKS/UPDATE-PACK-NAME',
@@ -117,17 +104,17 @@ export const updatePack = (packId: string, packName: string) => {
   } as const;
 };
 
-export const setNewPack = (newPack: PackType) => {
-  return {
-    type: 'PACKS/SET-NEW-PACK',
-    payload: { newPack },
-  } as const;
-};
-
-export const setSortPackBy = (sortPacks: sortingMethods) => {
+export const setSortPackBy = (sortPacks: sortingPacksMethods) => {
   return {
     type: 'PACKS/SET-SORT-PACK-BY',
     payload: { sortPacks },
+  } as const;
+};
+
+export const setZeroQuery = (queryParams: InitStateType['queryParams']) => {
+  return {
+    type: 'PACKS/SET-ZERO-QUERY',
+    payload: { ...queryParams },
   } as const;
 };
 
@@ -139,22 +126,20 @@ export type PacksActionsType =
   | SetUserIdType
   | SetSliderValue
   | SetIsPacksFetched
-  | RemovePackType
   | UpdatePackNameType
-  | SetNewPackType
-  | SetSortPackByType;
+  | SetSortPackByType
+  | SetZeroQueryType;
 
 type SetPacksType = ReturnType<typeof setPacks>;
-type SetCurrentPageType = ReturnType<typeof setCurrentPage>;
+type SetCurrentPageType = ReturnType<typeof setPacksCurrentPage>;
 type SetPackNameType = ReturnType<typeof setPackName>;
 type SetPacksPerPage = ReturnType<typeof setPacksPerPage>;
 type SetUserIdType = ReturnType<typeof setUserId>;
 type SetSliderValue = ReturnType<typeof setSliderValue>;
 type SetIsPacksFetched = ReturnType<typeof setIsPacksFetched>;
-type RemovePackType = ReturnType<typeof removePack>;
 type UpdatePackNameType = ReturnType<typeof updatePack>;
-type SetNewPackType = ReturnType<typeof setNewPack>;
 type SetSortPackByType = ReturnType<typeof setSortPackBy>;
+type SetZeroQueryType = ReturnType<typeof setZeroQuery>;
 
 export type InitStateType = ResponsePacksType & {
   isPacksFetched: boolean;
@@ -165,6 +150,6 @@ export type InitStateType = ResponsePacksType & {
     page: number;
     min: number;
     max: number;
-    sortPacks: sortingMethods;
+    sortPacks: sortingPacksMethods;
   };
 };

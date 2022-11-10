@@ -17,6 +17,9 @@ export const cardsAPI = {
   updateCard(card: UpdateCardType) {
     return instance.put<ResponsePutCard>('/cards/card', { card });
   },
+  rateCard(card: RateCardType) {
+    return instance.put<ResponseRateCardType>('/cards/grade', card);
+  },
 };
 
 export type GetParamsType = {
@@ -38,6 +41,7 @@ export type CardType = CreateDataType & {
   user_id: string;
   updated: string;
   grade: number;
+  shots: number; // for attempts count
 };
 
 export type ResponseGetType = {
@@ -54,12 +58,24 @@ type ResponseDeleteCard = {
   deletedCard: { cardsPack_id: string };
 };
 
+type ResponsePutCard = {
+  updatedCard: UpdateCardType & { updated: string };
+};
+
+type ResponseRateCardType = {
+  updatedGrade: RateCardType & {
+    shots: number;
+    cardsPack_id: string;
+  };
+};
+
 export type UpdateCardType = {
   _id: string;
   question: string;
   answer: string;
 };
 
-type ResponsePutCard = {
-  updatedCard: UpdateCardType & { updated: string };
+export type RateCardType = {
+  grade: number;
+  card_id: string;
 };

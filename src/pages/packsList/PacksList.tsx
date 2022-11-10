@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import loaderStyles from '../../app/app.module.scss';
 import c from '../../assets/commonStyles/common.module.scss';
 import { Captions } from '../../components/captions/Captions';
 import { AddModal } from '../../components/modals/addModal/AddModal';
@@ -11,7 +10,10 @@ import { PaginationComponent } from '../../components/pagination/PaginationCompo
 import { Search } from '../../components/search/Search';
 import { SliderComponent } from '../../components/slider/SliderComponent';
 import { SnackBar } from '../../components/snackBar/SnackBar';
+import { SvgSelector } from '../../components/svgSelector/SvgSelector';
+import { setZeroQuery } from '../../store/reducers/PacksReducer';
 import { getPacks } from '../../store/thunks/thunks';
+import { emptyQueryParams, packsCaptions } from '../../utils/constants/constants';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Pack } from '../pack/Pack';
 
@@ -20,9 +22,10 @@ import s from './packsList.module.scss';
 export const PacksList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const packs = useAppSelector(state => state.packs.cardPacks);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
+  const packs = useAppSelector(state => state.packs.cardPacks);
   const isPacksFetched = useAppSelector(state => state.packs.isPacksFetched);
+  const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
 
   // dependencies for request (query params)
   const page = useAppSelector(state => state.packs.queryParams.page);
@@ -45,29 +48,36 @@ export const PacksList = () => {
 
   if (!isPacksFetched) {
     return (
-      <div className={loaderStyles.center}>
-        <div className={loaderStyles.loader} />
+      <div className={c.center}>
+        <div className={c.loader} />
       </div>
     );
   }
+
+  const refreshFilters = () => {
+    dispatch(setZeroQuery(emptyQueryParams));
+  };
 
   return (
     <div className={c.frame}>
       <div className={c.heading}>
         <h3>Packs list</h3>
-        <AddModal />
+        <AddModal isThisPlaceCards={false} />
       </div>
       <div className={c.settings}>
         <Search isThisPlaceCards={false} />
         <MyOrAll />
         <SliderComponent />
+        <button className={s.refreshButton} type="button" onClick={refreshFilters}>
+          <SvgSelector id="refresh" />
+        </button>
       </div>
       {packs.length === 0 ? (
         <div className={s.noData}>No data.</div>
       ) : (
         <>
           <div className={c.table}>
-            <Captions />
+            <Captions isThisPlaceCards={false} captions={packsCaptions} />
             {packs.map(item => {
               return (
                 <Pack
@@ -82,7 +92,12 @@ export const PacksList = () => {
               );
             })}
           </div>
-          <PaginationComponent />
+          <PaginationComponent
+            isThisPlaceCards={false}
+            pageCount={pageCount}
+            currentPage={page}
+            totalCount={totalCount}
+          />
         </>
       )}
       <SnackBar />

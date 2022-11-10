@@ -24,6 +24,15 @@ export const Pack = (props: PackPropsType) => {
     });
   };
 
+  const navigateToLearnPage = () => {
+    navigate(path.learn, {
+      state: {
+        packName,
+        packId,
+      },
+    });
+  };
+
   return (
     <div className={c.item}>
       <div>{packName}</div>
@@ -34,7 +43,7 @@ export const Pack = (props: PackPropsType) => {
         <button onClick={navigateToCardsPage} type="button">
           <SvgSelector id="open" />
         </button>
-        <button type="button">
+        <button onClick={navigateToLearnPage} type="button">
           <SvgSelector id="learn" />
         </button>
         <EditModal
