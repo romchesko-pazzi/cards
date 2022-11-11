@@ -15,9 +15,15 @@
   padding: 3.5rem;
   margin-top: 1.5rem;
 
-  & div:not(:last-child) {
+  & > div:not(:last-child) {
     margin-bottom: 2.5rem;
   }
+}
+
+.questionBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .button {
