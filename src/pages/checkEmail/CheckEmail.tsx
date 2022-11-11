@@ -28,6 +28,7 @@ export const CheckEmail = () => {
         <div className={s.text}>We’ve sent an Email with instructions to {email}</div>
         <div>
           <ButtonComponent
+            disabled={false}
             callback={backToSignIn}
             type="button"
             title="Back to sign in"

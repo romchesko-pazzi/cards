@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import s from './button.module.scss';
 
 export const ButtonComponent = memo((props: ButtonPropsType) => {
-  const { type, title, callback, color } = props;
+  const { type, title, callback, color, disabled } = props;
 
   return (
     <Button
@@ -17,6 +17,7 @@ export const ButtonComponent = memo((props: ButtonPropsType) => {
       className={s.main}
       type={type}
       variant="contained"
+      disabled={disabled}
     >
       {title}
     </Button>
@@ -28,4 +29,5 @@ type ButtonPropsType = {
   title: string;
   color?: string;
   callback?: () => void;
+  disabled: boolean;
 };

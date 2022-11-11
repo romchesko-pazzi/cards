@@ -58,7 +58,7 @@ export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) =>
 
   return (
     <div>
-      <ButtonComponent callback={setIsOpenHandler} title={title} />
+      <ButtonComponent disabled={false} callback={setIsOpenHandler} title={title} />
       <Modal open={isOpen} onClose={setIsOpenHandler}>
         <Box sx={style}>
           <div className={c.heading}>
@@ -96,8 +96,13 @@ export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) =>
             </div>
           )}
           <div className={c.buttons}>
-            <ButtonComponent title="Cancel" callback={setIsOpenHandler} color="red" />
-            <ButtonComponent title="Save" callback={createHandler} />
+            <ButtonComponent
+              disabled={false}
+              title="Cancel"
+              callback={setIsOpenHandler}
+              color="red"
+            />
+            <ButtonComponent disabled={false} title="Save" callback={createHandler} />
           </div>
         </Box>
       </Modal>

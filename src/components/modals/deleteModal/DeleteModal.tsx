@@ -44,8 +44,13 @@ export const DeleteModal: React.FC<PropsType> = props => {
         <div>All data will be deleted.</div>
       </div>
       <div className={c.buttons}>
-        <ButtonComponent title="Cancel" callback={setIsOpenHandler} />
-        <ButtonComponent title="Delete" callback={deletePackHandler} color="red" />
+        <ButtonComponent disabled={false} title="Cancel" callback={setIsOpenHandler} />
+        <ButtonComponent
+          disabled={false}
+          title="Delete"
+          callback={deletePackHandler}
+          color="red"
+        />
       </div>
     </BaseModal>
   );

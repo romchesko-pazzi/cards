@@ -57,10 +57,15 @@ export const Forgot = memo(() => {
           <p>Enter your email address and we will send you further instructions</p>
         </div>
         <div className={s.button}>
-          <ButtonComponent color="#26c526" type="submit" title="Send" />
+          <ButtonComponent disabled={false} color="#26c526" type="submit" title="Send" />
         </div>
         <div className={s.button}>
-          <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
+          <ButtonComponent
+            disabled={false}
+            callback={navigateToSignIn}
+            type="button"
+            title="Sign in"
+          />
         </div>
       </form>
       <SnackBar />

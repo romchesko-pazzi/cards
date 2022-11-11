@@ -75,8 +75,13 @@ export const EditModal = (props: PropsType) => {
         </div>
       )}
       <div className={c.buttons}>
-        <ButtonComponent title="Cancel" callback={setIsOpenHandler} color="red" />
-        <ButtonComponent title="Save" callback={editPackHandler} />
+        <ButtonComponent
+          disabled={false}
+          title="Cancel"
+          callback={setIsOpenHandler}
+          color="red"
+        />
+        <ButtonComponent disabled={false} title="Save" callback={editPackHandler} />
       </div>
     </BaseModal>
   );

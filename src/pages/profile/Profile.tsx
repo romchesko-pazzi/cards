@@ -53,7 +53,12 @@ export const Profile = () => {
         </div>
         <div>{email}</div>
         <div>
-          <ButtonComponent type="submit" callback={logoutHandler} title="Log out" />
+          <ButtonComponent
+            disabled={false}
+            type="submit"
+            callback={logoutHandler}
+            title="Log out"
+          />
         </div>
       </div>
       <SnackBar />

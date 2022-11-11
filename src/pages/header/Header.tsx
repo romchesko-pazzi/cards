@@ -45,7 +45,12 @@ export const Header = () => {
           </div>
         ) : (
           <div className={s.userHeader}>
-            <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
+            <ButtonComponent
+              disabled={false}
+              callback={navigateToSignIn}
+              type="button"
+              title="Sign in"
+            />
           </div>
         )}
       </div>
