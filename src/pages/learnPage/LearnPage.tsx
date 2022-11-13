@@ -7,6 +7,7 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Rating,
 } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -94,22 +95,34 @@ export const LearnPage = () => {
 
   return (
     <div className={c.frame}>
-      <Link to={path.packsList}>
-        <div className={c.returnToPackList}>
-          <ArrowBackIcon fontSize="large" />
-          <span>Back to pack list</span>
-        </div>
+      <Link className={c.returnToPackList} to={path.packsList}>
+        <ArrowBackIcon fontSize="large" />
+        <span>Back to pack list</span>
       </Link>
       <div className={s.learnBox}>
         <div className={s.heading}>
           <h2>Learn {`"${packName}"`}</h2>
         </div>
         <div className={s.contentBox}>
-          <div>Question: {randomCard.question}</div>
+          <div className={s.questionBox}>
+            <div>Question: {randomCard.question}</div>
+            <div className={c.rating}>
+              <Rating
+                onChange={() => {}}
+                precision={0.1}
+                readOnly
+                value={randomCard.grade}
+              />
+            </div>
+          </div>
           <div>Count of attempts to answer the question: {randomCard.shots}</div>
           {!isShow && (
             <div className={s.button}>
-              <ButtonComponent callback={showAnswer} title="Show answer" />
+              <ButtonComponent
+                disabled={false}
+                callback={showAnswer}
+                title="Show answer"
+              />
             </div>
           )}
           {isShow && (
@@ -129,7 +142,11 @@ export const LearnPage = () => {
                 </RadioGroup>
               </FormControl>
               <div className={s.button}>
-                <ButtonComponent callback={nextQuestion} title="Next Question" />
+                <ButtonComponent
+                  disabled={currentRating === 0}
+                  callback={nextQuestion}
+                  title="Next Question"
+                />
               </div>
             </>
           )}

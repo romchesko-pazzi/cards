@@ -6,8 +6,6 @@ import c from '../../assets/commonStyles/common.module.scss';
 import { DeleteModal } from '../../components/modals/deleteModal/DeleteModal';
 import { EditModal } from '../../components/modals/editModal/EditModal';
 
-import s from './card.module.scss';
-
 export const Card = (props: PropsType) => {
   const { question, answer, updated, grade, cardId } = props;
   const time = new Date(updated).toLocaleDateString('ru');
@@ -17,8 +15,8 @@ export const Card = (props: PropsType) => {
       <div>{question}</div>
       <div>{answer}</div>
       <div>{time}</div>
-      <div className={s.rating}>
-        <Rating defaultValue={grade} />
+      <div className={c.rating}>
+        <Rating readOnly value={grade} />
       </div>
       <div className={c.icons}>
         <EditModal isThisPlaceCards id={cardId} name={question} optionName={answer} />
