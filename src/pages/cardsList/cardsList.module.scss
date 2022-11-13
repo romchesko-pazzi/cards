@@ -25,12 +25,12 @@
   align-items: center;
 
   & button {
-    margin-left: 1rem;
     cursor: pointer;
+    display: flex;
+    padding: 0 1rem;
   }
 
   & svg {
-    display: flex;
     width: 2rem;
     height: 2rem;
   }
