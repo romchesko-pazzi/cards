@@ -137,3 +137,12 @@
     font-size: 2.6rem;
   }
 }
+
+.emptyPack {
+  color: $color-gray-darkest;
+  font-size: 2.5rem;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

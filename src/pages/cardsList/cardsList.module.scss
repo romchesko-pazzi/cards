@@ -1,14 +1,3 @@
-@import "/src/assets/sass/abstracts/vars";
-
-.emptyPack {
-  color: $color-gray-darkest;
-  font-size: 2.5rem;
-  min-height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .loadingBlock {
   min-height: 40rem;
 }
