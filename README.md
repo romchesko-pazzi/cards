@@ -2,7 +2,7 @@
 
 ## About The Project
 
-In the project you can create packs of cards, and learn from them. There is a registration option, so that other users can view your cards and you can train them, and they can create their own personal packs in their admins. Also in the application is implemented password recovery, filtering, search, pagination.
+In the project you can create packs of cards, and learn from them. There is a registration option, so that other users can view your cards and you can train them, and they can create their own personal packs in their admins. The application implements such features as filtering, search, pagination.
 
 ## Technologies
 
