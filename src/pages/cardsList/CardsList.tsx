@@ -70,7 +70,7 @@ export const CardsList = () => {
         <Search isThisPlaceCards />
       </div>
       {cards.length === 0 && status !== 'loading' ? (
-        <div className={s.emptyPack}>This pack is empty.</div>
+        <div className={c.emptyPack}>This pack is empty.</div>
       ) : (
         <>
           <div className={c.table}>

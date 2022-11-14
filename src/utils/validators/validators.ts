@@ -1,31 +1,44 @@
 import * as yup from 'yup';
 
-import { minPasswordLength } from '../constants/constants';
+import { maxNameLength, minNameLength, minPasswordLength } from '../constants/constants';
 
-export const signUpValidate = yup.object().shape({
-  email: yup.string().email('Invalid email format').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(minPasswordLength, 'Password must be more than 7 symbols'),
+// constants
+const modalValidation = yup
+  .string()
+  .max(maxNameLength, "Name shouldn't be more than 20 characters")
+  .min(minNameLength, 'Enter name');
+
+const emailValidation = yup
+  .string()
+  .email('Invalid email format')
+  .required('Email is required');
+
+const passwordValidation = yup
+  .string()
+  .required('Password is required')
+  .min(minPasswordLength, 'Password must be more than 7 symbols');
+
+export const signUpValidate = yup.object({
+  email: emailValidation,
+  password: passwordValidation,
   confirmation: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match'),
 });
 
-export const signInValidate = yup.object().shape({
-  email: yup.string().email('Invalid email format').required('Email is required'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(minPasswordLength, 'Password must be more than 7 symbols'),
+// validators
+export const signInValidate = yup.object({
+  email: emailValidation,
+  password: passwordValidation,
 });
 
-export const forgotValidate = yup.object().shape({
-  email: yup.string().email('Invalid email format').required('Email is required'),
+export const forgotValidate = yup.object({
+  email: emailValidation,
 });
 
-export const newPasswordValidate = yup.object().shape({
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(minPasswordLength, 'Password must be more than 7 symbols'),
+export const newPasswordValidate = yup.object({
+  password: passwordValidation,
+});
+
+export const addModalValidate = yup.object({
+  firstValue: modalValidation,
+  secondValue: modalValidation,
 });

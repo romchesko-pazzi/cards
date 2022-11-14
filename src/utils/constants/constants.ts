@@ -31,6 +31,8 @@ export enum sortingCardsMethods {
 }
 
 export const minPasswordLength = 8;
+export const maxNameLength = 25;
+export const minNameLength = 1;
 
 export const message = `
 <div style="background-color: #d2efff ; padding: 15px; font-family: 'Roboto', sans-serif;" >
