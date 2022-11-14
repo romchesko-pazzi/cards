@@ -66,7 +66,7 @@ export const LearnPage = () => {
 
   useEffect(() => {
     // set card only when we have data
-    if (isCardsFetched) {
+    if (isCardsFetched && cards.length > 0) {
       setRandomCard(getRandomCard(cards));
     }
     if (!isLoggedIn) {
@@ -100,57 +100,65 @@ export const LearnPage = () => {
         <span>Back to pack list</span>
       </Link>
       <div className={s.learnBox}>
-        <div className={s.heading}>
-          <h2>Learn {`"${packName}"`}</h2>
-        </div>
-        <div className={s.contentBox}>
-          <div className={s.questionBox}>
-            <div>Question: {randomCard.question}</div>
-            <div className={c.rating}>
-              <Rating
-                onChange={() => {}}
-                precision={0.1}
-                readOnly
-                value={randomCard.grade}
-              />
+        {cards.length === 0 ? (
+          <div className={c.emptyPack}>This pack is empty.</div>
+        ) : (
+          <>
+            <div className={s.heading}>
+              <h2>Learn {`"${packName}"`}</h2>
             </div>
-          </div>
-          <div>Count of attempts to answer the question: {randomCard.shots}</div>
-          {!isShow && (
-            <div className={s.button}>
-              <ButtonComponent
-                disabled={false}
-                callback={showAnswer}
-                title="Show answer"
-              />
-            </div>
-          )}
-          {isShow && (
-            <>
-              <div>Answer: {randomCard.answer}</div>
-              <FormControl>
-                <FormLabel className={s.rateLabel}>Rate yourself:</FormLabel>
-                <RadioGroup onChange={setRate} className={s.radioButton}>
-                  {values.map(m => (
-                    <FormControlLabel
-                      key={m.label}
-                      value={m.value}
-                      control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }} />}
-                      label={m.label}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-              <div className={s.button}>
-                <ButtonComponent
-                  disabled={currentRating === 0}
-                  callback={nextQuestion}
-                  title="Next Question"
-                />
+            <div className={s.contentBox}>
+              <div className={s.questionBox}>
+                <div>Question: {randomCard.question}</div>
+                <div className={c.rating}>
+                  <Rating
+                    onChange={() => {}}
+                    precision={0.1}
+                    readOnly
+                    value={randomCard.grade}
+                  />
+                </div>
               </div>
-            </>
-          )}
-        </div>
+              <div>Count of attempts to answer the question: {randomCard.shots}</div>
+              {!isShow && (
+                <div className={s.button}>
+                  <ButtonComponent
+                    disabled={false}
+                    callback={showAnswer}
+                    title="Show answer"
+                  />
+                </div>
+              )}
+              {isShow && (
+                <>
+                  <div>Answer: {randomCard.answer}</div>
+                  <FormControl>
+                    <FormLabel className={s.rateLabel}>Rate yourself:</FormLabel>
+                    <RadioGroup onChange={setRate} className={s.radioButton}>
+                      {values.map(m => (
+                        <FormControlLabel
+                          key={m.label}
+                          value={m.value}
+                          control={
+                            <Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }} />
+                          }
+                          label={m.label}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <div className={s.button}>
+                    <ButtonComponent
+                      disabled={currentRating === 0}
+                      callback={nextQuestion}
+                      title="Next Question"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
