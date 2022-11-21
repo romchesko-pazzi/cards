@@ -6,7 +6,7 @@ import { setSortPackBy } from '../../store/reducers/PacksReducer';
 import {
   sortingCardsMethods,
   sortingPacksMethods,
-} from '../../utils/constants/constants';
+} from '../../utils/constants/sortingMethods';
 import { useAppDispatch } from '../../utils/hooks/useSelectorUseDispatch';
 
 import { Caption } from './Caption';
@@ -18,36 +18,34 @@ export const Captions = ({ captions, isThisPlaceCards }: CaptionsType) => {
     (whatWeSort: string, isArrowDown: boolean) => {
       if (whatWeSort === 'Name') {
         if (isArrowDown) {
-          dispatch(setSortPackBy(sortingPacksMethods.DES_NAME));
+          dispatch(setSortPackBy(sortingPacksMethods.desName));
         } else if (!isArrowDown) {
-          dispatch(setSortPackBy(sortingPacksMethods.ASC_NAME));
+          dispatch(setSortPackBy(sortingPacksMethods.ascName));
         }
       }
       if (whatWeSort === 'Cards') {
         if (isArrowDown) {
-          dispatch(setSortPackBy(sortingPacksMethods.DES_CARDS_COUNT));
+          dispatch(setSortPackBy(sortingPacksMethods.desCardsCount));
         } else if (!isArrowDown) {
-          dispatch(setSortPackBy(sortingPacksMethods.ASC_CARDS_COUNT));
+          dispatch(setSortPackBy(sortingPacksMethods.ascCardsCount));
         }
       }
       if (whatWeSort === 'Last Updated') {
         if (isArrowDown) {
-          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.DES_UPDATE));
-          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.DES_UPDATE));
+          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.desUpdate));
+          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.desUpdate));
         } else if (!isArrowDown) {
-          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.ASC_UPDATE));
-          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.ASC_UPDATE));
+          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.ascUpdate));
+          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.ascUpdate));
         }
       }
       if (whatWeSort === 'Created by' || whatWeSort === 'Grade') {
         if (isArrowDown) {
-          if (!isThisPlaceCards)
-            dispatch(setSortPackBy(sortingPacksMethods.DES_USER_NAME));
-          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.DES_GRADE));
+          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.desUserName));
+          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.desGrade));
         } else if (!isArrowDown) {
-          if (!isThisPlaceCards)
-            dispatch(setSortPackBy(sortingPacksMethods.ASC_USER_NAME));
-          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.ASC_GRADE));
+          if (!isThisPlaceCards) dispatch(setSortPackBy(sortingPacksMethods.ascUserName));
+          if (isThisPlaceCards) dispatch(setSortCardBy(sortingCardsMethods.ascGrade));
         }
       }
     },

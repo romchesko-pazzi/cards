@@ -1,7 +1,7 @@
 import { v1 } from 'uuid';
 
 import { ResponsePacksType } from '../../../api/packsAPI';
-import { sortingPacksMethods } from '../../../utils/constants/constants';
+import { sortingPacksMethods } from '../../../utils/constants/sortingMethods';
 import {
   InitStateType,
   PacksReducer,
@@ -32,7 +32,7 @@ beforeEach(() => {
       max: 110,
       user_id: '',
       packName: '',
-      sortPacks: sortingPacksMethods.DES_UPDATE,
+      sortPacks: sortingPacksMethods.desUpdate,
     },
   };
   packId1 = v1();

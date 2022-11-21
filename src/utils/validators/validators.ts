@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 
-import { maxNameLength, minNameLength, minPasswordLength } from '../constants/constants';
+import { nums } from '../constants/commonNums';
 
 // constants
 const modalValidation = yup
   .string()
-  .max(maxNameLength, "Name shouldn't be more than 25 characters")
-  .min(minNameLength, 'Enter name');
+  .max(nums.maxNameLength, "Name shouldn't be more than 30 characters")
+  .min(nums.minNameLength, 'Enter name');
 
 const emailValidation = yup
   .string()
@@ -16,7 +16,7 @@ const emailValidation = yup
 const passwordValidation = yup
   .string()
   .required('Password is required')
-  .min(minPasswordLength, 'Password must be more than 7 symbols');
+  .min(nums.minPasswordLength, 'Password must be more than 7 symbols');
 
 // validators
 export const signInValidate = yup.object({

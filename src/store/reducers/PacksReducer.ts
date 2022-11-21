@@ -1,5 +1,5 @@
 import { ResponsePacksType } from '../../api/packsAPI';
-import { sortingPacksMethods } from '../../utils/constants/constants';
+import { sortingPacksMethods } from '../../utils/constants/sortingMethods';
 
 const initState: InitStateType = {
   cardPacks: [],
@@ -14,7 +14,7 @@ const initState: InitStateType = {
     max: 110,
     user_id: '', // only for search user's packs
     packName: '', // for Search.tsx
-    sortPacks: sortingPacksMethods.DES_UPDATE,
+    sortPacks: sortingPacksMethods.desUpdate,
   },
 };
 

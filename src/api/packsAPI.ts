@@ -1,4 +1,4 @@
-import { sortingPacksMethods } from '../utils/constants/constants';
+import { sortingPacksMethods } from '../utils/constants/sortingMethods';
 
 import { instance } from './instance';
 

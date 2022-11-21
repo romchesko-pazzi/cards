@@ -15,7 +15,7 @@ import { Profile } from '../pages/profile/Profile';
 import { SignIn } from '../pages/signIn/SignIn';
 import { SignUp } from '../pages/signUp/SignUp';
 import { initializeApp } from '../store/thunks/thunks';
-import { path } from '../utils/constants/constants';
+import { path } from '../utils/constants/paths';
 import { useAppDispatch, useAppSelector } from '../utils/hooks/useSelectorUseDispatch';
 
 export const App = () => {

@@ -13,7 +13,8 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { setZeroQuery } from '../../store/reducers/PacksReducer';
 import { getPacks } from '../../store/thunks/thunks';
-import { emptyQueryParams, packsCaptions } from '../../utils/constants/constants';
+import { packsCaptions } from '../../utils/constants/captions';
+import { emptyQueryParams } from '../../utils/constants/emptyQueryParams';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Pack } from '../pack/Pack';
 
