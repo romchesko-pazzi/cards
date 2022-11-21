@@ -8,7 +8,10 @@ import { useSearchParams } from 'react-router-dom';
 
 import { updateCard, updatePackName } from '../../../store/thunks/thunks';
 import { useAppDispatch } from '../../../utils/hooks/useSelectorUseDispatch';
-import { addModalValidate } from '../../../utils/validators/validators';
+import {
+  oneFieldValidate,
+  twoFieldsValidate,
+} from '../../../utils/validators/validators';
 import { ButtonComponent } from '../../button/ButtonComponent';
 import { BaseModal } from '../baseModal/BaseModal';
 import c from '../commonModal.module.scss';
@@ -36,7 +39,7 @@ export const EditModal = (props: PropsType) => {
     formState: { errors },
   } = useForm<TextFieldsType>({
     mode: 'onSubmit',
-    resolver: yupResolver(addModalValidate),
+    resolver: yupResolver(isThisPlaceCards ? twoFieldsValidate : oneFieldValidate),
     defaultValues: {
       firstValue: name,
       secondValue: optionName || '',
@@ -96,7 +99,7 @@ export const EditModal = (props: PropsType) => {
             callback={setIsOpenHandler}
             color="red"
           />
-          <ButtonComponent disabled={false} title="Save" type="submit" />
+          <ButtonComponent type="submit" disabled={false} title="Save" />
         </div>
       </form>
     </BaseModal>

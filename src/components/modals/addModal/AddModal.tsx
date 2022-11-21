@@ -10,12 +10,10 @@ import { useSearchParams } from 'react-router-dom';
 
 import { createCard, createPack } from '../../../store/thunks/thunks';
 import { useAppDispatch } from '../../../utils/hooks/useSelectorUseDispatch';
-import { addModalValidate } from '../../../utils/validators/validators';
+import { twoFieldsValidate } from '../../../utils/validators/validators';
 import { ButtonComponent } from '../../button/ButtonComponent';
 import { style } from '../baseModal/BaseModal';
 import c from '../commonModal.module.scss';
-
-import s from './addModal.module.scss';
 
 export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) => {
   const [searchParams] = useSearchParams();
@@ -41,7 +39,7 @@ export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) =>
     formState: { errors },
   } = useForm<TextFieldsType>({
     mode: 'onSubmit',
-    resolver: yupResolver(addModalValidate),
+    resolver: yupResolver(twoFieldsValidate),
   });
 
   const onSubmit = (data: TextFieldsType) => {
@@ -79,7 +77,7 @@ export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) =>
                 error={!!errors.firstValue?.message}
                 label={errors.firstValue?.message}
                 InputProps={{ className: c.textField }}
-                InputLabelProps={{ className: s.labelText }}
+                InputLabelProps={{ className: c.labelText }}
                 sx={{ minWidth: '100%' }}
                 autoFocus
                 variant="standard"
@@ -94,7 +92,7 @@ export const AddModal = ({ isThisPlaceCards }: { isThisPlaceCards: boolean }) =>
                   error={!!errors.secondValue?.message}
                   label={errors.secondValue?.message}
                   InputProps={{ className: c.textField }}
-                  InputLabelProps={{ className: s.labelText }}
+                  InputLabelProps={{ className: c.labelText }}
                   sx={{ minWidth: '100%' }}
                   autoFocus
                   variant="standard"
