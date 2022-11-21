@@ -12,7 +12,8 @@ import { Search } from '../../components/search/Search';
 import { SnackBar } from '../../components/snackBar/SnackBar';
 import { setIsCardsFetched } from '../../store/reducers/CardsReducer';
 import { getCards } from '../../store/thunks/thunks';
-import { cardsCaptions, path } from '../../utils/constants/constants';
+import { cardsCaptions } from '../../utils/constants/captions';
+import { path } from '../../utils/constants/paths';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Card } from '../card/Card';
 
@@ -62,7 +63,11 @@ export const CardsList = () => {
       <div className={c.heading}>
         <div className={s.interactWithPack}>
           <h3>{packName}</h3>
-          <PopoverComponent packName={packName} packId={packId} />
+          <PopoverComponent
+            cardsTotalCount={totalCount}
+            packName={packName}
+            packId={packId}
+          />
         </div>
         <AddModal isThisPlaceCards />
       </div>

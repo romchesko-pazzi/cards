@@ -14,32 +14,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CardType } from '../../api/cardsAPI';
 import c from '../../assets/commonStyles/common.module.scss';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
-import { setIsCardsFetched } from '../../store/reducers/CardsReducer';
+import { setCardsPerPage, setIsCardsFetched } from '../../store/reducers/CardsReducer';
 import { getCards, rateCard } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants/constants';
+import { nums } from '../../utils/constants/commonNums';
+import { path } from '../../utils/constants/paths';
 import { getRandomCard } from '../../utils/constants/randomizer';
+import { initRandomCard, values } from '../../utils/constants/valuesForLearnPage';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './learnPage.module.scss';
-
-const values: RatingType[] = [
-  { value: 1, label: "Didn't know 1" },
-  { value: 2, label: 'Forgot 2' },
-  { value: 3, label: 'Doubted 3' },
-  { value: 4, label: 'Confused 4' },
-  { value: 5, label: 'Knew the answer 5' },
-];
-
-const initRandomCard: CardType = {
-  cardsPack_id: '',
-  answer: '',
-  user_id: '',
-  question: '',
-  updated: '',
-  _id: '',
-  grade: 0,
-  shots: 0,
-};
 
 export const LearnPage = () => {
   const [isShow, setIsShow] = useState(false);
@@ -52,15 +35,17 @@ export const LearnPage = () => {
   const cards = useAppSelector(state => state.cards.cards);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const isCardsFetched = useAppSelector(state => state.cards.isCardsFetched);
-  const { packName, packId } = location.state as LocationStateType;
+  const { packName, packId, cardsTotalCount } = location.state as LocationStateType;
 
   // only 1 time getCards
   useEffect(() => {
+    dispatch(setCardsPerPage(cardsTotalCount));
     dispatch(getCards(packId));
 
     // clear cards in store
     return () => {
       dispatch(setIsCardsFetched(false));
+      dispatch(setCardsPerPage(nums.basicItemsPerPage));
     };
   }, []);
 
@@ -167,9 +152,5 @@ export const LearnPage = () => {
 type LocationStateType = {
   packName: string;
   packId: string;
-};
-
-type RatingType = {
-  label: string;
-  value: number;
+  cardsTotalCount: number; // for correct display cards on LearnPage
 };

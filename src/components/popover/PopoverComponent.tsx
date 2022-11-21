@@ -3,7 +3,7 @@ import React from 'react';
 import { ListItemIcon, MenuItem, Popover } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { path } from '../../utils/constants/constants';
+import { path } from '../../utils/constants/paths';
 import { DeleteModal } from '../modals/deleteModal/DeleteModal';
 import { EditModal } from '../modals/editModal/EditModal';
 import { SvgSelector } from '../svgSelector/SvgSelector';
@@ -11,7 +11,7 @@ import { SvgSelector } from '../svgSelector/SvgSelector';
 import s from './popover.module.scss';
 
 export const PopoverComponent: React.FC<PropsType> = props => {
-  const { packName, packId } = props;
+  const { packName, packId, cardsTotalCount } = props;
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ export const PopoverComponent: React.FC<PropsType> = props => {
       state: {
         packName,
         packId,
+        cardsTotalCount,
       },
     });
   };
@@ -98,4 +99,5 @@ export const PopoverComponent: React.FC<PropsType> = props => {
 type PropsType = {
   packId: string;
   packName: string;
+  cardsTotalCount: number; // for correct display cards on LearnPage
 };

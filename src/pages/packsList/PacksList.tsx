@@ -85,7 +85,7 @@ export const PacksList = () => {
                   key={item._id}
                   packName={item.name}
                   userId={item.user_id}
-                  cardsCount={item.cardsCount}
+                  cardsTotalCount={item.cardsCount}
                   updated={item.updated}
                   author={item.user_name}
                   packId={item._id}
