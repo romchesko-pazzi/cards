@@ -23,9 +23,11 @@ export const EditModal = (props: PropsType) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return () => {
-      reset();
-    };
+    // для сброса значений, ибо в некст перерендере будут неактуальные значения
+    reset({
+      firstValue: name,
+      secondValue: optionName || '',
+    });
   }, [isOpen]);
 
   const userId = searchParams.get('userId') || propsUserId;
