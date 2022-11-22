@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUse
 import s from './myOrAll.module.scss';
 
 export const MyOrAll = memo(() => {
+  const appStatus = useAppSelector(state => state.app.status);
   const idForRefreshFilter = useAppSelector(state => state.packs.queryParams.user_id);
   const [isMy, setIsMy] = useState<boolean>(!!idForRefreshFilter);
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ export const MyOrAll = memo(() => {
           onClick={getMyPacksHandler}
           className={isMy ? [s.button, s.active].join(' ') : s.button}
           type="button"
+          disabled={appStatus === 'loading'}
         >
           My
         </button>
@@ -42,6 +44,7 @@ export const MyOrAll = memo(() => {
           onClick={getAllPacksHandler}
           className={isMy ? s.button : [s.button, s.active].join(' ')}
           type="button"
+          disabled={appStatus === 'loading'}
         >
           All
         </button>
