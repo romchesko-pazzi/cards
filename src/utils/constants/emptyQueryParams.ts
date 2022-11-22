@@ -8,6 +8,6 @@ export const emptyQueryParams: InitStateType['queryParams'] = {
   user_id: '',
   packName: '',
   min: 0,
-  max: 0,
+  max: 110,
   page: 1,
 };

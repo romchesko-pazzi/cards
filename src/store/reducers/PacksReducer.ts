@@ -5,7 +5,7 @@ const initState: InitStateType = {
   cardPacks: [],
   cardPacksTotalCount: 0,
   minCardsCount: 0,
-  maxCardsCount: 0,
+  maxCardsCount: 110,
   isPacksFetched: false, // for loading in PacksList.tsx
   queryParams: {
     pageCount: 5, // how many items on the page
@@ -32,7 +32,6 @@ export const PacksReducer = (
     case 'PACKS/SET-USER-ID':
     case 'PACKS/SET-SLIDER-VALUE':
     case 'PACKS/SET-SORT-PACK-BY':
-    case 'PACKS/SET-ZERO-QUERY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
     case 'PACKS/UPDATE-PACK-NAME': {
       return {
@@ -42,6 +41,13 @@ export const PacksReducer = (
         ),
       };
     }
+    case 'PACKS/SET-ZERO-QUERY':
+      return {
+        ...state,
+        minCardsCount: 0,
+        maxCardsCount: 110,
+        queryParams: { ...state.queryParams, ...action.payload },
+      };
     default: {
       return state;
     }
