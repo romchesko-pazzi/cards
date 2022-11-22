@@ -119,6 +119,10 @@ export const SignIn = () => {
             title="Sign up"
           />
         </div>
+        <div className={s.test}>
+          <div>Email: testMail@gmail.com</div>
+          <div>Password: 11111111</div>
+        </div>
       </form>
       <SnackBar />
     </Wrapper>
