@@ -1,4 +1,5 @@
 @import "/src/assets/sass/abstracts/vars";
+@import "/src/assets/sass/abstracts/mixins";
 
 .heading {
   display: flex;
@@ -41,4 +42,8 @@
   & svg {
     cursor: not-allowed;
   }
+}
+
+.labelText {
+  @include setTextField;
 }

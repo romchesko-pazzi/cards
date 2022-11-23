@@ -72,7 +72,7 @@ export const NewPassword = () => {
         />
         <div className={s.text}>Create new password</div>
         <div className={s.button}>
-          <ButtonComponent type="submit" title="Set new password" />
+          <ButtonComponent disabled={false} type="submit" title="Set new password" />
         </div>
       </form>
     </Wrapper>

@@ -1,11 +1,11 @@
 import { v1 } from 'uuid';
 
 import { ResponsePacksType } from '../../../api/packsAPI';
-import { sortingMethods } from '../../../utils/constants/constants';
+import { sortingPacksMethods } from '../../../utils/constants/sortingMethods';
 import {
   InitStateType,
   PacksReducer,
-  setCurrentPage,
+  setPacksCurrentPage,
   setIsPacksFetched,
   setPackName,
   setPacks,
@@ -32,7 +32,7 @@ beforeEach(() => {
       max: 110,
       user_id: '',
       packName: '',
-      sortPacks: sortingMethods.DES_UPDATE,
+      sortPacks: sortingPacksMethods.desUpdate,
     },
   };
   packId1 = v1();
@@ -91,7 +91,7 @@ test('packs must be fetched', () => {
 
 test('current page must be set', () => {
   const testData = 86;
-  const endState = PacksReducer(startState, setCurrentPage(testData));
+  const endState = PacksReducer(startState, setPacksCurrentPage(testData));
 
   expect(endState.queryParams.page).toEqual(testData);
 });

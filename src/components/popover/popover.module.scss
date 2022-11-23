@@ -1,0 +1,23 @@
+.popover {
+  padding: 1rem;
+
+  & svg {
+    display: flex;
+    cursor: pointer;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  & div {
+    display: flex;
+    align-items: center;
+  }
+
+  & li:not(:last-child){
+    margin-bottom: .4rem;
+  }
+
+  & li div {
+      min-width: 1rem !important;
+  }
+}

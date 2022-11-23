@@ -1,4 +1,4 @@
-import { sortingCardsMethods } from '../utils/constants/constants';
+import { sortingCardsMethods } from '../utils/constants/sortingMethods';
 
 import { instance } from './instance';
 

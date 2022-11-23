@@ -1,5 +1,6 @@
 import { CardType, ResponseGetType, UpdateCardType } from '../../api/cardsAPI';
-import { sortingCardsMethods } from '../../utils/constants/constants';
+import { nums } from '../../utils/constants/commonNums';
+import { sortingCardsMethods } from '../../utils/constants/sortingMethods';
 
 const initState: InitStateType = {
   cards: [],
@@ -7,10 +8,10 @@ const initState: InitStateType = {
   packName: '',
   isCardsFetched: false,
   queryParams: {
-    pageCount: 5,
+    pageCount: nums.basicItemsPerPage,
     page: 1,
     cardQuestion: '',
-    sortCards: sortingCardsMethods.DES_UPDATE,
+    sortCards: sortingCardsMethods.desUpdate,
   },
 };
 

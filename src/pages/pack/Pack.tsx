@@ -6,10 +6,12 @@ import c from '../../assets/commonStyles/common.module.scss';
 import { DeleteModal } from '../../components/modals/deleteModal/DeleteModal';
 import { EditModal } from '../../components/modals/editModal/EditModal';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
-import { path } from '../../utils/constants/constants';
+import { path } from '../../utils/constants/paths';
+
+import s from './pack.module.scss';
 
 export const Pack = (props: PackPropsType) => {
-  const { author, packName, updated, cardsCount, packId, userId } = props;
+  const { author, packName, updated, cardsTotalCount, packId, userId } = props;
   const navigate = useNavigate();
   const time = new Date(updated).toLocaleDateString('ru');
 
@@ -29,14 +31,15 @@ export const Pack = (props: PackPropsType) => {
       state: {
         packName,
         packId,
+        cardsTotalCount,
       },
     });
   };
 
   return (
     <div className={c.item}>
-      <div>{packName}</div>
-      <div>{cardsCount}</div>
+      <div className={s.packName}>{packName}</div>
+      <div>{cardsTotalCount}</div>
       <div>{time}</div>
       <div>{author}</div>
       <div className={c.icons}>
@@ -65,7 +68,7 @@ export const Pack = (props: PackPropsType) => {
 
 type PackPropsType = {
   packName: string;
-  cardsCount: number;
+  cardsTotalCount: number;
   updated: string;
   author: string;
   packId: string;

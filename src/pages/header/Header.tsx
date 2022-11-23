@@ -5,7 +5,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 import { ButtonComponent } from '../../components/button/ButtonComponent';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
-import { path } from '../../utils/constants/constants';
+import { path } from '../../utils/constants/paths';
 import { useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './header.module.scss';
@@ -45,7 +45,12 @@ export const Header = () => {
           </div>
         ) : (
           <div className={s.userHeader}>
-            <ButtonComponent callback={navigateToSignIn} type="button" title="Sign in" />
+            <ButtonComponent
+              disabled={false}
+              callback={navigateToSignIn}
+              type="button"
+              title="Sign in"
+            />
           </div>
         )}
       </div>

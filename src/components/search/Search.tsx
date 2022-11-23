@@ -3,13 +3,15 @@ import React, { ChangeEvent, memo, useEffect, useState } from 'react';
 import { setCardQuestion } from '../../store/reducers/CardsReducer';
 import { setPackName } from '../../store/reducers/PacksReducer';
 import { useDebounce } from '../../utils/hooks/useDebounce';
-import { useAppDispatch } from '../../utils/hooks/useSelectorUseDispatch';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { SvgSelector } from '../svgSelector/SvgSelector';
 
 import s from './search.module.scss';
 
 export const Search = memo(({ isThisPlaceCards }: SearchPropsType) => {
   const dispatch = useAppDispatch();
+  const appStatus = useAppSelector(state => state.app.status);
+  const packName = useAppSelector(state => state.packs.queryParams.packName);
   const [value, setValue] = useState<string>('');
   const debouncedValue = useDebounce<string>(value);
 
@@ -22,6 +24,10 @@ export const Search = memo(({ isThisPlaceCards }: SearchPropsType) => {
       dispatch(setPackName(value));
     }
   }, [debouncedValue, dispatch]);
+
+  useEffect(() => {
+    if (packName === '') setValue('');
+  }, [packName]);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value);
@@ -41,6 +47,7 @@ export const Search = memo(({ isThisPlaceCards }: SearchPropsType) => {
           value={value}
           type="text"
           placeholder={placeholder}
+          disabled={appStatus === 'loading'}
         />
         <button onClick={removeInputDataHandler} type="button" className={s.inputButton}>
           {value ? <SvgSelector id="cross" /> : <SvgSelector id="search" />}

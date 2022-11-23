@@ -102,7 +102,7 @@ export const SignIn = () => {
           </label>
         </div>
         <div className={s.button}>
-          <ButtonComponent type="submit" title="Sign in" />
+          <ButtonComponent disabled={false} type="submit" title="Sign in" />
         </div>
         <div style={{ textAlign: 'end' }}>
           <Link className={s.link} to="/forgot">
@@ -112,11 +112,16 @@ export const SignIn = () => {
         <div className={s.text}>Do not have an account?</div>
         <div className={s.button}>
           <ButtonComponent
+            disabled={false}
             color="#26c526"
             callback={navigateToSignUp}
             type="button"
             title="Sign up"
           />
+        </div>
+        <div className={s.test}>
+          <div>Email: testMail@gmail.com</div>
+          <div>Password: 11111111</div>
         </div>
       </form>
       <SnackBar />

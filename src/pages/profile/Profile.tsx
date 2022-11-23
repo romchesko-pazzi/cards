@@ -8,7 +8,7 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { Wrapper } from '../../components/wrapper/Wrapper';
 import { changeUserData, logout } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants/constants';
+import { path } from '../../utils/constants/paths';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './profile.module.scss';
@@ -53,7 +53,12 @@ export const Profile = () => {
         </div>
         <div>{email}</div>
         <div>
-          <ButtonComponent type="submit" callback={logoutHandler} title="Log out" />
+          <ButtonComponent
+            disabled={false}
+            type="submit"
+            callback={logoutHandler}
+            title="Log out"
+          />
         </div>
       </div>
       <SnackBar />

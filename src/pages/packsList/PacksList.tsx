@@ -13,7 +13,8 @@ import { SnackBar } from '../../components/snackBar/SnackBar';
 import { SvgSelector } from '../../components/svgSelector/SvgSelector';
 import { setZeroQuery } from '../../store/reducers/PacksReducer';
 import { getPacks } from '../../store/thunks/thunks';
-import { emptyQueryParams, packsCaptions } from '../../utils/constants/constants';
+import { packsCaptions } from '../../utils/constants/captions';
+import { emptyQueryParams } from '../../utils/constants/emptyQueryParams';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 import { Pack } from '../pack/Pack';
 
@@ -32,13 +33,22 @@ export const PacksList = () => {
   const pageCount = useAppSelector(state => state.packs.queryParams.pageCount);
   const user_id = useAppSelector(state => state.packs.queryParams.user_id);
   const packName = useAppSelector(state => state.packs.queryParams.packName);
-  const min = useAppSelector(state => state.packs.queryParams.min);
-  const max = useAppSelector(state => state.packs.queryParams.max);
+  const minQueryParam = useAppSelector(state => state.packs.queryParams.min);
+  const maxQueryParam = useAppSelector(state => state.packs.queryParams.max);
   const sortBy = useAppSelector(state => state.packs.queryParams.sortPacks);
 
   useEffect(() => {
     dispatch(getPacks());
-  }, [dispatch, page, packName, pageCount, user_id, min, max, sortBy]);
+  }, [
+    dispatch,
+    page,
+    packName,
+    pageCount,
+    user_id,
+    minQueryParam,
+    maxQueryParam,
+    sortBy,
+  ]);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -84,7 +94,7 @@ export const PacksList = () => {
                   key={item._id}
                   packName={item.name}
                   userId={item.user_id}
-                  cardsCount={item.cardsCount}
+                  cardsTotalCount={item.cardsCount}
                   updated={item.updated}
                   author={item.user_name}
                   packId={item._id}

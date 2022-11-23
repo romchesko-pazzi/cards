@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import { Slider } from '@mui/material';
 
@@ -8,41 +8,46 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUse
 
 import s from './slider.module.scss';
 
-export const SliderComponent = ({ min, max }: SliderPropsType) => {
-  const [value, setValue] = useState<number[]>([min, max]);
-  const debouncedValue = useDebounce(value);
-  const dispatch = useAppDispatch();
-  const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
-  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+export const SliderComponent = memo(() => {
+  const appStatus = useAppSelector(state => state.app.status);
+  const minSliderValue = useAppSelector(state => state.packs.minCardsCount);
+  const maxSliderValue = useAppSelector(state => state.packs.maxCardsCount);
+  const [sliderLocalValue, setSliderLocalValue] = useState<number[]>([
+    minSliderValue,
+    maxSliderValue,
+  ]);
 
-  const changeValues = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const dispatch = useAppDispatch();
+  const debouncedValue = useDebounce(sliderLocalValue);
+
+  const changeValue = (event: Event, newValue: number | number[]) => {
+    setSliderLocalValue(newValue as number[]);
   };
 
   useEffect(() => {
-    dispatch(setSliderValue(value));
+    dispatch(setSliderValue(sliderLocalValue));
   }, [debouncedValue]);
+
+  useEffect(() => {
+    setSliderLocalValue([minSliderValue, maxSliderValue]);
+  }, [minSliderValue, maxSliderValue]);
 
   return (
     <div className={s.main}>
       <span>Number of cards</span>
       <div className={s.sliderBlock}>
-        <div className={s.value}>{value[0]}</div>
+        <div className={s.value}>{sliderLocalValue[0]}</div>
         <div className={s.slider}>
           <Slider
-            min={minCardsCount}
-            max={maxCardsCount}
-            value={value}
-            onChange={changeValues}
+            min={minSliderValue}
+            max={maxSliderValue}
+            value={sliderLocalValue}
+            onChange={changeValue}
+            disabled={appStatus === 'loading'}
           />
         </div>
-        <div className={s.value}>{value[1]}</div>
+        <div className={s.value}>{sliderLocalValue[1]}</div>
       </div>
     </div>
   );
-};
-
-type SliderPropsType = {
-  min: number;
-  max: number;
-};
+});

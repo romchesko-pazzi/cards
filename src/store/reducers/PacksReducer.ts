@@ -1,11 +1,11 @@
 import { ResponsePacksType } from '../../api/packsAPI';
-import { sortingPacksMethods } from '../../utils/constants/constants';
+import { sortingPacksMethods } from '../../utils/constants/sortingMethods';
 
 const initState: InitStateType = {
   cardPacks: [],
   cardPacksTotalCount: 0,
   minCardsCount: 0,
-  maxCardsCount: 0,
+  maxCardsCount: 110,
   isPacksFetched: false, // for loading in PacksList.tsx
   queryParams: {
     pageCount: 5, // how many items on the page
@@ -14,7 +14,7 @@ const initState: InitStateType = {
     max: 110,
     user_id: '', // only for search user's packs
     packName: '', // for Search.tsx
-    sortPacks: sortingPacksMethods.DES_UPDATE,
+    sortPacks: sortingPacksMethods.desUpdate,
   },
 };
 
@@ -30,9 +30,7 @@ export const PacksReducer = (
     case 'PACKS/SET-PACK-NAME':
     case 'PACKS/SET-PACKS-PER-PAGE':
     case 'PACKS/SET-USER-ID':
-    case 'PACKS/SET-SLIDER-VALUE':
     case 'PACKS/SET-SORT-PACK-BY':
-    case 'PACKS/SET-ZERO-QUERY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
     case 'PACKS/UPDATE-PACK-NAME': {
       return {
@@ -42,6 +40,23 @@ export const PacksReducer = (
         ),
       };
     }
+    case 'PACKS/SET-ZERO-QUERY':
+      return {
+        ...state,
+        minCardsCount: 0,
+        maxCardsCount: 110,
+        queryParams: { ...state.queryParams, ...action.payload },
+      };
+    case 'PACKS/SET-SLIDER-VALUE':
+      // без проверки идёт лишний запрос
+      if (
+        action.payload.max !== state.maxCardsCount ||
+        action.payload.min !== state.minCardsCount
+      ) {
+        return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
+      }
+
+      return state;
     default: {
       return state;
     }

@@ -7,38 +7,22 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  Rating,
 } from '@mui/material';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { CardType } from '../../api/cardsAPI';
 import c from '../../assets/commonStyles/common.module.scss';
 import { ButtonComponent } from '../../components/button/ButtonComponent';
-import { setIsCardsFetched } from '../../store/reducers/CardsReducer';
+import { setCardsPerPage, setIsCardsFetched } from '../../store/reducers/CardsReducer';
 import { getCards, rateCard } from '../../store/thunks/thunks';
-import { path } from '../../utils/constants/constants';
+import { nums } from '../../utils/constants/commonNums';
+import { path } from '../../utils/constants/paths';
 import { getRandomCard } from '../../utils/constants/randomizer';
+import { initRandomCard, values } from '../../utils/constants/valuesForLearnPage';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './learnPage.module.scss';
-
-const values: RatingType[] = [
-  { value: 1, label: "Didn't know 1" },
-  { value: 2, label: 'Forgot 2' },
-  { value: 3, label: 'Doubted 3' },
-  { value: 4, label: 'Confused 4' },
-  { value: 5, label: 'Knew the answer 5' },
-];
-
-const initRandomCard: CardType = {
-  cardsPack_id: '',
-  answer: '',
-  user_id: '',
-  question: '',
-  updated: '',
-  _id: '',
-  grade: 0,
-  shots: 0,
-};
 
 export const LearnPage = () => {
   const [isShow, setIsShow] = useState(false);
@@ -51,21 +35,23 @@ export const LearnPage = () => {
   const cards = useAppSelector(state => state.cards.cards);
   const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn);
   const isCardsFetched = useAppSelector(state => state.cards.isCardsFetched);
-  const { packName, packId } = location.state as LocationStateType;
+  const { packName, packId, cardsTotalCount } = location.state as LocationStateType;
 
   // only 1 time getCards
   useEffect(() => {
+    dispatch(setCardsPerPage(cardsTotalCount));
     dispatch(getCards(packId));
 
     // clear cards in store
     return () => {
       dispatch(setIsCardsFetched(false));
+      dispatch(setCardsPerPage(nums.basicItemsPerPage));
     };
   }, []);
 
   useEffect(() => {
     // set card only when we have data
-    if (isCardsFetched) {
+    if (isCardsFetched && cards.length > 0) {
       setRandomCard(getRandomCard(cards));
     }
     if (!isLoggedIn) {
@@ -94,46 +80,70 @@ export const LearnPage = () => {
 
   return (
     <div className={c.frame}>
-      <Link to={path.packsList}>
-        <div className={c.returnToPackList}>
-          <ArrowBackIcon fontSize="large" />
-          <span>Back to pack list</span>
-        </div>
+      <Link className={c.returnToPackList} to={path.packsList}>
+        <ArrowBackIcon fontSize="large" />
+        <span>Back to pack list</span>
       </Link>
       <div className={s.learnBox}>
-        <div className={s.heading}>
-          <h2>Learn {`"${packName}"`}</h2>
-        </div>
-        <div className={s.contentBox}>
-          <div>Question: {randomCard.question}</div>
-          <div>Count of attempts to answer the question: {randomCard.shots}</div>
-          {!isShow && (
-            <div className={s.button}>
-              <ButtonComponent callback={showAnswer} title="Show answer" />
+        {cards.length === 0 ? (
+          <div className={c.emptyPack}>This pack is empty.</div>
+        ) : (
+          <>
+            <div className={s.heading}>
+              <h2>Learn {`"${packName}"`}</h2>
             </div>
-          )}
-          {isShow && (
-            <>
-              <div>Answer: {randomCard.answer}</div>
-              <FormControl>
-                <FormLabel className={s.rateLabel}>Rate yourself:</FormLabel>
-                <RadioGroup onChange={setRate} className={s.radioButton}>
-                  {values.map(m => (
-                    <FormControlLabel
-                      key={m.label}
-                      value={m.value}
-                      control={<Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }} />}
-                      label={m.label}
-                    />
-                  ))}
-                </RadioGroup>
-              </FormControl>
-              <div className={s.button}>
-                <ButtonComponent callback={nextQuestion} title="Next Question" />
+            <div className={s.contentBox}>
+              <div className={s.questionBox}>
+                <div>Question: {randomCard.question}</div>
+                <div className={c.rating}>
+                  <Rating
+                    onChange={() => {}}
+                    precision={0.1}
+                    readOnly
+                    value={randomCard.grade}
+                  />
+                </div>
               </div>
-            </>
-          )}
-        </div>
+              <div>Count of attempts to answer the question: {randomCard.shots}</div>
+              {!isShow && (
+                <div className={s.button}>
+                  <ButtonComponent
+                    disabled={false}
+                    callback={showAnswer}
+                    title="Show answer"
+                  />
+                </div>
+              )}
+              {isShow && (
+                <>
+                  <div>Answer: {randomCard.answer}</div>
+                  <FormControl>
+                    <FormLabel className={s.rateLabel}>Rate yourself:</FormLabel>
+                    <RadioGroup onChange={setRate} className={s.radioButton}>
+                      {values.map(m => (
+                        <FormControlLabel
+                          key={m.label}
+                          value={m.value}
+                          control={
+                            <Radio sx={{ '& .MuiSvgIcon-root': { fontSize: 20 } }} />
+                          }
+                          label={m.label}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <div className={s.button}>
+                    <ButtonComponent
+                      disabled={currentRating === 0}
+                      callback={nextQuestion}
+                      title="Next Question"
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -142,9 +152,5 @@ export const LearnPage = () => {
 type LocationStateType = {
   packName: string;
   packId: string;
-};
-
-type RatingType = {
-  label: string;
-  value: number;
+  cardsTotalCount: number; // for correct display cards on LearnPage
 };
