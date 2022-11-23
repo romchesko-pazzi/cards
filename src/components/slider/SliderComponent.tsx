@@ -10,46 +10,43 @@ import s from './slider.module.scss';
 
 export const SliderComponent = memo(() => {
   const appStatus = useAppSelector(state => state.app.status);
-  const min = useAppSelector(state => state.packs.queryParams.min);
-  const max = useAppSelector(state => state.packs.queryParams.max);
   const minSliderValue = useAppSelector(state => state.packs.minCardsCount);
   const maxSliderValue = useAppSelector(state => state.packs.maxCardsCount);
-  const [values, setValues] = useState<number[]>([min, max]);
+  const [sliderLocalValue, setSliderLocalValue] = useState<number[]>([
+    minSliderValue,
+    maxSliderValue,
+  ]);
 
   const dispatch = useAppDispatch();
-  const debouncedValue = useDebounce(values);
+  const debouncedValue = useDebounce(sliderLocalValue);
 
-  const changeValues = (event: Event, newValue: number | number[]) => {
-    setValues(newValue as number[]);
+  const changeValue = (event: Event, newValue: number | number[]) => {
+    setSliderLocalValue(newValue as number[]);
   };
 
   useEffect(() => {
-    dispatch(setSliderValue(values));
+    dispatch(setSliderValue(sliderLocalValue));
   }, [debouncedValue]);
 
   useEffect(() => {
-    setValues([min, max]);
-  }, [min, max]);
-
-  useEffect(() => {
-    dispatch(setSliderValue([minSliderValue, maxSliderValue]));
+    setSliderLocalValue([minSliderValue, maxSliderValue]);
   }, [minSliderValue, maxSliderValue]);
 
   return (
     <div className={s.main}>
       <span>Number of cards</span>
       <div className={s.sliderBlock}>
-        <div className={s.value}>{values[0]}</div>
+        <div className={s.value}>{sliderLocalValue[0]}</div>
         <div className={s.slider}>
           <Slider
             min={minSliderValue}
             max={maxSliderValue}
-            value={values}
-            onChange={changeValues}
+            value={sliderLocalValue}
+            onChange={changeValue}
             disabled={appStatus === 'loading'}
           />
         </div>
-        <div className={s.value}>{values[1]}</div>
+        <div className={s.value}>{sliderLocalValue[1]}</div>
       </div>
     </div>
   );

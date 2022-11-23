@@ -30,7 +30,6 @@ export const PacksReducer = (
     case 'PACKS/SET-PACK-NAME':
     case 'PACKS/SET-PACKS-PER-PAGE':
     case 'PACKS/SET-USER-ID':
-    case 'PACKS/SET-SLIDER-VALUE':
     case 'PACKS/SET-SORT-PACK-BY':
       return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
     case 'PACKS/UPDATE-PACK-NAME': {
@@ -48,6 +47,16 @@ export const PacksReducer = (
         maxCardsCount: 110,
         queryParams: { ...state.queryParams, ...action.payload },
       };
+    case 'PACKS/SET-SLIDER-VALUE':
+      // без проверки идёт лишний запрос
+      if (
+        action.payload.max !== state.maxCardsCount ||
+        action.payload.min !== state.minCardsCount
+      ) {
+        return { ...state, queryParams: { ...state.queryParams, ...action.payload } };
+      }
+
+      return state;
     default: {
       return state;
     }

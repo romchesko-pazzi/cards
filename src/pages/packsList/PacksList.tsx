@@ -33,13 +33,22 @@ export const PacksList = () => {
   const pageCount = useAppSelector(state => state.packs.queryParams.pageCount);
   const user_id = useAppSelector(state => state.packs.queryParams.user_id);
   const packName = useAppSelector(state => state.packs.queryParams.packName);
-  const min = useAppSelector(state => state.packs.queryParams.min);
-  const max = useAppSelector(state => state.packs.queryParams.max);
+  const minQueryParam = useAppSelector(state => state.packs.queryParams.min);
+  const maxQueryParam = useAppSelector(state => state.packs.queryParams.max);
   const sortBy = useAppSelector(state => state.packs.queryParams.sortPacks);
 
   useEffect(() => {
     dispatch(getPacks());
-  }, [dispatch, page, packName, pageCount, user_id, min, max, sortBy]);
+  }, [
+    dispatch,
+    page,
+    packName,
+    pageCount,
+    user_id,
+    minQueryParam,
+    maxQueryParam,
+    sortBy,
+  ]);
 
   useEffect(() => {
     if (!isLoggedIn) {
