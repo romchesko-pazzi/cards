@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 
-import { setUserId } from '../../store/reducers/PacksReducer';
+import { setUserId, setZeroQuery } from '../../store/reducers/PacksReducer';
+import { emptyQueryParams } from '../../utils/constants/emptyQueryParams';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks/useSelectorUseDispatch';
 
 import s from './myOrAll.module.scss';
@@ -19,12 +20,13 @@ export const MyOrAll = memo(() => {
   }, [idForRefreshFilter]);
 
   const getMyPacksHandler = () => {
+    dispatch(setZeroQuery(emptyQueryParams));
     dispatch(setUserId(userId));
     setIsMy(true);
   };
 
   const getAllPacksHandler = () => {
-    dispatch(setUserId(''));
+    dispatch(setZeroQuery(emptyQueryParams));
     setIsMy(false);
   };
 
