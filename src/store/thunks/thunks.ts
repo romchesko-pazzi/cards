@@ -7,6 +7,7 @@ import {
 } from '../../api/cardsAPI';
 import { packsAPI } from '../../api/packsAPI';
 import { profileAPI } from '../../api/profileAPI';
+import { errorHandler } from '../../utils/heplers/errorHandler';
 import {
   AppThunkType,
   EditDataUserType,
@@ -38,8 +39,7 @@ export const forgot =
       dispatch(setPopUp(resp.data.info));
       dispatch(sentEmail(true));
     } catch (err: any) {
-      dispatch(setPopUp(err.message));
-      dispatch(setError(true));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -54,8 +54,7 @@ export const signUp =
       dispatch(setAppStatus('successfully'));
       dispatch(setPopUp('registration was successful'));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-      dispatch(setAppStatus('idle'));
+      errorHandler(dispatch, err.response.data.error);
     }
   };
 
@@ -71,8 +70,7 @@ export const login =
       dispatch(setUserData({ name, _id, email, avatar }));
       dispatch(setIsLogin(true));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-      dispatch(setError(true));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -85,7 +83,7 @@ export const logout = (): AppThunkType => async dispatch => {
     dispatch(setIsLogin(false));
     dispatch(setPopUp('you logged out successfully'));
   } catch (err: any) {
-    dispatch(setPopUp(err.response.data.error));
+    errorHandler(dispatch, err.response.data.error);
   } finally {
     dispatch(setAppStatus('finished'));
   }
@@ -102,7 +100,7 @@ export const changeUserData =
       dispatch(setPopUp('name has been changed successfully'));
       dispatch(setUserData({ name, _id, email, avatar }));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('idle'));
     }
@@ -132,7 +130,7 @@ export const setNewPassword =
       dispatch(setPopUp(response.data.info));
       dispatch(setPassword(true));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -162,8 +160,7 @@ export const getPacks =
       );
       dispatch(setIsPacksFetched(true));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-      dispatch(setIsLogin(false));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -178,7 +175,7 @@ export const deletePack =
       dispatch(setPopUp('pack has been deleted successfully'));
       dispatch(getPacks());
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -194,7 +191,7 @@ export const updatePackName =
       dispatch(updatePack(packId, response.data.updatedCardsPack.name));
       dispatch(setPopUp('name has been changed successfully'));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -209,7 +206,7 @@ export const createPack =
       dispatch(getPacks());
       dispatch(setPopUp('pack has been added successfully'));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -234,8 +231,7 @@ export const getCards =
       dispatch(setCardsTotalCount(cardsTotalCount));
       dispatch(setIsCardsFetched(true));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
-      dispatch(setIsLogin(false));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -251,7 +247,7 @@ export const createCard =
       dispatch(setPopUp('card has been added successfully'));
       dispatch(getCards(response.data.newCard.cardsPack_id));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -267,7 +263,7 @@ export const deleteCard =
       dispatch(getCards(response.data.deletedCard.cardsPack_id));
       dispatch(setPopUp('card has been deleted successfully'));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -285,7 +281,7 @@ export const updateCard =
       dispatch(setUpdatedCard(response.data.updatedCard));
       dispatch(setPopUp('card has been updated successfully'));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
     }
@@ -302,7 +298,7 @@ export const rateCard =
 
       dispatch(setUpdatedShotsCard(card_id, shots, grade));
     } catch (err: any) {
-      dispatch(setPopUp(err.response.data.error));
+      errorHandler(dispatch, err.response.data.error);
     } finally {
       dispatch(setAppStatus('finished'));
       dispatch(setIsCardsFetched(true));
