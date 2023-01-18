@@ -4,6 +4,8 @@
 
 In the project you can create packs of cards, and learn from them. There is a registration option, so that other users can view your cards and you can train them, and they can create their own personal packs in their admins. The application implements such features as filtering, search, pagination.
 
+### [Here you can look at the project](https://charming-swan-5d4fb6.netlify.app)
+
 ## Technologies
 
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />\
